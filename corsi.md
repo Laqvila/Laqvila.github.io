@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: "Corsi e altri titoli"
 permalink: /corsi/
 ---
