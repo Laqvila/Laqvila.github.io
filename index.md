@@ -6,13 +6,12 @@ permalink: /
 
 ## Informazioni Personali
 **Mirko Rocci, Ph.D.**  
-Manufacturing Engineering Physicist @ Thales Alenia Space  
+Physicist @ Thales Alenia Space  
 L'Aquila, Italia
 
 - **Email:** [mirko.rocci@gmail.com](mailto:mirko.rocci@gmail.com)
 - **Web:** [rocci.mit.edu](https://mirkorocci.it)
 - **ORCID:** [0000-0002-3907-5275](https://orcid.org/0000-0002-3907-5275)
-- **PEC:** mirko.rocci@pec.it
 
 ---
 
