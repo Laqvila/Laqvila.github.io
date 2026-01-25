@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: "Seminari e conferenze internazionali"
 permalink: /conferenze/
 ---
