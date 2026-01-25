@@ -1,7 +1,3 @@
 title: "Mirko Rocci"
 description: "Curriculum Vitae, progetti, rassegna stampa e news"
 theme: jekyll-theme-midnight
-url: "https://mirkorocci.it"
-baseurl: "" # Lascia vuoto se il repo è username.github.io
-plugins:
-  - jekyll-seo-tag
