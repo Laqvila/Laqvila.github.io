@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: "Editoria e peer review"
 permalink: /editoria-review/
 ---
