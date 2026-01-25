@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: "Premi, riconoscimenti e incarichi"
 permalink: /premi/
 ---
