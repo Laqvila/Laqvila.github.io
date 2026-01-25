@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: "Interessi scientifici e professionali"
 permalink: /interessi/
 ---
