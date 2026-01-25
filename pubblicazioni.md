@@ -1,250 +1,68 @@
-@article{Rocci2025EnhancedCr2Te3,
-  title   = {Enhanced ferromagnetism in monolayer Cr2Te3 via topological insulator coupling},
-  journal = {Reports on Progress in Physics},
-  year    = {2025},
-  volume  = {88},
-  pages   = {060501},
-  doi     = {}
-}
+---
+layout: page
+title: "Pubblicazioni"
+permalink: /pubblicazioni/
+---
 
-@inproceedings{Rocci2024NordPacSIPBlock1,
-  title     = {Innovative Digital System In Package building block development for futur space equipments},
-  booktitle = {NordPac 2024 Proceedings},
-  year      = {2024},
-  doi       = {},
-  url       = {}
-}
+## Pubblicazioni scientifiche peer‑reviewed (riviste/atti internazionali)
 
-@inproceedings{Rocci2024NordPacSIPBlock2,
-  title     = {Introduction of Digital System-in-Package Building Block for Space Applications},
-  booktitle = {2024 IMAPS Nordic Conference on Microelectronics Packaging (NordPac)},
-  publisher = {IEEE},
-  year      = {2024},
-  doi       = {},
-  url       = {}
-}
+P1. Enhanced ferromagnetism in monolayer Cr2Te3 via topological insulator coupling. Rep. Prog. Phys. 88, 060501 (2025). [file:143]
 
-@article{Rocci2024SpinResolvedInAsGaSb,
-  title   = {Spin-Resolved Magneto-Tunneling and Giant Anisotropic g-Factor in Broken Gap InAs-GaSb CoreShell Nanowires},
-  journal = {Nano Letters},
-  year    = {2024},
-  volume  = {24},
-  number  = {3},
-  pages   = {790},
-  doi     = {}
-}
+P2. Innovative Digital System In Package building block development for futur space equipments. NordPac 2024 Proceedings (2024). [file:143]
 
-@article{Rocci2022UltrafastPhotoacousticInAs,
-  title   = {Ultrafast Photoacoustic Nanometrology of InAs Nanowires Mechanical Properties},
-  journal = {Journal of Physical Chemistry C},
-  year    = {2022},
-  volume  = {126},
-  number  = {14},
-  pages   = {6361},
-  doi     = {}
-}
+P3. Introduction of Digital System-in-Package Building Block for Space Applications. 2024 IMAPS Nordic Conference on Microelectronics Packaging (NordPac). IEEE (2024). [file:143]
 
-@article{Rocci2021LongRangeJosephson,
-  title   = {Extremely long range, high-temperature Josephson coupling across a half metallic ferromagnet},
-  journal = {Nature Materials},
-  year    = {2021},
-  doi     = {}
-}
+P4. Spin-Resolved Magneto-Tunneling and Giant Anisotropic g-Factor in Broken Gap InAs-GaSb CoreShell Nanowires. Nano Letters 24(3), 790 (2024). [file:143]
 
-@article{Rocci2020GateCriticalCurrent,
-  title   = {Large Enhancement of Critical Current in Superconducting Devices by Gate Voltage},
-  journal = {Nano Letters},
-  year    = {2020},
-  volume  = {21},
-  number  = {1},
-  pages   = {216},
-  doi     = {}
-}
+P5. Ultrafast Photoacoustic Nanometrology of InAs Nanowires Mechanical Properties. J. Phys. Chem. C 126(14), 6361 (2022). [file:143]
 
-@article{Rocci2020TitaniumNanobridgeTransistor,
-  title   = {Gate-Controlled Suspended Titanium Nanobridge Supercurrent Transistor},
-  journal = {ACS Nano},
-  year    = {2020},
-  volume  = {14},
-  pages   = {12621--12628},
-  doi     = {}
-}
+P6. Extremely long range, high-temperature Josephson coupling across a half metallic ferromagnet. Nature Materials (2021). [file:143]
 
-@article{Rocci2020ThermalBiasingStrategy,
-  title   = {Strategy for accurate thermal biasing at the nanoscale},
-  journal = {Nanotechnology},
-  year    = {2020},
-  volume  = {31},
-  number  = {32},
-  doi     = {}
-}
+P7. Large Enhancement of Critical Current in Superconducting Devices by Gate Voltage. Nano Letters 21(1), 216 (2020). [file:143]
 
-@article{Rocci2020JosephsonPhaseBattery,
-  title   = {A Josephson phase battery},
-  journal = {Nature Nanotechnology},
-  year    = {2020},
-  volume  = {15},
-  pages   = {656--660},
-  doi     = {}
-}
+P8. Gate-Controlled Suspended Titanium Nanobridge Supercurrent Transistor. ACS Nano 14, 12621–12628 (2020). [file:143]
 
-@inproceedings{Rocci2019InAsTopologicalSpintronicsXII,
-  title     = {Investigation of InAs-based devices for topological applications},
-  booktitle = {Spintronics XII},
-  year      = {2019},
-  volume    = {11090},
-  pages     = {110903Z},
-  doi       = {}
-}
+P9. Strategy for accurate thermal biasing at the nanoscale. Nanotechnology 31(32) (2020). [file:143]
 
-@article{Rocci2019ConductometricInAsSensors,
-  title   = {Conductometric Sensing with Individual InAs Nanowires},
-  journal = {Sensors},
-  year    = {2019},
-  volume  = {19},
-  number  = {13},
-  pages   = {2994},
-  doi     = {}
-}
+P10. A Josephson phase battery. Nature Nanotechnology 15, 656–660 (2020). [file:143]
 
-@article{Rocci2018VectorialSpinOrbitInAs,
-  title   = {Vectorial control of the spin-orbit interaction in suspended InAs nanowires},
-  journal = {Nano Letters},
-  year    = {2018},
-  volume  = {19},
-  number  = {2},
-  pages   = {652},
-  doi     = {}
-}
+P11. Investigation of InAs-based devices for topological applications. Spintronics XII 11090, 110903Z (2019). [file:143]
 
-@article{Rocci2018SuspendedInAsThermalConductivity,
-  title   = {Suspended InAs nanowire-based devices for thermal conductivity measurements using the 3-method},
-  journal = {Journal of Materials Engineering and Performance},
-  year    = {2018},
-  volume  = {27},
-  number  = {12},
-  pages   = {6299--6305},
-  doi     = {}
-}
+P12. Conductometric Sensing with Individual InAs Nanowires. Sensors 19(13), 2994 (2019). [file:143]
 
-@article{Rocci2017InAsOpticalReflectors,
-  title   = {Self-assembled InAs nanowires as optical reflectors},
-  journal = {Nanoscale},
-  year    = {2017},
-  volume  = {7},
-  number  = {11},
-  pages   = {400},
-  doi     = {}
-}
+P13. Vectorial control of the spin-orbit interaction in suspended InAs nanowires. Nano Letters 19(2), 652 (2018). [file:143]
 
-@article{Rocci2017CrystalPhasesHybridNanowires,
-  title   = {Crystal phases in hybrid metal-semiconductor nanowire devices},
-  journal = {Nano Letters},
-  year    = {2017},
-  volume  = {17},
-  number  = {4},
-  pages   = {2336},
-  doi     = {}
-}
+P14. Suspended InAs nanowire-based devices for thermal conductivity measurements using the 3-method. Journal of Materials Engineering and Performance 27(12), 6299–6305 (2018). [file:143]
 
-@article{Rocci2017InAsSuperconductingTunnelJunctions,
-  title   = {InAs nanowire superconducting tunnel junctions: quasiparticle spectroscopy, thermometry and nanorefrigeration},
-  journal = {Nano Research},
-  year    = {2017},
-  pages   = {1--6},
-  doi     = {}
-}
+P15. Self-assembled InAs nanowires as optical reflectors. Nanoscale 7(11), 400 (2017). [file:143]
 
-@article{Rocci2016TunableEsakiInAsGaSb,
-  title   = {Tunable Esaki effect in catalyst-free InAsGaSb core-shell nanowires},
-  journal = {Nano Letters},
-  year    = {2016},
-  volume  = {16},
-  number  = {12},
-  pages   = {7950},
-  doi     = {}
-}
+P16. Crystal phases in hybrid metal-semiconductor nanowire devices. Nano Letters 17(4), 2336 (2017). [file:143]
 
-@article{Rocci2016GHzElectroluminescence,
-  title   = {GHz electroluminescence modulation in nanoscale subwavelength emitters},
-  journal = {Nano Letters},
-  year    = {2016},
-  volume  = {16},
-  number  = {9},
-  pages   = {5521},
-  doi     = {}
-}
+P17. InAs nanowire superconducting tunnel junctions: quasiparticle spectroscopy, thermometry and nanorefrigeration. Nano Research (2017). [file:143]
 
-@article{Rocci2016LocalNoiseDiffusiveConductor,
-  title   = {Local noise in a diffusive conductor},
-  journal = {Scientific Reports},
-  year    = {2016},
-  volume  = {6},
-  pages   = {30621},
-  doi     = {}
-}
+P18. Tunable Esaki effect in catalyst-free InAsGaSb core-shell nanowires. Nano Letters 16(12), 7950 (2016). [file:143]
 
-@article{Rocci2016NoiseThermometryInAs,
-  title   = {Noise thermometry applied to thermoelectric measurements in InAs nanowires},
-  journal = {Semiconductor Science and Technology},
-  year    = {2016},
-  volume  = {31},
-  pages   = {104001},
-  doi     = {}
-}
+P19. GHz electroluminescence modulation in nanoscale subwavelength emitters. Nano Letters 16(9), 5521 (2016). [file:143]
 
-@article{Rocci2015CommensuratePinningYBCO,
-  title   = {Proximity Driven Commensurate Pinning in YBa2Cu3O7 through All-Oxide Magnetic Nanostructures},
-  journal = {Nano Letters},
-  year    = {2015},
-  volume  = {15},
-  number  = {11},
-  pages   = {7526},
-  doi     = {}
-}
+P20. Local noise in a diffusive conductor. Scientific Reports 6, 30621 (2016). [file:143]
 
-@article{Rocci2015NanoionicsBarriers,
-  title   = {Paving the way to nanoionics: atomic origin of barriers for ionic transport through interfaces},
-  journal = {Scientific Reports},
-  year    = {2015},
-  volume  = {5},
-  pages   = {17229},
-  doi     = {}
-}
+P21. Noise thermometry applied to thermoelectric measurements in InAs nanowires. Semiconductor Science and Technology 31, 104001 (2016). [file:143]
 
-@article{Rocci2014ResistiveSwitchingManganiteGraphene,
-  title   = {Resistive switching in manganitegraphene hybrid planar nanostructures},
-  journal = {Applied Physics Letters},
-  year    = {2014},
-  volume  = {104},
-  pages   = {102408},
-  doi     = {}
-}
+P22. Proximity Driven Commensurate Pinning in YBa2Cu3O7 through All-Oxide Magnetic Nanostructures. Nano Letters 15(11), 7526 (2015). [file:143]
 
-@article{Rocci2012BSECVGrainBoundaries,
-  title   = {Caracterizaci{\'o}n el{\'e}ctrica de fronteras de grano en conductores i{\'o}nicos mediante medidas de espectroscopia de impedancias en un bicristal},
-  journal = {Bolet{\'i}n de la Sociedad Espa{\~n}ola de Cer{\'a}mica y Vidrio},
-  year    = {2012},
-  volume  = {51},
-  number  = {1},
-  pages   = {13--18},
-  doi     = {}
-}
+P23. Paving the way to nanoionics: atomic origin of barriers for ionic transport through interfaces. Scientific Reports 5, 17229 (2015). [file:143]
 
-@article{Rocci2011PRBInterfacialReconstruction,
-  title   = {Symmetrical interfacial reconstruction and magnetism in La0.7Ca0.3MnO3/YBa2Cu3O7/La0.7Ca0.3MnO3 heterostructures},
-  journal = {Physical Review B},
-  year    = {2011},
-  volume  = {84},
-  pages   = {060405R},
-  doi     = {}
-}
+P24. Resistive switching in manganite/graphene hybrid planar nanostructures. Applied Physics Letters 104, 102408 (2014). [file:143]
 
-@article{Rocci2010PRBDirectionallyControlled,
-  title   = {Directionally controlled superconductivity in ferromagnet/superconductor/ferromagnet trilayers with biaxial easy axes},
-  journal = {Physical Review B},
-  year    = {2010},
-  volume  = {81},
-  pages   = {094512},
-  doi     = {}
-}
+P25. Caracterización eléctrica de fronteras de grano en conductores iónicos mediante medidas de espectroscopia de impedancias en un bicristal. Boletín de la Sociedad Española de Cerámica y Vidrio 51(1), 13–18 (2012). [file:143]
+
+P26. Symmetrical interfacial reconstruction and magnetism in La0.7Ca0.3MnO3/YBa2Cu3O7/La0.7Ca0.3MnO3 heterostructures. Physical Review B 84, 060405R (2011). [file:143]
+
+P27. Directionally controlled superconductivity in ferromagnet/superconductor/ferromagnet trilayers with biaxial easy axes. Physical Review B 81, 094512 (2010). [file:143]
+
+
+## Pubblicazioni internazionali in corso di revisione
+
+1. Volume variations in InPbAu Solder Joints Under Varied Environmental Conditions: a kinetics study. Advanced Electronic Materials (submitted). [file:143]
+
+2. Intermetallic Evolution in InPbAu Solder Joints Under Harsh Environmental Conditions. Advanced Electronic Materials (in submission). [file:143]
