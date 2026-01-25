@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: "Pubblicazioni Scientifiche"
 permalink: /pubblicazioni/
 ---
