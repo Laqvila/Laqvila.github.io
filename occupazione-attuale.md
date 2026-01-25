@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: "Occupazione attuale"
 permalink: /occupazione-attuale/
 ---
