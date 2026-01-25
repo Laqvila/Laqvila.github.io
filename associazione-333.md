@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: "Associazione 3:33"
 permalink: /3-33/
 ---
