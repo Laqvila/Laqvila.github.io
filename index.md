@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: "Mirko Rocci - Curriculum Vitae"
 permalink: /
 ---
