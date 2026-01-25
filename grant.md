@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: "Grant e progetti"
 permalink: /grant/
 ---
