@@ -1,16 +1,16 @@
 (function () {
   var toggle = document.querySelector(".nav-toggle");
-  var nav = document.querySelector(".nav");
-  if (!toggle || !nav) return;
+  var navBar = document.querySelector(".nav-bar");
+  if (!toggle || !navBar) return;
 
   toggle.addEventListener("click", function () {
-    var open = nav.classList.toggle("open");
+    var open = navBar.classList.toggle("open");
     toggle.setAttribute("aria-expanded", open ? "true" : "false");
   });
 
-  nav.querySelectorAll("a").forEach(function (link) {
+  navBar.querySelectorAll("a").forEach(function (link) {
     link.addEventListener("click", function () {
-      nav.classList.remove("open");
+      navBar.classList.remove("open");
       toggle.setAttribute("aria-expanded", "false");
     });
   });

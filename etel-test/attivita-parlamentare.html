@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <title>Attività Parlamentare — Etelwardo Sigismondi</title>
@@ -12,30 +12,34 @@
 <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
+<div class="tricolore-stripe" aria-hidden="true"><span></span><span></span><span></span></div>
 <div class="preview-banner"><strong>Anteprima di lavoro</strong> — bozza non ufficiale in revisione con lo staff del Senatore · pagina non indicizzata</div>
 
-<header class="site-header">
+<div class="top-bar">
   <div class="container">
-    <a href="index.html" class="brand">
-      <svg class="brand-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M12 33V18L24 11L36 18V33" stroke="#B08D45" stroke-width="2" stroke-linejoin="round"/>
-        <line x1="14" y1="33" x2="34" y2="33" stroke="#B08D45" stroke-width="2"/>
-        <line x1="17.5" y1="33" x2="17.5" y2="21" stroke="#B08D45" stroke-width="1.6"/>
-        <line x1="24" y1="33" x2="24" y2="21" stroke="#B08D45" stroke-width="1.6"/>
-        <line x1="30.5" y1="33" x2="30.5" y2="21" stroke="#B08D45" stroke-width="1.6"/>
-      </svg>
-      <span class="brand-text">
-        <span class="name">Etelwardo Sigismondi</span>
-        <span class="role">Senatore della Repubblica</span>
-      </span>
+    <span class="inst">Senato della Repubblica · XIX Legislatura</span>
+    <span class="top-links">
+      <a href="https://www.senato.it/leg/19/BGT/Schede/Attsen/00036424.htm" target="_blank" rel="noopener noreferrer">Senato.it</a>
+      <a href="https://www.facebook.com/EtelwardoSigismondi/" target="_blank" rel="noopener noreferrer">Facebook</a>
+      <a href="https://www.instagram.com/etelsigismondi/" target="_blank" rel="noopener noreferrer">Instagram</a>
+    </span>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="brand-banner">
+      <img src="assets/img/abruzzo-in-parlamento.png" alt="L'Abruzzo in Parlamento — Etelwardo Sigismondi, Fratelli d'Italia">
     </a>
     <button class="nav-toggle" aria-label="Apri il menu" aria-expanded="false"><span></span><span></span><span></span></button>
-    <nav class="nav">
+  </div>
+  <div class="nav-bar">
+    <nav class="container nav">
       <a href="index.html">Home</a>
       <a href="biografia.html">Biografia</a>
       <a href="percorso-istituzionale.html">Percorso Istituzionale</a>
@@ -80,7 +84,15 @@
           <p>Commissione bicamerale d'inchiesta sulle organizzazioni criminali, anche straniere.</p>
         </div>
 
-        <p class="small-note mt-lg">Fonte: <a href="https://www.senato.it/leg/19/BGT/Schede/Attsen/00036424.htm" target="_blank" rel="noopener noreferrer">Senato della Repubblica</a>, dati aggiornati ad agosto 2026.</p>
+        <span class="eyebrow" style="margin-top:20px">In Aula</span>
+        <h2>I numeri del mandato</h2>
+        <div class="stat-row" style="margin-top:0">
+          <div class="stat"><div class="num">97,8%</div><div class="lbl">Presenza ai voti elettronici</div></div>
+          <div class="stat"><div class="num">7.897</div><div class="lbl">Votazioni elettroniche</div></div>
+          <div class="stat"><div class="num">59</div><div class="lbl">Voti di fiducia</div></div>
+          <div class="stat"><div class="num">97,1%</div><div class="lbl">Indice di affidabilità (Openpolis)</div></div>
+        </div>
+        <p class="small-note mt-lg">Fonti: <a href="https://www.senato.it/leg/19/BGT/Schede/Attsen/00036424.htm" target="_blank" rel="noopener noreferrer">Senato della Repubblica</a>, <a href="https://parlamento19.openpolis.it/persone/etelwardo-sigismondi-1974-09-29" target="_blank" rel="noopener noreferrer">Openpolis</a>. Dati aggiornati ad agosto 2026.</p>
       </div>
 
       <div>
@@ -90,25 +102,36 @@
         <div class="bill-card">
           <span class="id">S. 1877</span>
           <h3>Monumento nazionale in memoria delle vittime di Marcinelle</h3>
-          <p>Proposta per l'istituzione di un monumento nazionale dedicato alla memoria delle vittime italiane della tragedia mineraria di Marcinelle (Belgio).</p>
-          <span class="bill-status approved">Approvato da un ramo del Parlamento</span>
+          <p>Dichiara monumento nazionale la Piazza Caduti di Marcinelle e la Cappella delle Vittime a Manoppello (PE), in memoria dei 262 minatori — 22 dei quali di Manoppello — morti nella miniera belga nel 1956. Approvato nel 70° anniversario della tragedia.</p>
+          <span class="bill-status approved">Approvato all'unanimità dal Senato · all'esame della Camera</span>
         </div>
 
         <div class="bill-card">
           <span class="id">S. 1458</span>
           <h3>Riconoscimento e promozione della clownterapia</h3>
-          <p>Proposta per il riconoscimento formale della clownterapia come attività di supporto psicosociale in ambito sanitario.</p>
+          <p>Disposizioni per il riconoscimento della clownterapia o "terapia sanitaria del sorriso" come attività di supporto psicosociale in ambito sanitario.</p>
           <span class="bill-status progress">In esame</span>
         </div>
 
         <div class="bill-card">
           <span class="id">S. 877</span>
           <h3>Tutela degli attrezzi da pesca tradizionali</h3>
-          <p>Proposta per la salvaguardia e valorizzazione degli attrezzi e delle tecniche di pesca tradizionali del patrimonio marinaro italiano.</p>
+          <p>Salvaguardia e valorizzazione degli attrezzi e delle tecniche di pesca tradizionali del patrimonio marinaro italiano.</p>
           <span class="bill-status progress">Esame in prima lettura</span>
         </div>
 
-        <p class="small-note mt-lg">Fonte: <a href="https://www.senato.it/leg/19/BGT/Schede/Attsen/00036424.htm" target="_blank" rel="noopener noreferrer">Senato della Repubblica</a>. Sintesi non ufficiale, verificare il testo integrale sul sito del Senato.</p>
+        <span class="eyebrow" style="margin-top:20px">Interventi in Commissione</span>
+        <h2>Energia e territorio</h2>
+        <div class="role-block">
+          <span class="tag">Energia</span>
+          <h3>Difesa dell'idroelettrico italiano</h3>
+          <p>Intervento a tutela della filiera idroelettrica nazionale: risorsa fondamentale per la decarbonizzazione, l'indipendenza energetica e la prevenzione del dissesto idrogeologico.</p>
+        </div>
+        <div class="role-block">
+          <span class="tag">Infrastrutture</span>
+          <h3>DL Infrastrutture e ZES unica</h3>
+          <p>Sostegno al decreto Infrastrutture e all'estensione della Zona Economica Speciale a tutto il territorio nazionale.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -139,11 +162,12 @@
 </main>
 
 <footer class="site-footer">
+  <div class="tricolore-stripe" aria-hidden="true"><span></span><span></span><span></span></div>
   <div class="container">
     <div class="footer-grid">
       <div>
         <h4>Etelwardo Sigismondi</h4>
-        <p class="small-note">Senatore della Repubblica<br>Collegio Abruzzo · XIX Legislatura<br>Gruppo Fratelli d'Italia</p>
+        <p class="small-note">Senatore della Repubblica<br>Collegio Abruzzo · XIX Legislatura<br>Gruppo Fratelli d'Italia<br>Coordinatore Regionale FdI Abruzzo</p>
       </div>
       <div>
         <h4>Naviga</h4>
@@ -158,6 +182,7 @@
         <h4>Istituzionale</h4>
         <ul>
           <li><a href="https://www.senato.it/leg/19/BGT/Schede/Attsen/00036424.htm" target="_blank" rel="noopener noreferrer">Scheda ufficiale Senato.it</a></li>
+          <li><a href="https://parlamento19.openpolis.it/persone/etelwardo-sigismondi-1974-09-29" target="_blank" rel="noopener noreferrer">Openpolis</a></li>
           <li><a href="contatti.html">Contatti</a></li>
           <li><a href="note-legali.html">Note legali &amp; Privacy</a></li>
         </ul>
