@@ -10,12 +10,17 @@
   var backTop = document.querySelector(".back-top");
 
   var heroImg = document.querySelector(".hero-photo img");
+  var progress = document.querySelector(".scroll-progress");
   function onScroll() {
     var y = window.scrollY;
     if (nav) nav.classList.toggle("scrolled", y > 24);
     if (backTop) backTop.classList.toggle("show", y > 700);
     if (heroImg && !reduceMotion && window.innerWidth > 720) {
       heroImg.style.transform = "translateY(" + Math.min(y * 0.12, 90) + "px) scale(1.06)";
+    }
+    if (progress) {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.transform = "scaleX(" + (max > 0 ? y / max : 0) + ")";
     }
     drawTimeline();
   }
@@ -121,6 +126,17 @@
         el.textContent = fmt(parseFloat(el.getAttribute("data-count")), parseInt(el.getAttribute("data-decimals") || "0", 10), el.getAttribute("data-suffix") || "");
       });
     }
+  }
+
+  /* ---------- Spotlight sulle card (segue il puntatore) ---------- */
+  if (!reduceMotion && window.matchMedia("(hover: hover)").matches) {
+    document.querySelectorAll(".card").forEach(function (c) {
+      c.addEventListener("pointermove", function (e) {
+        var r = c.getBoundingClientRect();
+        c.style.setProperty("--mx", (e.clientX - r.left) + "px");
+        c.style.setProperty("--my", (e.clientY - r.top) + "px");
+      });
+    });
   }
 
   /* ---------- Filtro news ---------- */
