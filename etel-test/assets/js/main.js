@@ -9,10 +9,14 @@
   var links = document.querySelector(".nav-links");
   var backTop = document.querySelector(".back-top");
 
+  var heroImg = document.querySelector(".hero-photo img");
   function onScroll() {
     var y = window.scrollY;
     if (nav) nav.classList.toggle("scrolled", y > 24);
     if (backTop) backTop.classList.toggle("show", y > 700);
+    if (heroImg && !reduceMotion && window.innerWidth > 720) {
+      heroImg.style.transform = "translateY(" + Math.min(y * 0.12, 90) + "px) scale(1.06)";
+    }
     drawTimeline();
   }
   window.addEventListener("scroll", onScroll, { passive: true });

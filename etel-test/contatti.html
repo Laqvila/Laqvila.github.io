@@ -7,8 +7,8 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
-<title>Pagina non trovata — Etelwardo Sigismondi</title>
-<meta name="description" content="Pagina non trovata.">
+<title>Contatti — Etelwardo Sigismondi</title>
+<meta name="description" content="Scrivi al Senatore Etelwardo Sigismondi: email istituzionale, sede al Senato e canali social ufficiali.">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/img/favicon-192.png">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/img/favicon-192.png">
@@ -47,14 +47,54 @@
 </nav>
 
 <main>
-  <section class="sec-tight">
-    <div class="container text-center" style="padding-top:70px; padding-bottom:70px">
-      <span class="kicker center">Errore 404</span>
-      <h1>Pagina non trovata</h1>
-      <p class="lede" style="margin:0 auto 30px">La pagina richiesta non esiste o è stata spostata.</p>
-      <a href="index.html" class="btn btn-primary">Torna alla home</a>
+
+  <header class="page-hero">
+    <div class="container">
+      <p class="breadcrumb"><a href="index.html">Home</a> / Contatti</p>
+      <h1>Contatti</h1>
+      <p class="lede">I canali ufficiali per scrivere al Senatore e seguirne l'attività istituzionale.</p>
+    </div>
+  </header>
+
+  <section>
+    <div class="container contact-grid">
+      <div class="rv">
+        <span class="kicker">Recapiti</span>
+        <h2>Canali istituzionali</h2>
+        <ul class="contact-info">
+          <li><strong>Email istituzionale</strong><a href="mailto:etelwardo.sigismondi@senato.it">etelwardo.sigismondi@senato.it</a></li>
+          <li><strong>Sede istituzionale</strong>Senato della Repubblica — Palazzo Madama, Piazza Madama, 00186 Roma</li>
+          <li><strong>Scheda ufficiale</strong><a href="https://www.senato.it/leg/19/BGT/Schede/Attsen/00036424.htm" target="_blank" rel="noopener noreferrer">senato.it → Etelwardo Sigismondi</a></li>
+          <li><strong>Social</strong><a href="https://www.facebook.com/EtelwardoSigismondi/" target="_blank" rel="noopener noreferrer">Facebook</a> · <a href="https://www.instagram.com/etelsigismondi/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><strong>Trasparenza</strong><a href="https://parlamento19.openpolis.it/persone/etelwardo-sigismondi-1974-09-29" target="_blank" rel="noopener noreferrer">Presenze e voti su Openpolis</a> · <a href="https://dait.interno.gov.it/documenti/trasparenza/POLITICHE_20220925/SENATO_ITALIA_20220925/candidati/CI13/CP131/416850/1349727/4009_416850_1349727_etelwardo_sigismondi_25092022_cv.pdf" target="_blank" rel="noopener noreferrer">CV depositato</a></li>
+        </ul>
+      </div>
+      <div class="rv d2">
+        <span class="kicker">Scrivimi</span>
+        <h2>Componi il tuo messaggio</h2>
+        <form id="contact-form" novalidate>
+          <div class="form-field">
+            <label for="cf-name">Nome e cognome</label>
+            <input type="text" id="cf-name" name="name" autocomplete="name" placeholder="Mario Rossi">
+            <span class="form-error">Inserisci il tuo nome</span>
+          </div>
+          <div class="form-field">
+            <label for="cf-subject">Oggetto</label>
+            <input type="text" id="cf-subject" name="subject" placeholder="Richiesta di incontro">
+            <span class="form-error">Inserisci l'oggetto</span>
+          </div>
+          <div class="form-field">
+            <label for="cf-msg">Messaggio</label>
+            <textarea id="cf-msg" name="message" placeholder="Scrivi qui il tuo messaggio"></textarea>
+            <span class="form-error">Scrivi un messaggio</span>
+          </div>
+          <button type="submit" class="btn btn-primary">Componi l'email</button>
+          <p class="form-note">Il pulsante apre il tuo programma di posta con il messaggio già compilato, indirizzato all'email istituzionale del Senatore. Questo sito non raccoglie né trasmette alcun dato.</p>
+        </form>
+      </div>
     </div>
   </section>
+
 </main>
 
 <footer class="site-footer">
