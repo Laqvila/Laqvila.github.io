@@ -4,15 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <title>Etelwardo Sigismondi — Senatore della Repubblica</title>
 <meta name="description" content="Sito personale di Etelwardo Sigismondi, Senatore della Repubblica per il collegio Abruzzo. Biografia, percorso istituzionale, attività parlamentare e rassegna stampa.">
 <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -20,23 +18,17 @@
 <div class="tricolore-stripe" aria-hidden="true"><span></span><span></span><span></span></div>
 <div class="preview-banner"><strong>Anteprima di lavoro</strong> — bozza non ufficiale in revisione con lo staff del Senatore · pagina non indicizzata</div>
 
-<div class="top-bar">
-  <div class="container">
-    <span class="inst">Senato della Repubblica · XIX Legislatura</span>
-    <span class="top-links">
-      <a href="https://www.senato.it/leg/19/BGT/Schede/Attsen/00036424.htm" target="_blank" rel="noopener noreferrer">Senato.it</a>
-      <a href="https://www.facebook.com/EtelwardoSigismondi/" target="_blank" rel="noopener noreferrer">Facebook</a>
-      <a href="https://www.instagram.com/etelsigismondi/" target="_blank" rel="noopener noreferrer">Instagram</a>
-    </span>
-  </div>
-</div>
-
 <header class="site-header">
   <div class="container header-inner">
+    <div class="header-left">
+      <button class="nav-toggle" aria-label="Apri il menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
     <a href="index.html" class="brand-banner">
       <img src="assets/img/abruzzo-in-parlamento.png" alt="L'Abruzzo in Parlamento — Etelwardo Sigismondi, Fratelli d'Italia">
     </a>
-    <button class="nav-toggle" aria-label="Apri il menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <div class="header-right">
+      <a class="pill-link" href="https://www.senato.it/leg/19/BGT/Schede/Attsen/00036424.htm" target="_blank" rel="noopener noreferrer">Senato.it</a>
+    </div>
   </div>
   <div class="nav-bar">
     <nav class="container nav">
@@ -52,100 +44,118 @@
 
 <main>
 
-  <section class="hero">
+  <section class="hero" style="padding:0">
+    <div class="hero-bg" aria-hidden="true"></div>
     <div class="container">
       <div>
-        <span class="eyebrow on-dark">Senatore della Repubblica · Coordinatore Regionale FdI Abruzzo</span>
-        <h1 class="campaign-name"><span>Etelwardo</span><br><span>Sigismondi</span></h1>
-        <p class="lede">Senatore della Repubblica per il collegio Abruzzo, Capogruppo di Fratelli d'Italia in VIII Commissione permanente (Ambiente, transizione ecologica, energia, lavori pubblici, comunicazioni, innovazione tecnologica). Architetto, al servizio delle istituzioni da oltre venticinque anni.</p>
-        <div class="hero-actions">
-          <a href="attivita-parlamentare.html" class="btn btn-yellow">Attività parlamentare</a>
+        <span class="hero-kicker reveal in">Senato della Repubblica · XIX Legislatura</span>
+        <h1 class="hero-title">
+          <span class="line reveal in">La voce</span>
+          <span class="line reveal in d1">dell'<em>Abruzzo</em></span>
+          <span class="line reveal in d2">in Senato</span>
+        </h1>
+        <p class="lede reveal in d2">Etelwardo Sigismondi, Senatore della Repubblica per il collegio Abruzzo. Capogruppo di Fratelli d'Italia in VIII Commissione permanente — Ambiente, transizione ecologica, energia, lavori pubblici, comunicazioni, innovazione tecnologica.</p>
+        <div class="hero-actions reveal in d3">
+          <a href="attivita-parlamentare.html" class="btn btn-azure">Attività parlamentare</a>
           <a href="rassegna-stampa.html" class="btn btn-outline">Rassegna stampa</a>
         </div>
       </div>
-      <div class="hero-portrait">
+      <div class="hero-portrait reveal in d2">
         <img src="assets/img/senatore-ritratto.jpg" alt="Ritratto del Senatore Etelwardo Sigismondi">
         <div class="ribbon" aria-hidden="true"><i></i><i></i><i></i></div>
       </div>
     </div>
+    <div class="hero-scroll" aria-hidden="true"></div>
   </section>
 
   <div class="container">
-    <div class="stat-row">
-      <div class="stat"><div class="num">2022</div><div class="lbl">Senatore della Repubblica dal</div></div>
-      <div class="stat"><div class="num">VIII</div><div class="lbl">Commissione permanente, Capogruppo</div></div>
-      <div class="stat"><div class="num">97,8%</div><div class="lbl">Presenza ai voti in Aula (Openpolis)</div></div>
-      <div class="stat"><div class="num">3</div><div class="lbl">Disegni di legge da primo firmatario</div></div>
+    <div class="numbers-panel reveal">
+      <div class="numbers-grid">
+        <div class="number">
+          <div class="value"><span data-count="97.8" data-decimals="1" data-suffix="%">0</span></div>
+          <div class="label">Presenza ai voti in Aula</div>
+        </div>
+        <div class="number">
+          <div class="value"><span data-count="7897">0</span></div>
+          <div class="label">Votazioni elettroniche</div>
+        </div>
+        <div class="number">
+          <div class="value"><span data-count="59">0</span></div>
+          <div class="label">Voti di fiducia</div>
+        </div>
+        <div class="number">
+          <div class="value"><span data-count="3">0</span></div>
+          <div class="label">DDL da primo firmatario</div>
+        </div>
+      </div>
     </div>
   </div>
 
   <section>
-    <div class="container">
-      <div class="section-head">
+    <div class="container two-col">
+      <div class="reveal">
         <span class="eyebrow">Chi è</span>
-        <h2>L'Abruzzo in Parlamento</h2>
+        <h2>L'Abruzzo che guarda al futuro</h2>
         <p class="lede">Architetto di formazione, attivo in politica dal 1998, tra i fondatori di Fratelli d'Italia in Abruzzo. Oggi rappresenta il collegio abruzzese al Senato della Repubblica dopo un lungo percorso nelle istituzioni locali e regionali.</p>
+        <div class="tag-row">
+          <span class="tag-pill">Senatore della Repubblica</span>
+          <span class="tag-pill">Capogruppo VIII Commissione</span>
+          <span class="tag-pill">Coordinatore Regionale FdI Abruzzo</span>
+          <span class="tag-pill">Architetto</span>
+        </div>
+        <div class="hero-actions">
+          <a href="biografia.html" class="btn btn-outline-dark">Leggi la biografia</a>
+          <a href="percorso-istituzionale.html" class="btn btn-azure">Il percorso</a>
+        </div>
       </div>
-      <div class="card-grid">
-        <div class="card">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 9.5 12 4l9 5.5-9 5.5-9-5.5Z"/><path d="M7 12.2V17c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-4.8"/><path d="M21 9.5V15"/></svg>
-          <h3>Formazione</h3>
-          <p>Architetto, laureato all'Università "G. D'Annunzio" di Chieti-Pescara. Attivo in politica dal 1998, tra Fronte della Gioventù e Azione Giovani.</p>
-          <a class="card-link" href="biografia.html">Leggi la biografia →</a>
-        </div>
-        <div class="card">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v18M5 8l7-5 7 5M5 8v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8"/></svg>
-          <h3>Percorso istituzionale</h3>
-          <p>Consigliere comunale a Vasto e provinciale a Chieti, fondatore di Fratelli d'Italia in Abruzzo, capo della segreteria del Presidente Marco Marsilio, oggi Senatore.</p>
-          <a class="card-link" href="percorso-istituzionale.html">Scopri il percorso →</a>
-        </div>
-        <div class="card">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
-          <h3>Impegno per il territorio</h3>
-          <p>Giustizia di prossimità, infrastrutture, protezione civile e sicurezza: temi concreti seguiti con presenza costante sul collegio abruzzese.</p>
-          <a class="card-link" href="attivita-parlamentare.html">Attività parlamentare →</a>
+      <div class="reveal d2">
+        <div class="photo-card">
+          <div class="thumb"><img src="assets/img/visita-questura-laquila.jpg" alt="Il Senatore Sigismondi in visita istituzionale alla Questura di L'Aquila"></div>
+          <div class="body">
+            <span class="meta">Sul territorio</span>
+            <h3>Presenza costante in Abruzzo</h3>
+            <p>Dalle visite alle forze dell'ordine agli operatori della Protezione Civile: un impegno che parte dai territori e arriva a Palazzo Madama.</p>
+            <a class="card-link" href="rassegna-stampa.html">Le ultime attività →</a>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <div class="quote-band">
-    <div class="container">
-      <blockquote>
-        La memoria del sacrificio dei minatori italiani di Marcinelle merita di essere tramandata alle giovani generazioni.
-        <cite>— Dichiarazione in Aula sul ddl Marcinelle, approvato all'unanimità dal Senato</cite>
-      </blockquote>
-    </div>
-  </div>
-
   <section class="band">
     <div class="container">
-      <div class="section-head">
+      <div class="section-head center reveal">
         <span class="eyebrow on-dark">I temi</span>
         <h2>Le priorità dell'impegno parlamentare</h2>
       </div>
       <div class="card-grid">
-        <div class="card">
+        <div class="dark-card reveal">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 3 4 14h6l-1 7 9-11h-6l1-7Z"/></svg>
           <h3>Energia e ambiente</h3>
           <p>Capogruppo nella Commissione che segue transizione ecologica ed energia: difesa dell'idroelettrico italiano, decarbonizzazione e indipendenza energetica.</p>
         </div>
-        <div class="card">
+        <div class="dark-card reveal d1">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
           <h3>Infrastrutture e sviluppo</h3>
           <p>Sostegno al DL Infrastrutture e all'estensione della ZES unica a tutto il territorio nazionale, per la competitività dell'Abruzzo e del Paese.</p>
         </div>
-        <div class="card">
+        <div class="dark-card reveal d2">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v18M7 7h10M5 7l-2 5a3.5 3.5 0 0 0 7 0L8 7M16 7l-2 5a3.5 3.5 0 0 0 7 0l-2-5M8 21h8"/></svg>
           <h3>Giustizia di prossimità</h3>
           <p>La battaglia per i tribunali sub-provinciali abruzzesi, culminata nella firma del Governo per la loro salvezza definitiva.</p>
         </div>
-        <div class="card">
+        <div class="dark-card reveal">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
           <h3>Memoria e identità</h3>
-          <p>Primo firmatario del ddl che dichiara monumento nazionale i luoghi di Manoppello dedicati alle vittime di Marcinelle.</p>
+          <p>Primo firmatario del ddl che dichiara monumento nazionale i luoghi di Manoppello dedicati alle vittime di Marcinelle, approvato all'unanimità dal Senato.</p>
         </div>
-        <div class="card">
+        <div class="dark-card reveal d1">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 4 6v6c0 4.5 3.2 7.7 8 9 4.8-1.3 8-4.5 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
           <h3>Legalità e antimafia</h3>
           <p>Componente della Commissione parlamentare d'inchiesta sul fenomeno mafioso e sulle altre associazioni criminali.</p>
         </div>
-        <div class="card">
+        <div class="dark-card reveal d2">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 15a8 8 0 0 1 16 0M12 4v3M2 15h4M18 15h4M12 15v6"/></svg>
           <h3>Sicurezza e protezione civile</h3>
           <p>Vicinanza costante alle forze dell'ordine e agli operatori della Protezione Civile impegnati sul territorio abruzzese.</p>
         </div>
@@ -153,39 +163,57 @@
     </div>
   </section>
 
-  <section>
+  <div class="quote-band">
     <div class="container">
-      <div class="section-head">
+      <blockquote class="reveal">
+        La memoria del sacrificio dei minatori italiani di Marcinelle merita di essere tramandata alle giovani generazioni.
+        <cite>— Dichiarazione in Aula sul ddl Marcinelle, approvato all'unanimità dal Senato</cite>
+      </blockquote>
+    </div>
+  </div>
+
+  <section class="band-light">
+    <div class="container">
+      <div class="section-head reveal">
         <span class="eyebrow">Rassegna stampa</span>
         <h2>In evidenza</h2>
       </div>
       <div class="card-grid">
-        <div class="card">
-          <div class="press-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v18M5 8l7-5 7 5M5 8v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8"/></svg></div>
-          <h3>Marcinelle: primo ok unanime dal Senato al monumento nazionale</h3>
-          <p>Agosto 2026 — AbruzzoWeb</p>
-          <a class="card-link" href="rassegna-stampa.html">Leggi la rassegna →</a>
+        <div class="photo-card reveal">
+          <div class="thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3v18M5 8l7-5 7 5M5 8v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8"/></svg></div>
+          <div class="body">
+            <span class="meta">Agosto 2026 · AbruzzoWeb</span>
+            <h3>Marcinelle: primo ok unanime dal Senato al monumento nazionale</h3>
+            <p>L'Aula approva il ddl Sigismondi nel 70° anniversario della tragedia mineraria.</p>
+            <a class="card-link" href="rassegna-stampa.html">Leggi la rassegna →</a>
+          </div>
         </div>
-        <div class="card">
-          <div class="press-thumb"><img src="assets/img/tribunali-abruzzesi.jpg" alt=""></div>
-          <h3>La giustizia torna in Abruzzo: salvi i tribunali sub-provinciali</h3>
-          <p>22 luglio 2025 — Comunicato ufficiale</p>
-          <a class="card-link" href="rassegna-stampa.html">Leggi la rassegna →</a>
+        <div class="photo-card reveal d1">
+          <div class="thumb"><img src="assets/img/tribunali-abruzzesi.jpg" alt="Stretta di mano tra i parlamentari abruzzesi dopo la salvezza dei tribunali"></div>
+          <div class="body">
+            <span class="meta">Luglio 2025 · Comunicato ufficiale</span>
+            <h3>La giustizia torna in Abruzzo: salvi i tribunali sub-provinciali</h3>
+            <p>Il Governo firma la revisione della geografia giudiziaria abruzzese.</p>
+            <a class="card-link" href="rassegna-stampa.html">Leggi la rassegna →</a>
+          </div>
         </div>
-        <div class="card">
-          <div class="press-thumb"><img src="assets/img/visita-questura-laquila.jpg" alt=""></div>
-          <h3>Protezione civile: visita a L'Aquila nel giorno di Ferragosto</h3>
-          <p>16 agosto 2026 — Zonalocale</p>
-          <a class="card-link" href="rassegna-stampa.html">Leggi la rassegna →</a>
+        <div class="photo-card reveal d2">
+          <div class="thumb"><img src="assets/img/visita-questura-laquila.jpg" alt="Il Senatore Sigismondi durante una visita istituzionale a L'Aquila"></div>
+          <div class="body">
+            <span class="meta">Agosto 2026 · Zonalocale</span>
+            <h3>Protezione civile: visita a L'Aquila nel giorno di Ferragosto</h3>
+            <p>Il ringraziamento agli operatori impegnati durante le festività.</p>
+            <a class="card-link" href="rassegna-stampa.html">Leggi la rassegna →</a>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section style="padding-top:0">
+  <section>
     <div class="container">
-      <div class="transparency">
-        <span class="eyebrow">Trasparenza</span>
+      <div class="transparency reveal">
+        <span class="eyebrow on-dark">Trasparenza</span>
         <h2 class="mt-0">Documenti e dati pubblici</h2>
         <p class="lede">L'attività parlamentare è pubblica e verificabile: qui i collegamenti diretti alle fonti istituzionali.</p>
         <ul>
@@ -236,11 +264,15 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-note">Sito non ufficiale — anteprima di lavoro realizzata per la revisione dei contenuti in vista della pubblicazione su etelwardosigismondi.it. Contenuti basati su fonti pubbliche (Senato della Repubblica, Camera dei Deputati, Openpolis) e comunicati già pubblicati dallo staff del Senatore.</p>
+      <p class="footer-note">Sito non ufficiale — anteprima di lavoro realizzata per la revisione dei contenuti in vista della pubblicazione su etelwardosigismondi.it. Questo sito non utilizza cookie né strumenti di tracciamento. Contenuti basati su fonti pubbliche e comunicati già pubblicati dallo staff del Senatore.</p>
       <p>© 2026 Etelwardo Sigismondi</p>
     </div>
   </div>
 </footer>
+
+<button class="back-top" aria-label="Torna in cima">
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="m6 14 6-6 6 6"/></svg>
+</button>
 
 <script src="assets/js/main.js"></script>
 </body>

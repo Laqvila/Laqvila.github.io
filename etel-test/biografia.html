@@ -4,15 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <title>Biografia — Etelwardo Sigismondi</title>
 <meta name="description" content="Biografia di Etelwardo Sigismondi: nascita, formazione da architetto e sintesi del percorso pubblico fino al Senato della Repubblica.">
 <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -20,23 +18,17 @@
 <div class="tricolore-stripe" aria-hidden="true"><span></span><span></span><span></span></div>
 <div class="preview-banner"><strong>Anteprima di lavoro</strong> — bozza non ufficiale in revisione con lo staff del Senatore · pagina non indicizzata</div>
 
-<div class="top-bar">
-  <div class="container">
-    <span class="inst">Senato della Repubblica · XIX Legislatura</span>
-    <span class="top-links">
-      <a href="https://www.senato.it/leg/19/BGT/Schede/Attsen/00036424.htm" target="_blank" rel="noopener noreferrer">Senato.it</a>
-      <a href="https://www.facebook.com/EtelwardoSigismondi/" target="_blank" rel="noopener noreferrer">Facebook</a>
-      <a href="https://www.instagram.com/etelsigismondi/" target="_blank" rel="noopener noreferrer">Instagram</a>
-    </span>
-  </div>
-</div>
-
 <header class="site-header">
   <div class="container header-inner">
+    <div class="header-left">
+      <button class="nav-toggle" aria-label="Apri il menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
     <a href="index.html" class="brand-banner">
       <img src="assets/img/abruzzo-in-parlamento.png" alt="L'Abruzzo in Parlamento — Etelwardo Sigismondi, Fratelli d'Italia">
     </a>
-    <button class="nav-toggle" aria-label="Apri il menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <div class="header-right">
+      <a class="pill-link" href="https://www.senato.it/leg/19/BGT/Schede/Attsen/00036424.htm" target="_blank" rel="noopener noreferrer">Senato.it</a>
+    </div>
   </div>
   <div class="nav-bar">
     <nav class="container nav">
@@ -53,6 +45,7 @@
 <main>
 
   <section class="page-hero">
+    <div class="bg" aria-hidden="true"></div>
     <div class="container">
       <p class="breadcrumb"><a href="index.html">Home</a> / Biografia</p>
       <h1>Biografia</h1>
@@ -62,7 +55,9 @@
 
   <section>
     <div class="container two-col">
-      <div>
+      <div class="reveal">
+        <span class="eyebrow">Scheda</span>
+        <h2>In sintesi</h2>
         <dl class="definition-list">
           <dt>Nome completo</dt><dd>Etelwardo Sigismondi</dd>
           <dt>Nato a</dt><dd>Vasto (CH), 29 settembre 1974</dd>
@@ -79,8 +74,9 @@
           <span class="tag-pill">Architetto</span>
         </div>
       </div>
-      <div>
-        <h2>Profilo</h2>
+      <div class="reveal d2">
+        <span class="eyebrow">Profilo</span>
+        <h2>La storia</h2>
         <p>Etelwardo Sigismondi nasce a Vasto, in provincia di Chieti, il 29 settembre 1974. Dopo la laurea in Architettura conseguita all'Università "G. D'Annunzio" di Chieti-Pescara, avvia il proprio impegno pubblico nell'amministrazione locale abruzzese, che lo porterà nel corso di oltre vent'anni a ricoprire incarichi di crescente responsabilità, fino all'elezione al Senato della Repubblica nell'ottobre 2022.</p>
         <p>Il suo impegno politico nasce nella seconda metà degli anni Novanta all'interno del Fronte della Gioventù, per proseguire in Azione Giovani — l'organizzazione giovanile di Alleanza Nazionale — dove ricopre incarichi nazionali. È tra i fondatori di Fratelli d'Italia in Abruzzo nel 2012 e, dal 2018, ne è coordinatore regionale.</p>
         <p>Prima dell'elezione al Senato, ha ricoperto il ruolo di capo della segreteria del Presidente della Regione Abruzzo, Marco Marsilio, tra il 2019 e il 2022. In Senato è oggi capogruppo di Fratelli d'Italia nella VIII Commissione permanente (Ambiente, transizione ecologica, energia, lavori pubblici, comunicazioni, innovazione tecnologica) e componente della Commissione parlamentare per le questioni regionali e della Commissione parlamentare d'inchiesta sul fenomeno mafioso.</p>
@@ -128,11 +124,15 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-note">Sito non ufficiale — anteprima di lavoro realizzata per la revisione dei contenuti in vista della pubblicazione su etelwardosigismondi.it. Contenuti basati su fonti pubbliche (Senato della Repubblica, Camera dei Deputati, Openpolis) e comunicati già pubblicati dallo staff del Senatore.</p>
+      <p class="footer-note">Sito non ufficiale — anteprima di lavoro realizzata per la revisione dei contenuti in vista della pubblicazione su etelwardosigismondi.it. Questo sito non utilizza cookie né strumenti di tracciamento. Contenuti basati su fonti pubbliche e comunicati già pubblicati dallo staff del Senatore.</p>
       <p>© 2026 Etelwardo Sigismondi</p>
     </div>
   </div>
 </footer>
+
+<button class="back-top" aria-label="Torna in cima">
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="m6 14 6-6 6 6"/></svg>
+</button>
 
 <script src="assets/js/main.js"></script>
 </body>

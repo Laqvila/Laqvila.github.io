@@ -4,15 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <title>Note legali & Privacy — Etelwardo Sigismondi</title>
-<meta name="description" content="Note legali, informativa privacy e fonti dei contenuti del sito.">
+<meta name="description" content="Note legali, informativa privacy e cookie, trasparenza sull'uso dell'IA e fonti dei contenuti del sito.">
 <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -20,23 +18,17 @@
 <div class="tricolore-stripe" aria-hidden="true"><span></span><span></span><span></span></div>
 <div class="preview-banner"><strong>Anteprima di lavoro</strong> — bozza non ufficiale in revisione con lo staff del Senatore · pagina non indicizzata</div>
 
-<div class="top-bar">
-  <div class="container">
-    <span class="inst">Senato della Repubblica · XIX Legislatura</span>
-    <span class="top-links">
-      <a href="https://www.senato.it/leg/19/BGT/Schede/Attsen/00036424.htm" target="_blank" rel="noopener noreferrer">Senato.it</a>
-      <a href="https://www.facebook.com/EtelwardoSigismondi/" target="_blank" rel="noopener noreferrer">Facebook</a>
-      <a href="https://www.instagram.com/etelsigismondi/" target="_blank" rel="noopener noreferrer">Instagram</a>
-    </span>
-  </div>
-</div>
-
 <header class="site-header">
   <div class="container header-inner">
+    <div class="header-left">
+      <button class="nav-toggle" aria-label="Apri il menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
     <a href="index.html" class="brand-banner">
       <img src="assets/img/abruzzo-in-parlamento.png" alt="L'Abruzzo in Parlamento — Etelwardo Sigismondi, Fratelli d'Italia">
     </a>
-    <button class="nav-toggle" aria-label="Apri il menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <div class="header-right">
+      <a class="pill-link" href="https://www.senato.it/leg/19/BGT/Schede/Attsen/00036424.htm" target="_blank" rel="noopener noreferrer">Senato.it</a>
+    </div>
   </div>
   <div class="nav-bar">
     <nav class="container nav">
@@ -53,9 +45,11 @@
 <main>
 
   <section class="page-hero">
+    <div class="bg" aria-hidden="true"></div>
     <div class="container">
       <p class="breadcrumb"><a href="index.html">Home</a> / Note legali &amp; Privacy</p>
       <h1>Note legali &amp; Privacy</h1>
+      <p class="lede">Trasparenza su natura del sito, trattamento dei dati, cookie e uso dell'intelligenza artificiale.</p>
     </div>
   </section>
 
@@ -65,14 +59,21 @@
       <h2>Natura del sito</h2>
       <p>Questa pagina è pubblicata all'indirizzo <strong>mirkorocci.it/etel-test/</strong> a titolo di <strong>anteprima di lavoro non ufficiale</strong>, realizzata per la revisione dei contenuti insieme allo staff del Senatore Etelwardo Sigismondi, in vista dell'eventuale pubblicazione sul dominio ufficiale <strong>etelwardosigismondi.it</strong>. Non è un sito istituzionale del Senato della Repubblica né un sito ufficiale del Senatore fino a diversa comunicazione.</p>
 
+      <h2>Cookie e strumenti di tracciamento</h2>
+      <p>Questo sito <strong>non utilizza alcun cookie</strong> — né tecnici né di profilazione — e non integra strumenti di analytics, tracciamento o profilazione di alcun tipo. Per questo motivo, ai sensi della normativa vigente (Regolamento UE 2016/679 — GDPR, direttiva ePrivacy e Linee guida del Garante per la protezione dei dati personali del 10 giugno 2021), <strong>non è necessario alcun banner di consenso</strong>: non c'è alcun trattamento a cui acconsentire.</p>
+      <p>I caratteri tipografici (font) utilizzati sono <strong>ospitati direttamente su questo sito</strong> (self-hosted): la visita non genera alcuna richiesta verso server di terze parti (ad esempio Google Fonts), e di conseguenza nessun dato di navigazione — incluso l'indirizzo IP — viene comunicato a soggetti terzi.</p>
+
+      <h2>Trattamento dei dati personali</h2>
+      <p>Il sito è statico e non include moduli di raccolta dati: nessun dato personale dei visitatori viene raccolto, memorizzato o trasmesso. Gli unici dati trattati sono quelli che l'utente sceglie autonomamente di condividere scrivendo all'indirizzo email istituzionale indicato nella pagina Contatti; tali comunicazioni sono gestite secondo le regole del Senato della Repubblica.</p>
+
+      <h2>Trasparenza sull'uso dell'intelligenza artificiale</h2>
+      <p>In conformità ai principi di trasparenza del Regolamento UE 2024/1689 (<strong>AI Act</strong>), si informa che questo sito è stato <strong>progettato e sviluppato con l'ausilio di strumenti di intelligenza artificiale</strong> (assistente Claude di Anthropic), sotto la direzione e la revisione di un curatore umano. I contenuti testuali sono redatti sulla base di fonti pubbliche verificabili e sono soggetti a revisione umana prima della pubblicazione definitiva. Nessun contenuto di questo sito è generato o pubblicato in modo automatizzato senza supervisione umana; il sito non impiega sistemi di IA in esecuzione (chatbot, profilazione algoritmica o processi decisionali automatizzati).</p>
+
       <h2>Fonti dei contenuti</h2>
       <p>I contenuti biografici e istituzionali sono redatti sulla base di fonti pubbliche verificabili: <a href="https://www.senato.it/leg/19/BGT/Schede/Attsen/00036424.htm" target="_blank" rel="noopener noreferrer">Senato della Repubblica</a>, Camera dei Deputati, <a href="https://parlamento19.openpolis.it/persone/etelwardo-sigismondi-1974-09-29" target="_blank" rel="noopener noreferrer">Openpolis</a>, e comunicati stampa già pubblicati dal Senatore e dal suo staff. Le notizie in rassegna stampa sono sintetizzate in forma redazionale, con link alla fonte originale per il testo integrale.</p>
 
       <h2>Immagini e loghi</h2>
       <p>Le fotografie e la grafica "L'Abruzzo in Parlamento" sono tratte da materiali già pubblicati sui canali ufficiali del Senatore. Il simbolo di Fratelli d'Italia è riprodotto nell'ambito della grafica già diffusa dal Senatore stesso. Le immagini definitive ad alta risoluzione per la pubblicazione sul dominio ufficiale dovranno essere fornite direttamente dal suo staff.</p>
-
-      <h2>Dati personali e cookie</h2>
-      <p>Questo sito è statico: non utilizza cookie, non integra strumenti di tracciamento o analytics, non include moduli di raccolta dati e non trasmette informazioni a servizi di terze parti. Gli unici dati trattati sono quelli che l'utente sceglie autonomamente di condividere scrivendo all'indirizzo email istituzionale indicato nella pagina Contatti.</p>
 
       <h2>Segnalazioni</h2>
       <p>Per segnalare imprecisioni nei contenuti o richiedere modifiche, scrivere a <a href="mailto:etelwardo.sigismondi@senato.it">etelwardo.sigismondi@senato.it</a>.</p>
@@ -118,11 +119,15 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-note">Sito non ufficiale — anteprima di lavoro realizzata per la revisione dei contenuti in vista della pubblicazione su etelwardosigismondi.it. Contenuti basati su fonti pubbliche (Senato della Repubblica, Camera dei Deputati, Openpolis) e comunicati già pubblicati dallo staff del Senatore.</p>
+      <p class="footer-note">Sito non ufficiale — anteprima di lavoro realizzata per la revisione dei contenuti in vista della pubblicazione su etelwardosigismondi.it. Questo sito non utilizza cookie né strumenti di tracciamento. Contenuti basati su fonti pubbliche e comunicati già pubblicati dallo staff del Senatore.</p>
       <p>© 2026 Etelwardo Sigismondi</p>
     </div>
   </div>
 </footer>
+
+<button class="back-top" aria-label="Torna in cima">
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="m6 14 6-6 6 6"/></svg>
+</button>
 
 <script src="assets/js/main.js"></script>
 </body>

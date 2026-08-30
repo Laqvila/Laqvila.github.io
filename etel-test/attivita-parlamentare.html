@@ -4,15 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <title>Attività Parlamentare — Etelwardo Sigismondi</title>
 <meta name="description" content="Ruoli in Senato, commissioni permanenti e disegni di legge presentati da Etelwardo Sigismondi nella XIX Legislatura.">
 <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -20,23 +18,17 @@
 <div class="tricolore-stripe" aria-hidden="true"><span></span><span></span><span></span></div>
 <div class="preview-banner"><strong>Anteprima di lavoro</strong> — bozza non ufficiale in revisione con lo staff del Senatore · pagina non indicizzata</div>
 
-<div class="top-bar">
-  <div class="container">
-    <span class="inst">Senato della Repubblica · XIX Legislatura</span>
-    <span class="top-links">
-      <a href="https://www.senato.it/leg/19/BGT/Schede/Attsen/00036424.htm" target="_blank" rel="noopener noreferrer">Senato.it</a>
-      <a href="https://www.facebook.com/EtelwardoSigismondi/" target="_blank" rel="noopener noreferrer">Facebook</a>
-      <a href="https://www.instagram.com/etelsigismondi/" target="_blank" rel="noopener noreferrer">Instagram</a>
-    </span>
-  </div>
-</div>
-
 <header class="site-header">
   <div class="container header-inner">
+    <div class="header-left">
+      <button class="nav-toggle" aria-label="Apri il menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
     <a href="index.html" class="brand-banner">
       <img src="assets/img/abruzzo-in-parlamento.png" alt="L'Abruzzo in Parlamento — Etelwardo Sigismondi, Fratelli d'Italia">
     </a>
-    <button class="nav-toggle" aria-label="Apri il menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <div class="header-right">
+      <a class="pill-link" href="https://www.senato.it/leg/19/BGT/Schede/Attsen/00036424.htm" target="_blank" rel="noopener noreferrer">Senato.it</a>
+    </div>
   </div>
   <div class="nav-bar">
     <nav class="container nav">
@@ -53,6 +45,7 @@
 <main>
 
   <section class="page-hero">
+    <div class="bg" aria-hidden="true"></div>
     <div class="container">
       <p class="breadcrumb"><a href="index.html">Home</a> / Attività Parlamentare</p>
       <h1>Attività Parlamentare</h1>
@@ -60,9 +53,34 @@
     </div>
   </section>
 
+  <section style="padding-bottom:0">
+    <div class="container">
+      <div class="numbers-panel reveal mt-0">
+        <div class="numbers-grid">
+          <div class="number">
+            <div class="value"><span data-count="97.8" data-decimals="1" data-suffix="%">0</span></div>
+            <div class="label">Presenza ai voti in Aula</div>
+          </div>
+          <div class="number">
+            <div class="value"><span data-count="7897">0</span></div>
+            <div class="label">Votazioni elettroniche</div>
+          </div>
+          <div class="number">
+            <div class="value"><span data-count="59">0</span></div>
+            <div class="label">Voti di fiducia</div>
+          </div>
+          <div class="number">
+            <div class="value"><span data-count="97.1" data-decimals="1" data-suffix="%">0</span></div>
+            <div class="label">Indice di affidabilità (Openpolis)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section>
     <div class="container two-col">
-      <div>
+      <div class="reveal">
         <span class="eyebrow">Commissioni permanenti</span>
         <h2>Ruoli in Senato</h2>
 
@@ -84,18 +102,21 @@
           <p>Commissione bicamerale d'inchiesta sulle organizzazioni criminali, anche straniere.</p>
         </div>
 
-        <span class="eyebrow" style="margin-top:20px">In Aula</span>
-        <h2>I numeri del mandato</h2>
-        <div class="stat-row" style="margin-top:0">
-          <div class="stat"><div class="num">97,8%</div><div class="lbl">Presenza ai voti elettronici</div></div>
-          <div class="stat"><div class="num">7.897</div><div class="lbl">Votazioni elettroniche</div></div>
-          <div class="stat"><div class="num">59</div><div class="lbl">Voti di fiducia</div></div>
-          <div class="stat"><div class="num">97,1%</div><div class="lbl">Indice di affidabilità (Openpolis)</div></div>
+        <span class="eyebrow" style="margin-top:26px">Interventi in Commissione</span>
+        <h2>Energia e territorio</h2>
+        <div class="role-block">
+          <span class="tag">Energia</span>
+          <h3>Difesa dell'idroelettrico italiano</h3>
+          <p>Intervento a tutela della filiera idroelettrica nazionale: risorsa fondamentale per la decarbonizzazione, l'indipendenza energetica e la prevenzione del dissesto idrogeologico.</p>
         </div>
-        <p class="small-note mt-lg">Fonti: <a href="https://www.senato.it/leg/19/BGT/Schede/Attsen/00036424.htm" target="_blank" rel="noopener noreferrer">Senato della Repubblica</a>, <a href="https://parlamento19.openpolis.it/persone/etelwardo-sigismondi-1974-09-29" target="_blank" rel="noopener noreferrer">Openpolis</a>. Dati aggiornati ad agosto 2026.</p>
+        <div class="role-block">
+          <span class="tag">Infrastrutture</span>
+          <h3>DL Infrastrutture e ZES unica</h3>
+          <p>Sostegno al decreto Infrastrutture e all'estensione della Zona Economica Speciale a tutto il territorio nazionale.</p>
+        </div>
       </div>
 
-      <div>
+      <div class="reveal d2">
         <span class="eyebrow">Iniziative legislative</span>
         <h2>Disegni di legge, primo firmatario</h2>
 
@@ -120,38 +141,30 @@
           <span class="bill-status progress">Esame in prima lettura</span>
         </div>
 
-        <span class="eyebrow" style="margin-top:20px">Interventi in Commissione</span>
-        <h2>Energia e territorio</h2>
-        <div class="role-block">
-          <span class="tag">Energia</span>
-          <h3>Difesa dell'idroelettrico italiano</h3>
-          <p>Intervento a tutela della filiera idroelettrica nazionale: risorsa fondamentale per la decarbonizzazione, l'indipendenza energetica e la prevenzione del dissesto idrogeologico.</p>
-        </div>
-        <div class="role-block">
-          <span class="tag">Infrastrutture</span>
-          <h3>DL Infrastrutture e ZES unica</h3>
-          <p>Sostegno al decreto Infrastrutture e all'estensione della Zona Economica Speciale a tutto il territorio nazionale.</p>
-        </div>
+        <p class="small-note mt-lg">Fonti: <a href="https://www.senato.it/leg/19/BGT/Schede/Attsen/00036424.htm" target="_blank" rel="noopener noreferrer">Senato della Repubblica</a>, <a href="https://parlamento19.openpolis.it/persone/etelwardo-sigismondi-1974-09-29" target="_blank" rel="noopener noreferrer">Openpolis</a>. Dati aggiornati ad agosto 2026. Sintesi non ufficiali: per i testi integrali si rimanda al sito del Senato.</p>
       </div>
     </div>
   </section>
 
   <section class="band">
     <div class="container">
-      <div class="section-head center">
+      <div class="section-head center reveal">
         <span class="eyebrow on-dark">Sul territorio</span>
         <h2>I temi seguiti in Abruzzo</h2>
       </div>
       <div class="card-grid">
-        <div class="card">
+        <div class="dark-card reveal">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v18M7 7h10M5 7l-2 5a3.5 3.5 0 0 0 7 0L8 7M16 7l-2 5a3.5 3.5 0 0 0 7 0l-2-5M8 21h8"/></svg>
           <h3>Giustizia di prossimità</h3>
           <p>Impegno per il mantenimento dei tribunali sub-provinciali abruzzesi, con l'approvazione del disegno di legge sulla geografia giudiziaria.</p>
         </div>
-        <div class="card">
+        <div class="dark-card reveal d1">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
           <h3>Infrastrutture e ZES</h3>
           <p>Interventi sul decreto Infrastrutture e sull'estensione della Zona Economica Speciale a tutto il territorio nazionale.</p>
         </div>
-        <div class="card">
+        <div class="dark-card reveal d2">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 15a8 8 0 0 1 16 0M12 4v3M2 15h4M18 15h4M12 15v6"/></svg>
           <h3>Sicurezza e Protezione Civile</h3>
           <p>Visite istituzionali a forze dell'ordine e Protezione Civile, tra cui la Questura di L'Aquila e la sede regionale della Protezione Civile.</p>
         </div>
@@ -197,11 +210,15 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-note">Sito non ufficiale — anteprima di lavoro realizzata per la revisione dei contenuti in vista della pubblicazione su etelwardosigismondi.it. Contenuti basati su fonti pubbliche (Senato della Repubblica, Camera dei Deputati, Openpolis) e comunicati già pubblicati dallo staff del Senatore.</p>
+      <p class="footer-note">Sito non ufficiale — anteprima di lavoro realizzata per la revisione dei contenuti in vista della pubblicazione su etelwardosigismondi.it. Questo sito non utilizza cookie né strumenti di tracciamento. Contenuti basati su fonti pubbliche e comunicati già pubblicati dallo staff del Senatore.</p>
       <p>© 2026 Etelwardo Sigismondi</p>
     </div>
   </div>
 </footer>
+
+<button class="back-top" aria-label="Torna in cima">
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="m6 14 6-6 6 6"/></svg>
+</button>
 
 <script src="assets/js/main.js"></script>
 </body>
