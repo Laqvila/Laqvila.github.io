@@ -349,6 +349,32 @@ section{ padding:100px 0; }
 .press-item .go:hover{ background:var(--accent); border-color:var(--accent); color:#06182b; }
 .press-list-col{ display:flex; flex-direction:column; gap:18px; }
 @media (max-width:700px){ .press-item{ grid-template-columns:1fr; } .press-item .go{ justify-self:start; } }
+
+/* ---------- Archivio stampa interno (uso privato, non pubblico) ---------- */
+.press-year-group{ margin-bottom:44px; }
+.press-year-group h3{
+  font-family:var(--serif); font-size:1.3rem; color:var(--accent-2); font-weight:560;
+  margin:0 0 18px; padding-bottom:10px; border-bottom:1px solid var(--line);
+}
+.archive-item{
+  position:relative; display:grid; grid-template-columns:130px 1fr; gap:22px; align-items:center;
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
+  padding:18px; margin-bottom:16px; transition:transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s;
+}
+.archive-item:hover{ transform:translateY(-3px); box-shadow:var(--shadow-2); border-color:rgba(124,192,240,.3); }
+.archive-item .press-thumb{ width:130px; height:92px; border-radius:var(--r-sm); overflow:hidden;
+  background:linear-gradient(135deg, var(--surface-2), var(--bg-2)); display:flex; align-items:center; justify-content:center; }
+.archive-item .press-thumb img{ width:100%; height:100%; object-fit:cover; }
+.archive-item .press-thumb svg{ width:26px; height:26px; color:var(--faint); }
+.archive-item .meta{ font-size:.68rem; text-transform:uppercase; letter-spacing:.06em; color:var(--faint); font-weight:600; margin-bottom:6px; }
+.archive-item .meta .src{ background:var(--accent-dim); color:var(--accent-2); padding:2px 9px; border-radius:999px; margin-left:6px; }
+.archive-item h3{ font-size:.96rem; margin-bottom:6px; line-height:1.4; }
+.archive-item p{ font-size:.82rem; color:var(--muted); margin:0; }
+.editorial-note{
+  position:absolute; top:10px; right:10px; width:9px; height:9px; border-radius:50%;
+  border:1px solid rgba(255,255,255,.3); opacity:.9; pointer-events:none;
+}
+@media (max-width:620px){ .archive-item{ grid-template-columns:1fr; } .archive-item .press-thumb{ width:100%; height:150px; } }
 .media-strip{ display:flex; flex-wrap:wrap; gap:12px 36px; align-items:center; padding:26px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
 .media-strip span{ font-family:var(--serif); font-weight:550; font-size:1.05rem; color:var(--faint); letter-spacing:.02em; }
 
