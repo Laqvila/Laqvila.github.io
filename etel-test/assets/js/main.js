@@ -1,7 +1,13 @@
 (function () {
   "use strict";
 
+  /* Prima istruzione in assoluto: segnala al CSS che il JS e' vivo. Le animazioni di
+     comparsa (.rv) nascondono il contenuto solo sotto questa classe, cosi' con il JS
+     disattivato la pagina resta interamente leggibile. */
+  document.documentElement.classList.add("js");
+
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var isEnglish = (document.documentElement.lang || "it").toLowerCase().indexOf("en") === 0;
 
   /* ---------- Nav: stato scrolled + menu mobile ---------- */
   var nav = document.querySelector(".site-nav");
@@ -27,15 +33,32 @@
   window.addEventListener("scroll", onScroll, { passive: true });
 
   if (toggle && links) {
-    toggle.addEventListener("click", function () {
-      var open = links.classList.toggle("open");
+    function setMenu(open, refocus) {
+      links.classList.toggle("open", open);
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      if (!open && refocus) toggle.focus();
+    }
+    toggle.addEventListener("click", function () {
+      setMenu(!links.classList.contains("open"), false);
     });
     links.querySelectorAll("a").forEach(function (a) {
-      a.addEventListener("click", function () {
-        links.classList.remove("open");
-        toggle.setAttribute("aria-expanded", "false");
-      });
+      a.addEventListener("click", function () { setMenu(false, false); });
+    });
+    /* Esc chiude il menu e riporta il focus sul pulsante che l'ha aperto. */
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && links.classList.contains("open")) setMenu(false, true);
+    });
+    /* Un clic fuori dal menu lo chiude: senza questo resta aperto e copre la pagina. */
+    document.addEventListener("click", function (e) {
+      if (!links.classList.contains("open")) return;
+      if (links.contains(e.target) || toggle.contains(e.target)) return;
+      setMenu(false, false);
+    });
+    /* Il focus non deve poter uscire dal menu aperto senza chiuderlo. */
+    links.addEventListener("focusout", function (e) {
+      if (!links.classList.contains("open")) return;
+      if (e.relatedTarget && (links.contains(e.relatedTarget) || toggle.contains(e.relatedTarget))) return;
+      setMenu(false, false);
     });
   }
 
@@ -93,41 +116,32 @@
   if (tlFill && reduceMotion) tlFill.style.transform = "scaleY(1)";
   if (tl && reduceMotion) tl.querySelectorAll(".tl-item").forEach(function (it) { it.classList.add("in"); });
 
-  /* ---------- Contatori ---------- */
+  /* ---------- Contatori ----------
+     Il valore reale e' gia' scritto nel markup dal generatore: il JS non lo produce,
+     lo anima soltanto. Il conteggio da zero parte SOLO per i contatori visibili al
+     caricamento, cosi' un valore parziale non compare mai come se fosse il dato. */
   function fmt(v, dec, suf) {
-    var s = v.toFixed(dec).replace(".", ",");
-    if (dec === 0 && v >= 1000) s = Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    var decSep = isEnglish ? "." : ",";
+    var thoSep = isEnglish ? "," : ".";
+    var s = v.toFixed(dec).replace(".", decSep);
+    if (dec === 0 && Math.abs(v) >= 1000) {
+      s = Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, thoSep);
+    }
     return s + suf;
   }
-  function animateCounter(el) {
-    var target = parseFloat(el.getAttribute("data-count"));
-    var dec = parseInt(el.getAttribute("data-decimals") || "0", 10);
-    var suf = el.getAttribute("data-suffix") || "";
-    var t0 = null;
-    function step(ts) {
-      if (!t0) t0 = ts;
-      var p = Math.min((ts - t0) / 1600, 1);
-      el.textContent = fmt(target * (1 - Math.pow(1 - p, 3)), dec, suf);
-      if (p < 1) requestAnimationFrame(step);
-      else el.classList.add("counted");
-    }
-    requestAnimationFrame(step);
+  function setCounter(el) {
+    el.textContent = fmt(parseFloat(el.getAttribute("data-count")),
+                         parseInt(el.getAttribute("data-decimals") || "0", 10),
+                         el.getAttribute("data-suffix") || "");
+    el.classList.add("counted");
   }
-  var counters = document.querySelectorAll("[data-count]");
-  if (counters.length) {
-    if ("IntersectionObserver" in window && !reduceMotion) {
-      var cObs = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) { animateCounter(e.target); cObs.unobserve(e.target); }
-        });
-      }, { threshold: 0.5 });
-      counters.forEach(function (el) { cObs.observe(el); });
-    } else {
-      counters.forEach(function (el) {
-        el.textContent = fmt(parseFloat(el.getAttribute("data-count")), parseInt(el.getAttribute("data-decimals") || "0", 10), el.getAttribute("data-suffix") || "");
-      });
-    }
-  }
+  /* Nessun conteggio animato da zero: un contatore che sale mostrerebbe per un attimo
+     valori falsi (12,8% invece di 97,8% sulla presenza ai voti), e sono dati pubblici
+     di un parlamentare in carica. Il movimento resta, ma e' la comparsa del blocco
+     (.rv), non il numero. Il valore a schermo e' sempre quello vero. */
+  document.querySelectorAll("[data-count]").forEach(function (el) {
+    el.classList.add("counted");
+  });
 
   /* ---------- Numeri dashboard da fonte aggiornata ---------- */
   var dataBase = document.body.getAttribute("data-assets") || "assets/";
@@ -140,54 +154,42 @@
         counterEls.forEach(function (el) {
           var key = el.getAttribute("data-num-key");
           if (d[key] === undefined || d[key] === null) return;
+          if (String(d[key]) === el.getAttribute("data-count")) return;   /* gia' aggiornato */
           el.setAttribute("data-count", String(d[key]));
-          if (el.classList.contains("counted")) {
-            el.classList.remove("counted");
-            animateCounter(el);
-          }
+          setCounter(el);   /* sostituzione secca: mai un passaggio da zero sotto gli occhi */
         });
-        var note = document.querySelector("[data-num-updated]");
-        if (note && d.aggiornato) {
-          var p = d.aggiornato.split("-");
-          note.textContent = p[2] + "/" + p[1] + "/" + p[0];
+        if (d.aggiornato && d.aggiornato.length === 10) {
+          var p = d.aggiornato.split("-");            /* [anno, mese, giorno] */
+          var shown = isEnglish ? p[1] + "/" + p[2] + "/" + p[0]
+                                : p[2] + "/" + p[1] + "/" + p[0];
+          document.querySelectorAll("[data-num-updated]").forEach(function (note) {
+            note.textContent = shown;
+          });
         }
       })
       .catch(function () { /* offline o file assente: restano i valori nel markup */ });
   }
 
-  /* ---------- Flash news ticker ---------- */
+  /* ---------- Flash news ticker ----------
+     Le notizie sono gia' nel markup (scritte dal generatore): niente iniezione da JS,
+     quindi niente salto di layout. Qui resta solo il comando di pausa, richiesto dal
+     criterio WCAG 2.2.2 per qualunque movimento che duri piu' di cinque secondi. */
   var ticker = document.querySelector(".ticker");
-  if (ticker) {
-    fetch(dataBase + "data/flash.json", { cache: "no-cache" })
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (d) {
-        if (!d || !d.items || !d.items.length) return;
-        var track = ticker.querySelector(".ticker-track");
-        if (!track) return;
-        function build() {
-          return d.items.map(function (it) {
-            var a = document.createElement("a");
-            a.className = "ticker-item";
-            a.href = it.url;
-            a.target = "_blank";
-            a.rel = "noopener noreferrer";
-            var date = document.createElement("span");
-            date.className = "tk-date";
-            date.textContent = it.data;
-            var src = document.createElement("b");
-            src.textContent = it.testata;
-            var t = document.createElement("span");
-            t.textContent = it.titolo;
-            a.appendChild(date); a.appendChild(src); a.appendChild(t);
-            return a;
-          });
-        }
-        build().forEach(function (n) { track.appendChild(n); });
-        build().forEach(function (n) { n.setAttribute("aria-hidden", "true"); track.appendChild(n); });
-        ticker.removeAttribute("hidden");
-        if (reduceMotion) track.style.animation = "none";
-      })
-      .catch(function () { /* niente ticker se i dati non ci sono */ });
+  var tickerToggle = ticker && ticker.querySelector(".ticker-toggle");
+  if (ticker && tickerToggle) {
+    var track = ticker.querySelector(".ticker-track");
+    if (reduceMotion && track) {
+      track.style.animation = "none";
+      ticker.classList.add("paused");
+      tickerToggle.setAttribute("aria-pressed", "true");
+      tickerToggle.setAttribute("aria-label", tickerToggle.getAttribute("data-label-play") || "");
+    }
+    tickerToggle.addEventListener("click", function () {
+      var paused = ticker.classList.toggle("paused");
+      tickerToggle.setAttribute("aria-pressed", paused ? "true" : "false");
+      var lbl = tickerToggle.getAttribute(paused ? "data-label-play" : "data-label-pause");
+      if (lbl) tickerToggle.setAttribute("aria-label", lbl);
+    });
   }
 
   /* ---------- Card dinamiche allo scroll (fallback senza scroll-driven CSS) ---------- */
@@ -221,8 +223,34 @@
     });
   }
 
+  /* ---------- Filtro rassegna completa (nazionale / locale) ---------- */
+  var prFilters = document.querySelectorAll(".pr-filter");
+  if (prFilters.length) {
+    var prRows = document.querySelectorAll(".pr-row");
+    var prYears = document.querySelectorAll(".pr-year");
+    prFilters.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var scope = btn.getAttribute("data-scope");
+        prFilters.forEach(function (b) {
+          var on = b === btn;
+          b.classList.toggle("active", on);
+          b.setAttribute("aria-pressed", on ? "true" : "false");
+        });
+        prRows.forEach(function (row) {
+          var show = scope === "all" || row.getAttribute("data-scope") === scope;
+          if (show) row.removeAttribute("hidden"); else row.setAttribute("hidden", "");
+        });
+        /* un anno senza piu' righe visibili non deve restare come intestazione vuota */
+        prYears.forEach(function (y) {
+          var any = y.querySelector(".pr-row:not([hidden])");
+          if (any) y.removeAttribute("hidden"); else y.setAttribute("hidden", "");
+        });
+      });
+    });
+  }
+
   /* ---------- Filtro news ---------- */
-  var filterBtns = document.querySelectorAll(".filter-btn");
+  var filterBtns = document.querySelectorAll(".filter-btn[data-filter]");
   var newsCards = document.querySelectorAll(".news-card");
   filterBtns.forEach(function (btn) {
     btn.addEventListener("click", function () {
@@ -239,17 +267,32 @@
   /* ---------- Form contatti (mailto, nessun dato raccolto) ---------- */
   var form = document.getElementById("contact-form");
   if (form) {
+    /* WCAG 3.3.1: l'errore deve essere collegato al campo, non solo colorato.
+       aria-invalid lo segnala, aria-describedby fa leggere il messaggio allo
+       screen reader, e il focus va sul primo campo da correggere. */
+    function clearField(input, field) {
+      field.classList.remove("invalid");
+      input.removeAttribute("aria-invalid");
+      input.removeAttribute("aria-describedby");
+    }
     form.addEventListener("submit", function (ev) {
       ev.preventDefault();
-      var ok = true;
+      var firstBad = null;
       ["cf-name", "cf-subject", "cf-msg"].forEach(function (id) {
         var input = document.getElementById(id);
+        if (!input) return;
         var field = input.closest(".form-field");
-        if (!input.value.trim()) { field.classList.add("invalid"); ok = false; }
-        else field.classList.remove("invalid");
-        input.addEventListener("input", function () { field.classList.remove("invalid"); }, { once: true });
+        if (!input.value.trim()) {
+          field.classList.add("invalid");
+          input.setAttribute("aria-invalid", "true");
+          input.setAttribute("aria-describedby", id + "-err");
+          if (!firstBad) firstBad = input;
+        } else {
+          clearField(input, field);
+        }
+        input.addEventListener("input", function () { clearField(input, field); }, { once: true });
       });
-      if (!ok) return;
+      if (firstBad) { firstBad.focus(); return; }
       var name = document.getElementById("cf-name").value.trim();
       var subject = document.getElementById("cf-subject").value.trim();
       var msg = document.getElementById("cf-msg").value.trim();

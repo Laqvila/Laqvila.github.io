@@ -108,11 +108,27 @@ def main():
         print("Valori non plausibili, scartati:", d)
         return 1
 
-    # dati non presenti su Openpolis, mantenuti manualmente
-    d["comunicati"] = prev.get("comunicati", 41)
-    d["fonte"] = URL
-    d["aggiornato"] = datetime.date.today().isoformat()
+    # Fusione sui valori precedenti invece di sostituzione secca: se Openpolis cambia
+    # markup e una voce non viene piu' riconosciuta, resta l'ultimo valore buono
+    # invece di sparire dal file. Senza questo, un JSON incompleto bloccherebbe la
+    # generazione del sito (gen_site.py si ferma se manca una chiave obbligatoria).
+    out = dict(prev)
+    out.update(d)
 
+    # dati non presenti su Openpolis, mantenuti manualmente
+    out["comunicati"] = prev.get("comunicati", 41)
+    out["fonte"] = URL
+    out["aggiornato"] = datetime.date.today().isoformat()
+
+    RICHIESTE = ("presenza_pct", "votazioni", "comunicati", "ddl", "fiducia", "affidabilita")
+    mancanti = [k for k in RICHIESTE
+                if not isinstance(out.get(k), (int, float)) or out.get(k) in (0, None)]
+    if mancanti:
+        print("Valori mancanti o nulli per %s: non riscrivo il file, i KPI pubblici "
+              "resterebbero senza dato." % ", ".join(mancanti))
+        return 1
+
+    d = out
     changed = any(prev.get(k) != d.get(k) for k in
                   ("presenza_pct", "votazioni", "fiducia", "ddl", "affidabilita", "ribelli", "comunicati"))
     os.makedirs(os.path.dirname(OUT), exist_ok=True)

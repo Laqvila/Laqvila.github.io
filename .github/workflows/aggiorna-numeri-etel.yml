@@ -29,12 +29,19 @@ jobs:
           ETEL_SITE_DIR: ${{ github.workspace }}/etel-test
         run: python etel-test/tools/aggiorna_numeri.py
 
+      # I KPI sono scritti anche nel markup, cosi' restano corretti senza JavaScript:
+      # vanno quindi propagati nelle pagine, non solo nel JSON.
+      - name: Propaga i numeri nelle pagine
+        env:
+          ETEL_SITE_DIR: ${{ github.workspace }}/etel-test
+        run: python etel-test/tools/applica_numeri.py
+
       - name: Commit se cambiato
         run: |
-          if [[ -n "$(git status --porcelain etel-test/assets/data/numeri.json)" ]]; then
+          if [[ -n "$(git status --porcelain etel-test/)" ]]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add etel-test/assets/data/numeri.json
+            git add etel-test/
             git commit -m "Aggiornamento automatico numeri dashboard Etel"
             git push
           else
