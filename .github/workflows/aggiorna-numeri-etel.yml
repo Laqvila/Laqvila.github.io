@@ -1,0 +1,42 @@
+name: Aggiorna numeri sito Etel
+
+# Aggiorna settimanalmente i numeri della dashboard di /etel-test/
+# leggendoli dalla scheda pubblica Openpolis del senatore.
+on:
+  schedule:
+    - cron: "0 5 * * 1"   # ogni lunedì alle 05:00 UTC
+  workflow_dispatch:       # avvio manuale dal tab Actions
+
+permissions:
+  contents: write
+
+concurrency:
+  group: aggiorna-numeri-etel
+  cancel-in-progress: false
+
+jobs:
+  aggiorna:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Aggiorna numeri.json da Openpolis
+        env:
+          ETEL_SITE_DIR: ${{ github.workspace }}/etel-test
+        run: python etel-test/tools/aggiorna_numeri.py
+
+      - name: Commit se cambiato
+        run: |
+          if [[ -n "$(git status --porcelain etel-test/assets/data/numeri.json)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add etel-test/assets/data/numeri.json
+            git commit -m "Aggiornamento automatico numeri dashboard Etel"
+            git push
+          else
+            echo "Nessuna variazione nei numeri."
+          fi

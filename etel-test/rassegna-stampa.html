@@ -21,7 +21,7 @@
 <link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
+<body data-assets="assets/">
 
 <div class="scroll-progress" aria-hidden="true"></div>
 <div class="preview-banner"><strong>Anteprima di lavoro</strong> — bozza non ufficiale in revisione con lo staff del Senatore · pagina non indicizzata</div>
@@ -52,6 +52,13 @@
     </div>
   </div>
 </nav>
+
+<div class="ticker" hidden>
+  <div class="container ticker-inner">
+    <span class="ticker-label"><span>Ultime notizie</span></span>
+    <div class="ticker-track"></div>
+  </div>
+</div>
 
 <main>
   <header class="page-hero">

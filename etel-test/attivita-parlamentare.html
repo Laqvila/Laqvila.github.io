@@ -21,7 +21,7 @@
 <link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
+<body data-assets="assets/">
 
 <div class="scroll-progress" aria-hidden="true"></div>
 <div class="preview-banner"><strong>Anteprima di lavoro</strong> — bozza non ufficiale in revisione con lo staff del Senatore · pagina non indicizzata</div>
@@ -53,6 +53,13 @@
   </div>
 </nav>
 
+<div class="ticker" hidden>
+  <div class="container ticker-inner">
+    <span class="ticker-label"><span>Ultime notizie</span></span>
+    <div class="ticker-track"></div>
+  </div>
+</div>
+
 <main>
   <header class="page-hero">
     <div class="aurora" aria-hidden="true"></div>
@@ -65,11 +72,12 @@
 
   <div class="counters" aria-label="I numeri del mandato">
     <div class="container counters-grid">
-      <div class="counter rv"><div class="val"><span data-count="97.8" data-decimals="1" data-suffix="%">0</span></div><div class="lbl">Presenza ai voti in Aula</div><div class="src">Fonte: Openpolis</div></div>
-      <div class="counter rv d1"><div class="val"><span data-count="7897">0</span></div><div class="lbl">Votazioni elettroniche</div><div class="src">XIX Legislatura</div></div>
-      <div class="counter rv d2"><div class="val"><span data-count="59">0</span></div><div class="lbl">Voti di fiducia</div><div class="src">XIX Legislatura</div></div>
-      <div class="counter rv d3"><div class="val"><span data-count="97.1" data-decimals="1" data-suffix="%">0</span></div><div class="lbl">Indice di affidabilità</div><div class="src">Fonte: Openpolis</div></div>
+      <div class="counter rv"><div class="val"><span data-count="97.8" data-decimals="1" data-suffix="%" data-num-key="presenza_pct">0</span></div><div class="lbl">Presenza ai voti in Aula</div><div class="src">Fonte: Openpolis</div></div>
+      <div class="counter rv d1"><div class="val"><span data-count="7897" data-num-key="votazioni">0</span></div><div class="lbl">Votazioni elettroniche</div><div class="src">XIX Legislatura</div></div>
+      <div class="counter rv d2"><div class="val"><span data-count="59" data-num-key="fiducia">0</span></div><div class="lbl">Voti di fiducia</div><div class="src">XIX Legislatura</div></div>
+      <div class="counter rv d3"><div class="val"><span data-count="97.1" data-decimals="1" data-suffix="%" data-num-key="affidabilita">0</span></div><div class="lbl">Indice di affidabilità</div><div class="src">Fonte: Openpolis</div></div>
     </div>
+    <p class="counters-note">Dati verificati e aggiornati automaticamente ogni settimana da Openpolis · ultimo aggiornamento <span data-num-updated>05/09/2026</span></p>
   </div>
 
   <section>

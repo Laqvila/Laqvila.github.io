@@ -21,7 +21,7 @@
 <link rel="preload" href="../assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../assets/css/style.css">
 </head>
-<body>
+<body data-assets="../assets/">
 
 <div class="scroll-progress" aria-hidden="true"></div>
 <div class="preview-banner"><strong>Vista previa de trabajo</strong> — borrador no oficial en revisión con el equipo del Senador · página no indexada</div>
@@ -53,6 +53,13 @@
   </div>
 </nav>
 
+<div class="ticker" hidden>
+  <div class="container ticker-inner">
+    <span class="ticker-label"><span>Últimas noticias</span></span>
+    <div class="ticker-track"></div>
+  </div>
+</div>
+
 <main>
 
   <div class="hero-photo">
@@ -78,11 +85,12 @@
 
   <div class="counters" aria-label="Las cifras del mandato">
     <div class="container counters-grid">
-      <div class="counter rv"><div class="val"><span data-count="97.8" data-decimals="1" data-suffix="%">0</span></div><div class="lbl">Asistencia a las votaciones en el Pleno</div><div class="src">Fuente: Openpolis</div></div>
-      <div class="counter rv d1"><div class="val"><span data-count="7897">0</span></div><div class="lbl">Votaciones electrónicas</div><div class="src">XIX Legislatura</div></div>
-      <div class="counter rv d2"><div class="val"><span data-count="41">0</span></div><div class="lbl">Comunicados publicados</div><div class="src">Desde 2023</div></div>
-      <div class="counter rv d3"><div class="val"><span data-count="3">0</span></div><div class="lbl">Proyectos de ley como primer firmante</div><div class="src">Senado de la República</div></div>
+      <div class="counter rv"><div class="val"><span data-count="97.8" data-decimals="1" data-suffix="%" data-num-key="presenza_pct">0</span></div><div class="lbl">Asistencia a las votaciones en el Pleno</div><div class="src">Fuente: Openpolis</div></div>
+      <div class="counter rv d1"><div class="val"><span data-count="7897" data-num-key="votazioni">0</span></div><div class="lbl">Votaciones electrónicas</div><div class="src">XIX Legislatura</div></div>
+      <div class="counter rv d2"><div class="val"><span data-count="41" data-num-key="comunicati">0</span></div><div class="lbl">Comunicados publicados</div><div class="src">Desde 2023</div></div>
+      <div class="counter rv d3"><div class="val"><span data-count="3" data-num-key="ddl">0</span></div><div class="lbl">Proyectos de ley como primer firmante</div><div class="src">Senado de la República</div></div>
     </div>
+    <p class="counters-note">Datos verificados y actualizados automáticamente cada semana desde Openpolis · última actualización <span data-num-updated>05/09/2026</span></p>
   </div>
 
   <section>
