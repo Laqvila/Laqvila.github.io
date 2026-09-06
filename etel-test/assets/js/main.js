@@ -69,6 +69,27 @@
     rvEls.forEach(function (el) { el.classList.add("in"); });
   }
 
+  /* ---------- Spotlight al cursore ----------
+     Un alone di luce statico (radial-gradient) che segue il mouse su un numero
+     limitato di superfici. Throttled con requestAnimationFrame, mai su schermi
+     touch (matchMedia hover:hover) e mai con reduced-motion: e' pura decorazione,
+     nessuna informazione dipende da questo effetto. */
+  if (!reduceMotion && window.matchMedia("(hover: hover)").matches) {
+    var spotEls = document.querySelectorAll(".spotlight");
+    var pending = null;
+    spotEls.forEach(function (el) {
+      el.addEventListener("pointermove", function (e) {
+        if (pending) return;
+        pending = requestAnimationFrame(function () {
+          var r = el.getBoundingClientRect();
+          el.style.setProperty("--mx", (e.clientX - r.left) + "px");
+          el.style.setProperty("--my", (e.clientY - r.top) + "px");
+          pending = null;
+        });
+      });
+    });
+  }
+
   /* ---------- Timeline: filtri descritti nell'URL (?f=... &t=...) ----------
      I filtri sono link: senza JS portano alla stessa pagina con la query e la timeline
      resta completa. Con JS il filtro si applica in pagina, l'URL viene aggiornato e il
