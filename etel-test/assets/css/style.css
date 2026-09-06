@@ -16,30 +16,38 @@
 }
 
 /* ---------- Token ----------
-   Contrasti verificati (vedi _source): ink/canvas 15,6:1, text-2/canvas 5,7:1,
-   accent/canvas 6,7:1, bianco/ink-deep 15,7:1, bianco/warm 5,9:1, bianco/accent
-   7,6:1, border-2/surface 3,7:1 (soglia bordi 3:1). Nessuna coppia sotto soglia. */
+   Palette "Azzurro Istituzionale": blu Fratelli d'Italia come colore di marchio,
+   più chiaro nella fascia dell'hero, più profondo nel footer. Terracotta come
+   secondo accento (CTA), oro solo per dettagli decorativi. Nessun verde.
+   Contrasti verificati in Python prima di scrivere questi valori (vedi
+   _source): ink/canvas 14,6:1, text-2/canvas 6,3:1, accent/canvas 7,7:1,
+   bianco/accent 8,3:1, bianco/brand-light 6,0:1, bianco/ink-deep 12,3:1,
+   bianco/warm 5,1:1, border-2/surface 3,4:1 (soglia bordi 3:1). Nessuna
+   coppia sotto soglia. */
 :root{
-  --ink-deep:   #0F262D;   /* blu petrolio profondo — hero, footer, band scure */
-  --ink-deep-2: #163038;
-  --ink:        #171A19;   /* testo principale, quasi nero caldo */
-  --text-2:     #54615F;   /* testo secondario */
-  --canvas:     #F5F1E8;   /* fondo pagina, avorio caldo */
-  --canvas-2:   #EFE9DC;
+  --ink-deep:   #123464;   /* blu istituzionale profondo — footer, band scure */
+  --ink-deep-2: #0D2650;
+  --brand-light:#2B63AC;   /* blu più chiaro — SOLO sfondo hero, "un po' più chiaro" richiesto */
+  --ink:        #16233A;   /* testo principale, blu-inchiostro */
+  --text-2:     #4C5C74;   /* testo secondario, blu-grigio */
+  --canvas:     #F5F7FA;   /* fondo pagina, bianco-azzurro */
+  --canvas-2:   #EBF0F7;
   --surface:    #FFFFFF;
-  --surface-warm:#FFFCF6;
-  --border:     rgba(23,26,25,.12);
-  --border-2:   #8A8477;
-  --accent:     #1F5C63;   /* teal petrolio — CTA primaria, link, focus */
-  --accent-deep:#153F44;
-  --accent-bg:  #E4EEEE;
-  --warm:       #A6472E;   /* terracotta — badge categoria, secondo accento */
-  --warm-deep:  #7C331F;
-  --warm-bg:    #F3E4DE;
-  --gold:       #B5883A;   /* oro raro — dettagli, divisori, citazioni */
-  --green:      #2F5D50;   /* solo semantico: stato "Concluso" */
-  --on-dark:    #F5F1E8;
-  --on-dark-2:  rgba(245,241,232,.72);
+  --surface-warm:#FBFCFE;
+  --border:     rgba(22,35,58,.12);
+  --border-2:   #7C8CA6;
+  --accent:     #1E4E8C;   /* blu Fratelli d'Italia — CTA secondaria, link, focus */
+  --accent-deep:#163B6E;
+  --accent-bg:  #E3EBF6;
+  --warm:       #B5502E;   /* terracotta — CTA primaria, badge "Memoria" */
+  --warm-deep:  #8A3A1F;
+  --warm-bg:    #F5E4DC;
+  --gold:       #B5883A;   /* oro raro — SOLO decorativo (bordi, divisori, citazioni) */
+  --gold-light: #E0B45A;   /* oro chiaro — testo su sfondo scuro (eyebrow) */
+  --gold-bg:    #F3E9D2;   /* badge territorio: sostituisce il verde */
+  --gold-deep:  #7A5A1E;
+  --on-dark:    #FFFFFF;
+  --on-dark-2:  rgba(255,255,255,.85);
 
   --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
   --sans:  "Inter", "Segoe UI", Roboto, Arial, sans-serif;
@@ -124,8 +132,18 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--accent); outline-of
   flex-wrap:wrap; max-width:100%; overflow-wrap:anywhere;
 }
 .eyebrow::before{ content:""; width:26px; height:2px; background:var(--warm); flex-shrink:0; }
-.eyebrow.on-dark{ color:var(--gold); }
-.eyebrow.on-dark::before{ background:var(--gold); }
+.eyebrow.on-dark{ color:var(--gold-light); }
+.eyebrow.on-dark::before{ background:var(--gold-light); }
+/* Sezioni a tema territoriale (Abruzzo): oro invece del terracotta di default,
+   in tono con i badge ".tag.abruzzo" — mai il verde. */
+.eyebrow.green{ color:var(--gold-deep); }
+.eyebrow.green::before{ background:var(--gold-deep); }
+/* --gold-light regge il contrasto sui fondi scuri (ink-deep) ma non basta
+   sull'hero, piu' chiaro (--brand-light): misurato 3,1:1, sotto il 4,5:1
+   richiesto per testo piccolo. --gold-bg (avorio caldo) resta nella stessa
+   famiglia cromatica e sale a 5:1. */
+.hero .eyebrow.on-dark{ color:var(--gold-bg); }
+.hero .eyebrow.on-dark::before{ background:var(--gold-bg); }
 .lede{ font-size:clamp(1.05rem, 1rem + .4vw, 1.28rem); color:var(--text-2); line-height:1.55; max-width:62ch; }
 .band-dark .lede{ color:var(--on-dark-2); }
 .small{ font-size:.86rem; color:var(--text-2); }
@@ -175,12 +193,26 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--accent); outline-of
   background:var(--ink-deep); color:#fff; font-size:.8rem; text-align:center;
   padding:9px var(--s-4); border-bottom:1px solid rgba(255,255,255,.12);
 }
-.preview-banner strong{ font-weight:700; letter-spacing:.07em; text-transform:uppercase; margin-right:6px; color:var(--gold); }
+.preview-banner strong{ font-weight:700; letter-spacing:.07em; text-transform:uppercase; margin-right:6px; color:var(--gold-light); }
+/* Su telefono la fascia sopra l'header (banner + lingue) occupava troppo
+   spazio prima del contenuto vero: la frase descrittiva si nasconde (resta
+   solo l'etichetta), la barra lingue/social si abbassa un poco. */
+@media (max-width:480px){
+  .preview-banner{ padding:7px var(--s-4); }
+  .preview-banner .pv-detail{ display:none; }
+  .site-header{ --topbar-h:34px; }
+  .lang-switch a{ min-width:26px; min-height:26px; font-size:.7rem; }
+  .social-mini a{ width:26px; height:26px; }
+}
 
 /* ---------- Header ---------- */
-.site-header{ position:sticky; top:calc(-1 * var(--topbar-h, 40px)); z-index:200; background:var(--surface); border-bottom:1px solid var(--border); }
+/* --topbar-h vive sull'ANTENATO comune (site-header): una proprietà custom si
+   eredita solo verso il basso, definirla sul figlio .header-top non la
+   rendeva visibile qui — lo scorrimento "sticky" restava sempre al valore
+   di default anche quando la fascia si comprimeva su mobile. */
+.site-header{ --topbar-h:40px; position:sticky; top:calc(-1 * var(--topbar-h)); z-index:200; background:var(--surface); border-bottom:1px solid var(--border); }
 .header-top{
-  --topbar-h:40px; height:var(--topbar-h); display:flex; align-items:center; justify-content:space-between; gap:var(--s-4);
+  height:var(--topbar-h); display:flex; align-items:center; justify-content:space-between; gap:var(--s-4);
   font-size:.8rem; color:var(--text-2); border-bottom:1px solid var(--border); background:var(--canvas-2);
 }
 .header-top .role{ font-weight:500; letter-spacing:.01em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
@@ -290,14 +322,14 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--accent); outline-of
   background:var(--accent-bg); color:var(--accent-deep); text-decoration:none; white-space:normal; text-align:left; line-height:1.3;
 }
 .tag.memoria{ background:var(--warm-bg); color:var(--warm-deep); }
-.tag.green, .tag.abruzzo{ background:#E4EBE7; color:var(--green); }
+.tag.green, .tag.abruzzo{ background:var(--gold-bg); color:var(--gold-deep); }
 .tag.on-photo{ background:rgba(15,38,45,.82); color:#fff; backdrop-filter:none; }
 .status{ display:inline-flex; align-items:center; gap:7px; font-size:.78rem; font-weight:600; color:var(--ink); white-space:normal; }
 .band-dark .status{ color:#fff; }
 .status::before{ content:""; width:9px; height:9px; border-radius:50%; background:var(--text-2); flex-shrink:0; }
 .status.in-corso::before{ background:var(--accent); }
 .status.in-esame::before{ background:var(--gold); }
-.status.concluso::before{ background:var(--green); }
+.status.concluso::before{ background:var(--ink-deep); }
 .status.aggiornamento::before{ background:var(--warm); }
 .status.archiviato::before{ background:var(--border-2); }
 .meta-line{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--s-2) var(--s-3); font-size:.82rem; color:var(--text-2); }
@@ -393,13 +425,16 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--accent); outline-of
 /* ---------- Hero ----------
    Fascia scura petrolio con aurora tenue (radiali sfumati, 2 tinte, molto
    contenuta), ritratto con cornice a doppia linea, numerale filigrana. */
-.hero{ background:var(--ink-deep); color:var(--on-dark); position:relative; overflow:clip; border-bottom:3px solid var(--warm); }
+/* Fascia più chiara del footer ("un po' più chiaro" richiesto): blu Fratelli
+   d'Italia vivo, non il petrolio quasi nero del footer. Aurora ricomposta
+   solo con tinte della stessa famiglia (blu profondo + velo bianco): la
+   versione precedente mescolava un teal che sulla foto leggeva come verde. */
+.hero{ background:var(--brand-light); color:var(--on-dark); position:relative; overflow:clip; border-bottom:3px solid var(--warm); }
 .hero::before{
   content:""; position:absolute; inset:0; pointer-events:none;
   background:
-    radial-gradient(46% 60% at 8% 8%, rgba(31,92,99,.5), transparent 62%),
-    radial-gradient(38% 55% at 96% 92%, rgba(166,71,46,.32), transparent 60%),
-    radial-gradient(70% 90% at 55% 120%, rgba(181,136,58,.10), transparent 70%);
+    radial-gradient(60% 70% at 100% 0%, rgba(255,255,255,.14), transparent 62%),
+    radial-gradient(55% 65% at 0% 100%, rgba(18,52,100,.45), transparent 65%);
 }
 .hero-watermark{
   position:absolute; right:-2vw; top:50%; transform:translateY(-50%); z-index:0; pointer-events:none;
@@ -410,10 +445,18 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--accent); outline-of
 @media (min-width:900px){ .hero-grid{ grid-template-columns:minmax(0, 7fr) minmax(0, 5fr); gap:var(--s-8); padding:var(--s-9) 0; } }
 .hero h1{ margin-bottom:var(--s-3); color:#fff; }
 .hero h1 .light{ font-weight:220; }
-.hero h1 .bold{ font-weight:640; color:var(--gold); }
+/* --gold (usato altrove su fondi chiari/scuri diversi) sull'hero risultava
+   1,9:1 — quasi illeggibile. --gold-light sale a 3,1:1, sufficiente per
+   testo grande (titolo) sul fondo --brand-light dell'hero. */
+.hero h1 .bold{ font-weight:640; color:var(--gold-light); }
 .hero .role-line{ font-family:var(--serif); font-size:clamp(1.1rem, 1rem + .6vw, 1.4rem); color:#fff; margin-bottom:var(--s-4); }
 .hero-mandate{ font-size:clamp(1rem, .95rem + .35vw, 1.15rem); color:var(--on-dark-2); max-width:56ch; line-height:1.6; margin:0; }
 .hero-actions{ display:flex; flex-wrap:wrap; gap:var(--s-3); margin-top:var(--s-5); }
+/* Bug reale trovato in produzione: .btn-secondary di default usa testo scuro
+   (pensato per sfondi chiari) — nell'hero scuro il pulsante "Scrivi al
+   Senatore" risultava praticamente invisibile (contrasto 1,1:1). */
+.hero .btn-secondary{ color:#fff; border-color:rgba(255,255,255,.55); }
+.hero .btn-secondary:hover{ border-color:#fff; color:#fff; background:rgba(255,255,255,.14); }
 .hero-figure{ position:relative; margin:0; max-width:400px; justify-self:center; }
 @media (min-width:900px){ .hero-figure{ justify-self:end; } }
 .hero-figure::before{ content:""; position:absolute; inset:16px -16px -16px 16px; border:1px solid var(--gold); border-radius:var(--r-lg); z-index:0; opacity:.55; }
@@ -440,8 +483,8 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--accent); outline-of
 .now-card .scrim{ position:absolute; inset:0; z-index:1; background:linear-gradient(0deg, rgba(15,38,45,.94) 10%, rgba(15,38,45,.58) 50%, rgba(15,38,45,.2) 100%); }
 .now-card > *:not(.media):not(.scrim){ position:relative; z-index:2; }
 .now-card .card-head{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--s-2); margin-bottom:var(--s-2); }
-.now-card .eyebrow{ color:var(--gold); }
-.now-card .eyebrow::before{ background:var(--gold); }
+.now-card .eyebrow{ color:var(--gold-light); }
+.now-card .eyebrow::before{ background:var(--gold-light); }
 .now-card h2{ color:#fff; font-size:clamp(1.5rem, 1.1rem + 1.4vw, 2rem); margin:0 0 var(--s-2); }
 .now-card p{ color:rgba(255,255,255,.88); margin:0; }
 .now-card .tag{ background:rgba(255,255,255,.16); color:#fff; }
@@ -491,7 +534,7 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--accent); outline-of
 .dossier-head{ display:grid; gap:var(--s-5); padding-bottom:var(--s-6); }
 @media (min-width:900px){ .dossier-head{ grid-template-columns:minmax(0, 2fr) minmax(0, 1fr); align-items:start; } }
 .status-box{ background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--accent); border-radius:var(--r-lg); padding:var(--s-5); display:grid; gap:var(--s-2); min-width:0; overflow-wrap:break-word; }
-.status-box.concluso{ border-left-color:var(--green); }
+.status-box.concluso{ border-left-color:var(--ink-deep); }
 .status-box.in-esame{ border-left-color:var(--gold); }
 .status-box.aggiornamento{ border-left-color:var(--warm); }
 .status-box h2{ font-family:var(--sans); font-size:.78rem; letter-spacing:.06em; text-transform:uppercase; color:var(--text-2); margin:0; }
@@ -505,7 +548,7 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--accent); outline-of
 .chrono::before{ content:""; position:absolute; left:7px; top:8px; bottom:8px; width:2px; background:var(--border-2); }
 .chrono li{ position:relative; padding:0 0 var(--s-5) var(--s-6); max-width:none; }
 .chrono li::before{ content:""; position:absolute; left:0; top:6px; width:16px; height:16px; border-radius:50%; background:var(--surface); border:3px solid var(--accent); }
-.chrono li.done::before{ border-color:var(--green); background:var(--green); }
+.chrono li.done::before{ border-color:var(--ink-deep); background:var(--ink-deep); }
 .chrono time{ display:block; font-size:.82rem; font-weight:600; color:var(--text-2); margin-bottom:2px; }
 .chrono p{ margin:0; }
 .chrono .src{ font-size:.82rem; }
