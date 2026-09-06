@@ -17,9 +17,18 @@ SITE = os.environ.get("ETEL_SITE_DIR") or os.path.dirname(os.path.dirname(os.pat
 NUMERI = os.path.join(SITE, "assets", "data", "numeri.json")
 
 
+# decimali e suffisso per chiave: il markup v6 non li porta piu' come attributi
+FORMATO = {"presenza_pct": (1, "%"), "affidabilita": (1, "%")}
+
+
 def fmt_num(v, lang, decimals, suffix):
-    """Stessa formattazione di _source/gen_site.py e di assets/js/main.js."""
-    dec_sep, tho_sep = (".", ",") if lang == "en" else (",", ".")
+    """Stessa formattazione di _source/gen_site.py (il francese separa le migliaia con lo spazio insecabile)."""
+    if lang == "en":
+        dec_sep, tho_sep = ".", ","
+    elif lang == "fr":
+        dec_sep, tho_sep = ",", " "
+    else:
+        dec_sep, tho_sep = ",", "."
     if decimals:
         s = ("%.*f" % (decimals, float(v))).replace(".", dec_sep)
     else:
@@ -50,9 +59,11 @@ def main():
         return 1
 
     data_iso = num.get("aggiornato", "")
+    # markup v6: <div class="kpi-value" data-num-key="KEY" data-count="VAL">VAL formattato</div>
     span_re = re.compile(
-        r'(<span\s+data-count=")([^"]*)("[^>]*?data-num-key="([a-z_]+)"[^>]*>)([^<]*)(</span>)')
-    upd_re = re.compile(r'(<span data-num-updated>)([^<]*)(</span>)')
+        r'(<div class="kpi-value" data-num-key="([a-z_]+)" data-count=")([^"]*)(">)([^<]*)(</div>)')
+    # markup v6: <time datetime="AAAA-MM-GG" data-num-updated>data formattata</time>
+    upd_re = re.compile(r'(<time datetime=")([^"]*)(" data-num-updated>)([^<]*)(</time>)')
 
     toccate = 0
     for root, _dirs, files in os.walk(SITE):
@@ -65,22 +76,22 @@ def main():
             lang = m.group(1) if m else "it"
 
             def sub(mo):
-                key = mo.group(4)
+                key = mo.group(2)
                 if key not in usabili:
                     return mo.group(0)
-                head = mo.group(3)
-                dec = int((re.search(r'data-decimals="(\d+)"', head) or [0, "0"])[1])
-                suf_m = re.search(r'data-suffix="([^"]*)"', head)
-                suf = suf_m.group(1) if suf_m else ""
+                dec, suf = FORMATO.get(key, (0, ""))
                 val = usabili[key]
-                return "%s%s%s%s%s" % (mo.group(1), val, head,
+                return "%s%s%s%s%s" % (mo.group(1), val, mo.group(4),
                                        fmt_num(val, lang, dec, suf), mo.group(6))
 
             out = span_re.sub(sub, src)
             if data_iso and len(data_iso) == 10:
                 y, mth, d = data_iso.split("-")
-                shown = "%s/%s/%s" % (mth, d, y) if lang == "en" else "%s/%s/%s" % (d, mth, y)
-                out = upd_re.sub(lambda mo: mo.group(1) + shown + mo.group(3), out)
+                if lang == "de":
+                    shown = "%s.%s.%s" % (d, mth, y)
+                else:
+                    shown = "%s/%s/%s" % (d, mth, y)
+                out = upd_re.sub(lambda mo: mo.group(1) + data_iso + mo.group(3) + shown + mo.group(5), out)
             if out != src:
                 open(path, "w", encoding="utf-8").write(out)
                 toccate += 1

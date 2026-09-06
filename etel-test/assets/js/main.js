@@ -1,60 +1,40 @@
 (function () {
   "use strict";
 
-  /* Prima istruzione in assoluto: segnala al CSS che il JS e' vivo. Le animazioni di
-     comparsa (.rv) nascondono il contenuto solo sotto questa classe, cosi' con il JS
-     disattivato la pagina resta interamente leggibile. */
+  /* Prima istruzione: segnala al CSS che il JS e' vivo. Le animazioni di comparsa (.rv)
+     nascondono il contenuto solo sotto questa classe: senza script tutto resta visibile. */
   document.documentElement.classList.add("js");
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var isEnglish = (document.documentElement.lang || "it").toLowerCase().indexOf("en") === 0;
+  var lang = (document.body.getAttribute("data-lang") || "it").toLowerCase();
+  var assets = document.body.getAttribute("data-assets") || "assets/";
+  var root = document.body.getAttribute("data-root") || "";
 
-  /* ---------- Nav: stato scrolled + menu mobile ---------- */
-  var nav = document.querySelector(".site-nav");
+  /* ---------- Menu mobile: pulsante, Esc, clic fuori, focus ---------- */
   var toggle = document.querySelector(".nav-toggle");
   var links = document.querySelector(".nav-links");
-  var backTop = document.querySelector(".back-top");
-
-  var heroImg = document.querySelector(".hero-photo img");
-  var progress = document.querySelector(".scroll-progress");
-  function onScroll() {
-    var y = window.scrollY;
-    if (nav) nav.classList.toggle("scrolled", y > 24);
-    if (backTop) backTop.classList.toggle("show", y > 700);
-    if (heroImg && !reduceMotion && window.innerWidth > 720) {
-      heroImg.style.transform = "translateY(" + Math.min(y * 0.12, 90) + "px) scale(1.06)";
-    }
-    if (progress) {
-      var max = document.documentElement.scrollHeight - window.innerHeight;
-      progress.style.transform = "scaleX(" + (max > 0 ? y / max : 0) + ")";
-    }
-    drawTimeline();
-  }
-  window.addEventListener("scroll", onScroll, { passive: true });
-
   if (toggle && links) {
     function setMenu(open, refocus) {
       links.classList.toggle("open", open);
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
-      if (!open && refocus) toggle.focus();
+      var lbl = toggle.getAttribute(open ? "data-label-close" : "data-label-open");
+      if (lbl) toggle.setAttribute("aria-label", lbl);
+      if (open) {
+        var first = links.querySelector("a");
+        if (first) first.focus();
+      } else if (refocus) {
+        toggle.focus();
+      }
     }
-    toggle.addEventListener("click", function () {
-      setMenu(!links.classList.contains("open"), false);
-    });
-    links.querySelectorAll("a").forEach(function (a) {
-      a.addEventListener("click", function () { setMenu(false, false); });
-    });
-    /* Esc chiude il menu e riporta il focus sul pulsante che l'ha aperto. */
+    toggle.addEventListener("click", function () { setMenu(!links.classList.contains("open"), false); });
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && links.classList.contains("open")) setMenu(false, true);
     });
-    /* Un clic fuori dal menu lo chiude: senza questo resta aperto e copre la pagina. */
     document.addEventListener("click", function (e) {
       if (!links.classList.contains("open")) return;
       if (links.contains(e.target) || toggle.contains(e.target)) return;
       setMenu(false, false);
     });
-    /* Il focus non deve poter uscire dal menu aperto senza chiuderlo. */
     links.addEventListener("focusout", function (e) {
       if (!links.classList.contains("open")) return;
       if (e.relatedTarget && (links.contains(e.relatedTarget) || toggle.contains(e.relatedTarget))) return;
@@ -62,214 +42,200 @@
     });
   }
 
+  /* ---------- Torna in cima ---------- */
+  var backTop = document.querySelector(".back-top");
+  function onScroll() {
+    if (backTop) backTop.classList.toggle("show", window.scrollY > 900);
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
   if (backTop) {
     backTop.addEventListener("click", function () {
       window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+      var main = document.getElementById("contenuto");
+      if (main) main.focus({ preventScroll: true });
     });
   }
 
-  /* ---------- Reveal allo scroll ---------- */
+  /* ---------- Comparsa discreta all'ingresso nel viewport ---------- */
   var rvEls = document.querySelectorAll(".rv");
   if (rvEls.length && "IntersectionObserver" in window && !reduceMotion) {
     var rvObs = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (e.isIntersecting) { e.target.classList.add("in"); rvObs.unobserve(e.target); }
       });
-    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    }, { threshold: 0.08, rootMargin: "0px 0px -24px 0px" });
     rvEls.forEach(function (el) { rvObs.observe(el); });
   } else {
     rvEls.forEach(function (el) { el.classList.add("in"); });
   }
 
-  /* ---------- Reveal parola per parola (hero) ---------- */
-  var wr = document.querySelector("[data-words]");
-  if (wr) {
-    var words = wr.textContent.trim().split(/\s+/);
-    wr.textContent = "";
-    words.forEach(function (w, i) {
-      var s = document.createElement("span");
-      s.className = "w";
-      s.style.transitionDelay = (0.15 + i * 0.09) + "s";
-      s.textContent = w;
-      wr.appendChild(s);
-      if (i < words.length - 1) wr.appendChild(document.createTextNode(" "));
-    });
-    if (reduceMotion) wr.classList.add("in");
-    else requestAnimationFrame(function () { requestAnimationFrame(function () { wr.classList.add("in"); }); });
-  }
+  /* ---------- Timeline: filtri descritti nell'URL (?f=... &t=...) ----------
+     I filtri sono link: senza JS portano alla stessa pagina con la query e la timeline
+     resta completa. Con JS il filtro si applica in pagina, l'URL viene aggiornato e il
+     numero di risultati e' annunciato dalla regione aria-live. */
+  var filterGroup = document.querySelector(".filters[aria-label]:not(:has(.pr-filter))");
+  var timeline = document.querySelector(".timeline");
+  if (filterGroup && timeline) {
+    var filterLinks = filterGroup.querySelectorAll(".filter[data-filter]");
+    var statusEl = document.querySelector(".filter-status[data-total]");
+    var items = timeline.querySelectorAll(".tl-item");
+    var isFullList = items.length === parseInt(statusEl ? statusEl.getAttribute("data-total") : "0", 10);
 
-  /* ---------- Timeline che si disegna ---------- */
-  var tl = document.querySelector(".tl");
-  var tlFill = document.querySelector(".tl-rail i");
-  function drawTimeline() {
-    if (!tl || !tlFill || reduceMotion) return;
-    var r = tl.getBoundingClientRect();
-    var vh = window.innerHeight;
-    var progress = (vh * 0.75 - r.top) / r.height;
-    progress = Math.max(0, Math.min(1, progress));
-    tlFill.style.transform = "scaleY(" + progress + ")";
-    tl.querySelectorAll(".tl-item").forEach(function (it) {
-      var ir = it.getBoundingClientRect();
-      if (ir.top < vh * 0.78) it.classList.add("in");
-    });
-  }
-  if (tlFill && reduceMotion) tlFill.style.transform = "scaleY(1)";
-  if (tl && reduceMotion) tl.querySelectorAll(".tl-item").forEach(function (it) { it.classList.add("in"); });
-
-  /* ---------- Contatori ----------
-     Il valore reale e' gia' scritto nel markup dal generatore: il JS non lo produce,
-     lo anima soltanto. Il conteggio da zero parte SOLO per i contatori visibili al
-     caricamento, cosi' un valore parziale non compare mai come se fosse il dato. */
-  function fmt(v, dec, suf) {
-    var decSep = isEnglish ? "." : ",";
-    var thoSep = isEnglish ? "," : ".";
-    var s = v.toFixed(dec).replace(".", decSep);
-    if (dec === 0 && Math.abs(v) >= 1000) {
-      s = Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, thoSep);
+    function announce(shown) {
+      if (!statusEl) return;
+      var total = parseInt(statusEl.getAttribute("data-total"), 10) || items.length;
+      var txt = shown === 1 ? statusEl.getAttribute("data-one") : statusEl.getAttribute("data-many").replace("%d", shown);
+      statusEl.textContent = txt + " " + statusEl.getAttribute("data-of") + " " + total;
     }
-    return s + suf;
-  }
-  function setCounter(el) {
-    el.textContent = fmt(parseFloat(el.getAttribute("data-count")),
-                         parseInt(el.getAttribute("data-decimals") || "0", 10),
-                         el.getAttribute("data-suffix") || "");
-    el.classList.add("counted");
-  }
-  /* Nessun conteggio animato da zero: un contatore che sale mostrerebbe per un attimo
-     valori falsi (12,8% invece di 97,8% sulla presenza ai voti), e sono dati pubblici
-     di un parlamentare in carica. Il movimento resta, ma e' la comparsa del blocco
-     (.rv), non il numero. Il valore a schermo e' sempre quello vero. */
-  document.querySelectorAll("[data-count]").forEach(function (el) {
-    el.classList.add("counted");
-  });
-
-  /* ---------- Numeri dashboard da fonte aggiornata ---------- */
-  var dataBase = document.body.getAttribute("data-assets") || "assets/";
-  var counterEls = document.querySelectorAll("[data-num-key]");
-  if (counterEls.length) {
-    fetch(dataBase + "data/numeri.json", { cache: "no-cache" })
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (d) {
-        if (!d) return;
-        counterEls.forEach(function (el) {
-          var key = el.getAttribute("data-num-key");
-          if (d[key] === undefined || d[key] === null) return;
-          if (String(d[key]) === el.getAttribute("data-count")) return;   /* gia' aggiornato */
-          el.setAttribute("data-count", String(d[key]));
-          setCounter(el);   /* sostituzione secca: mai un passaggio da zero sotto gli occhi */
-        });
-        if (d.aggiornato && d.aggiornato.length === 10) {
-          var p = d.aggiornato.split("-");            /* [anno, mese, giorno] */
-          var shown = isEnglish ? p[1] + "/" + p[2] + "/" + p[0]
-                                : p[2] + "/" + p[1] + "/" + p[0];
-          document.querySelectorAll("[data-num-updated]").forEach(function (note) {
-            note.textContent = shown;
-          });
-        }
-      })
-      .catch(function () { /* offline o file assente: restano i valori nel markup */ });
-  }
-
-  /* ---------- Flash news ticker ----------
-     Le notizie sono gia' nel markup (scritte dal generatore): niente iniezione da JS,
-     quindi niente salto di layout. Qui resta solo il comando di pausa, richiesto dal
-     criterio WCAG 2.2.2 per qualunque movimento che duri piu' di cinque secondi. */
-  var ticker = document.querySelector(".ticker");
-  var tickerToggle = ticker && ticker.querySelector(".ticker-toggle");
-  if (ticker && tickerToggle) {
-    var track = ticker.querySelector(".ticker-track");
-    if (reduceMotion && track) {
-      track.style.animation = "none";
-      ticker.classList.add("paused");
-      tickerToggle.setAttribute("aria-pressed", "true");
-      tickerToggle.setAttribute("aria-label", tickerToggle.getAttribute("data-label-play") || "");
-    }
-    tickerToggle.addEventListener("click", function () {
-      var paused = ticker.classList.toggle("paused");
-      tickerToggle.setAttribute("aria-pressed", paused ? "true" : "false");
-      var lbl = tickerToggle.getAttribute(paused ? "data-label-play" : "data-label-pause");
-      if (lbl) tickerToggle.setAttribute("aria-label", lbl);
-    });
-  }
-
-  /* ---------- Card dinamiche allo scroll (fallback senza scroll-driven CSS) ---------- */
-  var supportsViewTimeline = CSS && CSS.supports && CSS.supports("animation-timeline: view()");
-  if (!supportsViewTimeline && !reduceMotion && window.innerWidth > 900) {
-    var focusCards = document.querySelectorAll(".news-list .news-card, .grid-3 > .card, .press-list-col > .press-item");
-    if (focusCards.length && "IntersectionObserver" in window) {
-      var focusObs = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          var el = e.target;
-          if (!e.isIntersecting) { el.style.transform = ""; return; }
-          var r = e.boundingClientRect;
-          var mid = r.top + r.height / 2;
-          var dist = Math.abs(mid - window.innerHeight / 2) / (window.innerHeight / 2);
-          var scale = 1 + (1 - Math.min(dist, 1)) * 0.025;
-          el.style.transform = "scale(" + scale.toFixed(3) + ")";
-        });
-      }, { threshold: [0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9, 1] });
-      focusCards.forEach(function (c) { focusObs.observe(c); });
-    }
-  }
-
-  /* ---------- Spotlight sulle card (segue il puntatore) ---------- */
-  if (!reduceMotion && window.matchMedia("(hover: hover)").matches) {
-    document.querySelectorAll(".card").forEach(function (c) {
-      c.addEventListener("pointermove", function (e) {
-        var r = c.getBoundingClientRect();
-        c.style.setProperty("--mx", (e.clientX - r.left) + "px");
-        c.style.setProperty("--my", (e.clientY - r.top) + "px");
+    function applyFilter(key, terr, pushUrl) {
+      var shown = 0;
+      items.forEach(function (li) {
+        var ok = key === "tutto" || li.getAttribute("data-ambito") === key || li.getAttribute("data-cat") === key;
+        if (ok && terr) ok = li.getAttribute("data-terr") === terr;
+        if (ok) { li.removeAttribute("hidden"); shown++; } else { li.setAttribute("hidden", ""); }
       });
-    });
+      filterLinks.forEach(function (a) {
+        if (a.getAttribute("data-filter") === key) a.setAttribute("aria-current", "true");
+        else a.removeAttribute("aria-current");
+      });
+      announce(shown);
+      if (pushUrl && window.history && history.replaceState) {
+        var url = location.pathname + (key === "tutto" ? "" : "?f=" + encodeURIComponent(key) + (terr ? "&t=" + encodeURIComponent(terr) : ""));
+        history.replaceState(null, "", url);
+      }
+    }
+    var params = new URLSearchParams(location.search);
+    var initial = params.get("f") || "tutto";
+    var terrParam = params.get("t") || "";
+    if (isFullList) {
+      /* pagina con l'elenco completo: il filtro si applica qui */
+      filterLinks.forEach(function (a) {
+        a.addEventListener("click", function (e) {
+          e.preventDefault();
+          applyFilter(a.getAttribute("data-filter"), "", true);
+        });
+      });
+      applyFilter(initial, terrParam, false);
+    } else {
+      /* estratto (home): i link portano alla timeline completa, qui si annuncia solo il totale */
+      announce(items.length);
+    }
   }
 
-  /* ---------- Filtro rassegna completa (nazionale / locale) ---------- */
+  /* ---------- Rassegna completa: nazionale / locale ---------- */
   var prFilters = document.querySelectorAll(".pr-filter");
   if (prFilters.length) {
-    var prRows = document.querySelectorAll(".pr-row");
-    var prYears = document.querySelectorAll(".pr-year");
+    var prRows = document.querySelectorAll(".pr-archive .press-list li[data-scope]");
+    var prYears = document.querySelectorAll(".press-year");
+    var prStatus = document.querySelector("[data-pr-status]");
     prFilters.forEach(function (btn) {
       btn.addEventListener("click", function () {
         var scope = btn.getAttribute("data-scope");
-        prFilters.forEach(function (b) {
-          var on = b === btn;
-          b.classList.toggle("active", on);
-          b.setAttribute("aria-pressed", on ? "true" : "false");
-        });
+        var shown = 0;
+        prFilters.forEach(function (b) { b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
         prRows.forEach(function (row) {
           var show = scope === "all" || row.getAttribute("data-scope") === scope;
-          if (show) row.removeAttribute("hidden"); else row.setAttribute("hidden", "");
+          if (show) { row.removeAttribute("hidden"); shown++; } else { row.setAttribute("hidden", ""); }
         });
-        /* un anno senza piu' righe visibili non deve restare come intestazione vuota */
         prYears.forEach(function (y) {
-          var any = y.querySelector(".pr-row:not([hidden])");
-          if (any) y.removeAttribute("hidden"); else y.setAttribute("hidden", "");
+          if (y.querySelector("li:not([hidden])")) y.removeAttribute("hidden"); else y.setAttribute("hidden", "");
         });
+        if (prStatus) prStatus.textContent = shown + " " + (prStatus.getAttribute("data-articles") || "");
       });
     });
   }
 
-  /* ---------- Filtro news ---------- */
-  var filterBtns = document.querySelectorAll(".filter-btn[data-filter]");
-  var newsCards = document.querySelectorAll(".news-card");
-  filterBtns.forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      filterBtns.forEach(function (b) { b.classList.remove("active"); });
-      btn.classList.add("active");
-      var cat = btn.getAttribute("data-filter");
-      newsCards.forEach(function (c) {
-        var show = cat === "all" || c.getAttribute("data-cat") === cat;
-        if (show) c.removeAttribute("hidden"); else c.setAttribute("hidden", "");
-      });
+  /* ---------- Ricerca: indice statico per lingua, caricato solo quando serve ---------- */
+  var index = null;
+  function loadIndex() {
+    if (index) return Promise.resolve(index);
+    return fetch(assets + "data/search-" + lang + ".json").then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (d) { index = d; return d; }).catch(function () { return []; });
+  }
+  function norm(s) {
+    return (s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  }
+  function search(q, data) {
+    var terms = norm(q).split(/\s+/).filter(function (t) { return t.length > 1; });
+    if (!terms.length) return [];
+    return data.map(function (it) {
+      var hay = norm(it.t + " " + (it.s || "") + " " + (it.x || "") + " " + (it.k || ""));
+      var title = norm(it.t);
+      var score = 0;
+      for (var i = 0; i < terms.length; i++) {
+        if (hay.indexOf(terms[i]) < 0) return null;
+        score += title.indexOf(terms[i]) >= 0 ? 3 : 1;
+      }
+      return { it: it, score: score };
+    }).filter(Boolean).sort(function (a, b) { return b.score - a.score || (b.it.d || "").localeCompare(a.it.d || ""); })
+      .slice(0, 30).map(function (r) { return r.it; });
+  }
+  function renderResults(list, q, ul, statusEl) {
+    ul.textContent = "";
+    if (!statusEl) return;
+    if (!q || q.trim().length < 2) { statusEl.textContent = statusEl.getAttribute("data-hint") || ""; return; }
+    if (!list.length) { statusEl.textContent = (statusEl.getAttribute("data-none") || "") + " “" + q + "”"; return; }
+    statusEl.textContent = list.length + " " + (list.length === 1 ? statusEl.getAttribute("data-one") : statusEl.getAttribute("data-many"));
+    list.forEach(function (it) {
+      var li = document.createElement("li");
+      var a = document.createElement("a");
+      a.href = root + it.u;
+      var k = document.createElement("span"); k.className = "kind"; k.textContent = it.k + (it.d ? " · " + it.d : "");
+      var t = document.createElement("span"); t.className = "title"; t.textContent = it.t;
+      a.appendChild(k); a.appendChild(t);
+      if (it.s) { var s = document.createElement("span"); s.className = "snip"; s.textContent = it.s; a.appendChild(s); }
+      li.appendChild(a); ul.appendChild(li);
     });
-  });
+  }
+  function bindSearch(input, ul, statusEl) {
+    var timer = null;
+    input.addEventListener("input", function () {
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        var q = input.value;
+        loadIndex().then(function (d) { renderResults(search(q, d), q, ul, statusEl); });
+      }, 120);
+    });
+  }
+  var dialog = document.getElementById("search-dialog");
+  var trigger = document.querySelector(".search-trigger");
+  if (dialog && trigger && typeof dialog.showModal === "function") {
+    var dInput = dialog.querySelector("input[type=search]");
+    var dList = dialog.querySelector(".search-results");
+    var dStatus = dialog.querySelector(".search-status");
+    trigger.setAttribute("aria-haspopup", "dialog");   /* con JS il link apre una finestra modale */
+    trigger.addEventListener("click", function (e) {
+      e.preventDefault();
+      dialog.showModal();
+      loadIndex();
+      if (dInput) dInput.focus();
+    });
+    dialog.querySelector("[data-close]").addEventListener("click", function () { dialog.close(); });
+    dialog.addEventListener("click", function (e) { if (e.target === dialog) dialog.close(); });
+    dialog.addEventListener("close", function () { trigger.focus(); });
+    if (dInput && dList) bindSearch(dInput, dList, dStatus);
+  }
+  var pageForm = document.querySelector("[data-search-page]");
+  if (pageForm) {
+    var pInput = pageForm.querySelector("input[type=search]");
+    var pList = document.querySelector("[data-search-results]");
+    var pStatus = document.querySelector("[data-search-status]");
+    var q0 = new URLSearchParams(location.search).get("q") || "";
+    if (pInput && pList) {
+      bindSearch(pInput, pList, pStatus);
+      pageForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var q = pInput.value;
+        loadIndex().then(function (d) { renderResults(search(q, d), q, pList, pStatus); });
+        if (history.replaceState) history.replaceState(null, "", location.pathname + (q ? "?q=" + encodeURIComponent(q) : ""));
+      });
+      if (q0) { pInput.value = q0; loadIndex().then(function (d) { renderResults(search(q0, d), q0, pList, pStatus); }); }
+    }
+  }
 
-  /* ---------- Form contatti (mailto, nessun dato raccolto) ---------- */
+  /* ---------- Form contatti: validazione accessibile, mailto (nessun dato raccolto) ---------- */
   var form = document.getElementById("contact-form");
   if (form) {
-    /* WCAG 3.3.1: l'errore deve essere collegato al campo, non solo colorato.
-       aria-invalid lo segnala, aria-describedby fa leggere il messaggio allo
-       screen reader, e il focus va sul primo campo da correggere. */
     function clearField(input, field) {
       field.classList.remove("invalid");
       input.removeAttribute("aria-invalid");
@@ -293,13 +259,13 @@
         input.addEventListener("input", function () { clearField(input, field); }, { once: true });
       });
       if (firstBad) { firstBad.focus(); return; }
+      var reason = document.getElementById("cf-reason");
       var name = document.getElementById("cf-name").value.trim();
       var subject = document.getElementById("cf-subject").value.trim();
       var msg = document.getElementById("cf-msg").value.trim();
-      var body = msg + "\n\n— " + name;
-      window.location.href = "mailto:etelwardo.sigismondi@senato.it" +
-        "?subject=" + encodeURIComponent(subject) +
-        "&body=" + encodeURIComponent(body);
+      var subj = (reason && reason.value ? reason.value + " — " : "") + subject;
+      window.location.href = "mailto:etelwardo.sigismondi@senato.it?subject=" + encodeURIComponent(subj) +
+        "&body=" + encodeURIComponent(msg + "\n\n— " + name);
     });
   }
 

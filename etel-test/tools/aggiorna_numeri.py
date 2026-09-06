@@ -12,7 +12,19 @@ UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/122.0 Safari/537.36")
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SITE = os.environ.get("ETEL_SITE_DIR") or os.path.join(os.path.dirname(HERE), "etel-test")
+# Lo script vive in _source/ (accanto a etel-test/) oppure in etel-test/tools/ (copia per la CI):
+# in entrambi i casi la cartella del sito si trova risalendo finche' non si chiama etel-test.
+def _site_dir():
+    env = os.environ.get("ETEL_SITE_DIR")
+    if env:
+        return env
+    d = HERE
+    for _ in range(3):
+        if os.path.basename(d) == "etel-test":
+            return d
+        d = os.path.dirname(d)
+    return os.path.join(os.path.dirname(HERE), "etel-test")
+SITE = _site_dir()
 OUT = os.path.join(SITE, "assets", "data", "numeri.json")
 
 

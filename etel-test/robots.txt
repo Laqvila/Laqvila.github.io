@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /
+Sitemap: https://laqvila.github.io/etel-test/sitemap.xml
