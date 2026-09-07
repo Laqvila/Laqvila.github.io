@@ -56,39 +56,49 @@
     });
   }
 
-  /* ---------- Comparsa discreta all'ingresso nel viewport ---------- */
+  /* ---------- Comparsa discreta all'ingresso nel viewport ----------
+     REGOLA D'ORO: il contenuto non deve MAI restare nascosto.
+
+     La versione precedente usava threshold:0.08, cioe' chiedeva che l'8% di un
+     elemento fosse visibile. Un blocco piu' alto del viewport non puo' arrivarci:
+     l'elenco del 2025 nella rassegna e' alto 13.604px e in uno schermo da 812px
+     raggiunge al massimo 812/13.604 = 0,0597. La soglia non veniva MAI superata,
+     .in non veniva mai aggiunta e ".js .rv{opacity:0}" restava attiva per sempre:
+     162 articoli su 258 erano invisibili, e non solo su telefono — serviva un
+     viewport alto 1.089px, quindi erano invisibili anche su desktop.
+
+     Ora: soglia 0 (basta che l'elemento tocchi il viewport) e, per gli elementi
+     piu' alti dello schermo, nessuna animazione affatto — non se ne potrebbe
+     comunque vedere l'ingresso, e nasconderli e' solo un rischio. */
   var rvEls = document.querySelectorAll(".rv");
+  function reveal(el) { el.classList.add("in"); }
   if (rvEls.length && "IntersectionObserver" in window && !reduceMotion) {
     var rvObs = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add("in"); rvObs.unobserve(e.target); }
+        if (e.isIntersecting) { reveal(e.target); rvObs.unobserve(e.target); }
       });
-    }, { threshold: 0.08, rootMargin: "0px 0px -24px 0px" });
-    rvEls.forEach(function (el) { rvObs.observe(el); });
-  } else {
-    rvEls.forEach(function (el) { el.classList.add("in"); });
-  }
-
-  /* ---------- Spotlight al cursore ----------
-     Un alone di luce statico (radial-gradient) che segue il mouse su un numero
-     limitato di superfici. Throttled con requestAnimationFrame, mai su schermi
-     touch (matchMedia hover:hover) e mai con reduced-motion: e' pura decorazione,
-     nessuna informazione dipende da questo effetto. */
-  if (!reduceMotion && window.matchMedia("(hover: hover)").matches) {
-    var spotEls = document.querySelectorAll(".spotlight");
-    var pending = null;
-    spotEls.forEach(function (el) {
-      el.addEventListener("pointermove", function (e) {
-        if (pending) return;
-        pending = requestAnimationFrame(function () {
-          var r = el.getBoundingClientRect();
-          el.style.setProperty("--mx", (e.clientX - r.left) + "px");
-          el.style.setProperty("--my", (e.clientY - r.top) + "px");
-          pending = null;
-        });
+    }, { threshold: 0, rootMargin: "0px 0px -40px 0px" });
+    rvEls.forEach(function (el) {
+      if (el.getBoundingClientRect().height > window.innerHeight * 0.85) reveal(el);
+      else rvObs.observe(el);
+    });
+    /* Rete di sicurezza: se a pagina caricata un elemento e' gia' nello schermo
+       ma per qualsiasi ragione non e' stato scoperto, lo si scopre comunque. */
+    window.addEventListener("load", function () {
+      rvEls.forEach(function (el) {
+        if (el.classList.contains("in")) return;
+        var r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) reveal(el);
       });
     });
+  } else {
+    rvEls.forEach(reveal);
   }
+
+  /* Lo "spotlight" al cursore e' stato rimosso: l'alone era rgba(181,136,58,.14),
+     cioe' 1,15:1 sul fondo — impercettibile — e costava un listener pointermove
+     su ogni superficie (41 sulla sola pagina dei comunicati). Il feedback al
+     passaggio del mouse ora e' dato dal bordo della card, che si vede davvero. */
 
   /* ---------- Timeline: filtri descritti nell'URL (?f=... &t=...) ----------
      I filtri sono link: senza JS portano alla stessa pagina con la query e la timeline
