@@ -129,8 +129,8 @@
 
 /* ---------- Reset ---------- */
 *, *::before, *::after{ box-sizing:border-box; }
-html{ scroll-behavior:smooth; scroll-padding-top:76px; -webkit-text-size-adjust:100%; }
-@media (min-width:900px){ html{ scroll-padding-top:96px; } }
+html{ scroll-behavior:smooth; scroll-padding-top:72px; -webkit-text-size-adjust:100%; }
+@media (min-width:900px){ html{ scroll-padding-top:80px; } }
 body{
   margin:0; background:var(--paper); color:var(--ink);
   font-family:var(--sans); font-size:var(--t-m); line-height:1.6;
@@ -262,19 +262,11 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 @media (max-width:640px){ .preview-banner .pv-detail{ display:none; } }
 
 /* ---------- Header ---------- */
-.site-header{ --topbar-h:54px; position:sticky; top:calc(-1 * var(--topbar-h)); z-index:200; background:var(--surface); border-bottom:1px solid var(--rule); }
-/* Il logo "L'Abruzzo in Parlamento" apre ogni pagina: dice a colpo d'occhio
-   collegio di elezione e appartenenza politica, che il solo nome non comunica.
-   Sta nella fascia superiore perche' nella barra sticky, accanto al nome, su
-   telefono resterebbero circa 85px — una riduzione a 23px di altezza, in cui
-   la scritta non si leggerebbe piu'. */
-.header-logo{ height:40px; width:auto; flex-shrink:0; }
-.header-top{
-  height:var(--topbar-h); display:flex; align-items:center; justify-content:space-between; gap:var(--s-4);
-  font-size:var(--t-xs); color:var(--ink-2); border-bottom:1px solid var(--hair); background:var(--paper);
-}
-.header-top .role{ font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.header-top-right{ display:flex; align-items:center; gap:var(--s-3); }
+/* Barra unica. Prima erano due fasce sovrapposte (una con logo, ruolo, lingue
+   e social, una con nome e menu): pesante da guardare e, su telefono, la fascia
+   di sopra spariva al primo scorrimento portandosi via il logo. Il ruolo
+   ripeteva quello gia' scritto sotto il nome e i social sono nel footer. */
+.site-header{ position:sticky; top:0; z-index:200; background:var(--surface); border-bottom:1px solid var(--rule); }
 .lang-switch{ display:flex; gap:2px; }
 .lang-switch a{
   display:inline-flex; align-items:center; justify-content:center; min-width:32px; min-height:30px;
@@ -284,10 +276,6 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .lang-switch a:hover{ background:var(--brass-bg); color:var(--brass-ink); }
 .lang-switch a.active{ background:var(--navy); color:#fff; }
 .lang-switch.in-menu{ display:none; }
-.social-mini{ display:flex; gap:4px; }
-.social-mini a{ display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:var(--r); color:var(--ink-2); transition:color .18s, background .18s; }
-.social-mini a:hover{ color:var(--porpora); background:var(--porpora-bg); }
-.social-mini svg{ width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
 
 .header-bar{ display:flex; align-items:center; gap:var(--s-4); height:72px; }
 .wordmark{ text-decoration:none; color:var(--ink); line-height:1.05; flex:0 1 auto; min-width:0; }
@@ -339,20 +327,14 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
   .nav-links a[aria-current="page"]{ box-shadow:inset 3px 0 0 var(--porpora); padding-left:var(--s-3); }
   .nav-links a.btn-cta{ display:inline-flex; justify-content:center; margin-top:var(--s-4); border:0; background:var(--porpora); color:#fff; font-weight:600; border-radius:var(--r); }
   .nav-links a.btn-cta:hover{ background:var(--porpora-deep); color:#fff; }
+  /* Sotto i 1100px le lingue vivono nel menu: quella in barra sparisce per non
+     duplicare il comando. */
+  .nav-actions .lang-switch{ display:none; }
   .lang-switch.in-menu{ display:flex; gap:6px; padding-top:var(--s-4); }
   .lang-switch.in-menu a{ min-width:46px; min-height:44px; font-size:var(--t-s); border:1px solid var(--rule-strong); }
   .lang-switch.in-menu a.active{ border-color:var(--navy); }
   html:not(.js) .nav-links{ display:flex; position:static; box-shadow:none; }
   html:not(.js) .nav-toggle{ display:none; }
-}
-@media (max-width:900px){
-  /* La fascia resta, ma con il solo logo: lingue e social sono gia' nel menu e
-     nel footer, e il testo del ruolo e' ripetuto sotto il nome. Cosi' il logo
-     ha tutta la larghezza per restare leggibile anche su telefono. */
-  .header-top{ justify-content:flex-start; }
-  .header-top .role, .header-top-right{ display:none; }
-  .site-header{ --topbar-h:58px; }
-  .header-logo{ height:44px; }
 }
 @media (max-width:640px){
   .header-bar{ height:64px; gap:var(--s-2); }
@@ -533,6 +515,19 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
    il paragrafo dell'hero toccavano i due bordi dello schermo. */
 .hero-grid{ position:relative; z-index:1; display:grid; gap:var(--s-6); align-items:center; padding-block:var(--s-7) var(--s-8); }
 @media (min-width:900px){ .hero-grid{ grid-template-columns:minmax(0, 7fr) minmax(0, 5fr); gap:var(--s-8); padding-block:var(--s-8) var(--s-9); } }
+/* Il logo apre la colonna di testo dell'hero, a sinistra della fotografia:
+   collegio di elezione e appartenenza politica si leggono prima del nome, che
+   da solo non li comunica. Sta qui e non nella barra perche' e' un elemento di
+   identita', non un comando, e qui ha la larghezza per restare leggibile.
+   Il filetto sotto lo lega al blocco tipografico invece di lasciarlo sospeso. */
+.hero-logo{
+  /* content-box: con il border-box globale il padding rientrerebbe
+     nell'altezza e ridurrebbe l'immagine a 28px, schiacciandola. */
+  box-sizing:content-box;
+  height:52px; width:auto; max-width:100%; margin:0 0 var(--s-5);
+  padding-bottom:var(--s-5); border-bottom:1px solid var(--rule);
+}
+@media (min-width:900px){ .hero-logo{ height:60px; } }
 .hero .eyebrow, .hero .eyebrow.on-dark{ color:var(--brass-ink); }
 .hero .eyebrow::before, .hero .eyebrow.on-dark::before{ background:var(--brass); }
 .hero h1{ margin-bottom:var(--s-4); color:var(--ink); }
