@@ -41,56 +41,74 @@
 }
 
 :root{
-  /* ---- Fondi: azzurro chiaro, mai scuro ---- */
-  --paper:      #ACCDEE;   /* IL PIANO: blu deciso. Le card ci galleggiano sopra */
-  --paper-2:    #E8F2FB;   /* pannelli CHIARI sul piano blu: il ritmo si inverte */
+  /* ---- Fondi: azzurro ELETTRICO, mai scuro ----
+     Diagnosi del "colori smorti": il vecchio #ACCDEE aveva croma bassa — il
+     canale blu superava la media di rosso e verde di soli 49 livelli su 255.
+     Un blu elettrico non e' un blu piu' SCURO (scurirlo avrebbe ucciso il testo
+     che vive sul piano), e' un blu piu' SATURO. Il nuovo piano ha croma +58 ed
+     e' perfino piu' CHIARO del precedente: +17% di saturazione, +7% di
+     luminosita'. Il fondo canta e il contrasto migliora insieme. ---- */
+  --paper:      #BAD0FF;   /* IL PIANO. Le card ci galleggiano sopra */
+  --paper-2:    #E8F0FF;   /* pannelli CHIARI sul piano: il ritmo si inverte */
   --surface:    #FFFFFF;   /* superficie di card e riquadri */
 
-  /* ---- Inchiostri, nella stessa famiglia blu (su pagina: 14,2 / 6,8 / 5,3 : 1) ---- */
-  --ink:        #0C2340;
-  --ink-2:      #3A5170;
-  --ink-3:      #3C5169;
+  /* ---- Inchiostri. Ricalibrati sul COMPOSITO PEGGIORE, cioe' il fondo piu'
+       profondo della sfumatura CON sopra il picco dell'aurora (#9AB6FF): e'
+       li' che il testo rischia, non sul colore nominale del token. ---- */
+  --ink:        #0C2340;   /* 7,90:1 nel caso peggiore, 15,8:1 su card */
+  --ink-2:      #33496A;   /* 4,57:1 nel caso peggiore */
+  --ink-3:      #35496B;   /* 4,54:1 nel caso peggiore */
 
-  /* ---- Filetti. Il bordo deve VEDERSI: e' l'articolazione della pagina. ---- */
-  --hair:       #DCE8F5;   /* capillare: separatori DENTRO le card, su bianco */
-  --rule:       #7093B6;   /* strutturale: bordo card e regola di sezione */
-  --rule-strong:#4E7096;   /* bordo dei CONTROLLI: input, filtri, bottoni (4,16:1) */
+  /* ---- Filetti. Il bordo deve VEDERSI: e' l'articolazione della pagina.
+       Ora sono blu, non grigio-blu: su un piano saturo un filetto desaturato
+       legge come sporco. ---- */
+  --hair:       #DDE7FA;   /* capillare: separatori DENTRO le card, su bianco */
+  --rule:       #5B7FC0;   /* bordo card: 4,01:1 sulla card, 3,08:1 sul piano */
+  --rule-strong:#3B5A8D;   /* bordo dei CONTROLLI: 3,46:1 anche sotto l'aurora */
 
-  /* ---- Blu di Fratelli d'Italia: marchio, link, azione ---- */
-  --link:       #14508F;   /* 6,59:1 su pagina — link sempre sottolineati */
-  --brand-lt:   #1B5CAF;   /* estremo chiaro della sfumatura dei bottoni */
-  --brand-deep: #0D3A72;   /* estremo scuro e stato premuto */
-  --brand-bg:   #E7F1FC;   /* tinta tenue per riquadri e chip */
+  /* ---- Blu di Fratelli d'Italia, portato all'elettrico ---- */
+  --link:       #0F4585;   /* 4,75:1 nel caso peggiore, 9,50:1 su card */
+  --brand-lt:   #2560F5;   /* estremo ELETTRICO della sfumatura dei bottoni */
+  --brand-deep: #0B326B;   /* estremo scuro e stato premuto */
+  --brand-bg:   #E5EEFF;   /* tinta tenue per riquadri e chip */
+  /* Il blu elettrico puro. Non regge testo scuro sopra: vive come SEGNO
+     (filetti, aloni, barra di avanzamento) e come fondo per il bianco. */
+  --elettrico:  #1B4DFF;
 
-  /* ---- Fasce scure: blu notte della stessa famiglia ---- */
+  /* ---- Fasce scure: la stessa famiglia, ma il vertice ora e' elettrico ---- */
+  --dark-lt:    #15369F;   /* estremo elettrico: bianco 10,2 / ottone 5,1 */
   --navy:       #0B2A50;   /* 14,4:1 col bianco */
-  --navy-deep:  #071D3A;
+  --navy-deep:  #061A38;
 
   /* ---- Porpora del laticlavio: accento raro, solo su fondo chiaro ---- */
-  --porpora:     #8A1F35;  /* 8,30:1 su pagina */
-  --porpora-deep:#6B1628;
+  --porpora:     #7C1A2E;  /* 5,14:1 anche nel caso peggiore */
+  --porpora-deep:#631425;
   --porpora-bg:  #FBE9EC;
 
   /* ---- Ottone: contrappunto caldo, in dose minima ---- */
-  --brass:      #7E5F1C;   /* grafico su chiaro (4,79:1) */
-  --brass-ink:  #654C12;   /* testo su chiaro (6,53:1) */
-  --brass-lt:   #D9B44A;   /* su navy (7,01:1) */
+  --brass:      #755717;   /* grafico su chiaro */
+  --brass-ink:  #5A4210;   /* testo su chiaro: 4,73:1 anche sotto l'aurora */
+  --brass-lt:   #D9B44A;   /* su fascia scura (5,13:1 sul vertice elettrico) */
   --brass-bg:   #F2E7CC;
 
   /* ---- Su fondo scuro ---- */
   --on-dark:    #FFFFFF;
   --on-dark-2:  #D7E4F3;   /* opaco, non rgba: verificabile una volta per tutte */
-  --on-dark-3:  #AEC2DC;
-  --divider-dark:#5E7EA6;  /* bordi di controllo dentro le fasce scure (3,32:1) */
+  --on-dark-3:  #AEC2DC;   /* 5,61:1 anche sul vertice elettrico */
+  --divider-dark:#5E7EA6;  /* bordi di controllo dentro le fasce scure (3,43:1) */
 
   /* ---- Sfumature. Entrambi gli estremi di ogni gradiente sono verificati
        per il testo che ci va sopra, cosi' il contrasto regge lungo tutta la
-       transizione e non solo al centro. ---- */
-  --grad-page:  linear-gradient(180deg, #A4C9EC 0%, var(--paper) 380px, #B6D3F0 100%);
-  --grad-band:  linear-gradient(180deg, #FFFFFF 0%, var(--paper-2) 100%);
-  --grad-dark:  linear-gradient(155deg, #16457E 0%, var(--navy) 48%, var(--navy-deep) 100%);
-  --grad-brand: linear-gradient(180deg, var(--brand-lt) 0%, var(--link) 52%, var(--brand-deep) 100%);
-  --grad-rule:  linear-gradient(90deg, var(--link) 0%, var(--rule) 60%, transparent 100%);
+       transizione e non solo al centro.
+       --grad-page va sull'ALTEZZA DEL DOCUMENTO: scorrendo si attraversa
+       davvero il gradiente, dall'azzurro chiaro in testa al blu piu' elettrico
+       in fondo. E' la richiesta "un blu sfumato da quello attuale al blu
+       elettrico" presa alla lettera: la sfumatura e' lo scorrimento. ---- */
+  --grad-page:  linear-gradient(180deg, #DCE7FF 0%, #C9DAFF 26%, var(--paper) 78%);
+  --grad-band:  linear-gradient(180deg, #F4F8FF 0%, #DCE8FF 100%);
+  --grad-dark:  linear-gradient(150deg, var(--dark-lt) 0%, #102C79 36%, var(--navy) 74%, var(--navy-deep) 100%);
+  --grad-brand: linear-gradient(135deg, var(--brand-lt) 0%, var(--link) 58%, var(--brand-deep) 100%);
+  --grad-rule:  linear-gradient(90deg, var(--elettrico) 0%, var(--rule) 55%, transparent 100%);
 
   --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
   --sans:  "Inter", "Segoe UI", Roboto, Arial, sans-serif;
@@ -127,16 +145,30 @@
      riga, è l'errore da cui veniamo. Su desktop 62ch dà ~66 caratteri (il
      vecchio 68ch ne dava 82, sopra il tetto). */
   --measure: 62ch;
-  /* Raggi: morbidi ma sobri. Mai pillole (999px), che è il segnale numero uno
-     del template comprato; ma nemmeno lo spigolo vivo, che su un piano colorato
-     fa sembrare le card ritagliate col taglierino. */
-  --r:    14px;          /* card, pannelli, riquadri */
-  --r-sm: 9px;           /* bottoni, campi, filtri */
-  --r-xs: 6px;           /* etichette e chip */
+  /* Raggi. I 14px precedenti erano il raggio tipico del 2016: abbastanza da
+     smussare, non abbastanza da leggersi come una scelta — il classico
+     arrotondamento "di default", che infatti e' stato letto come vecchio.
+     Ora la scala e' dichiarata: 22px sulle card, ed e' una forma, non uno
+     smusso. Resta il divieto delle pillole (999px), che e' il segnale numero
+     uno del template comprato. */
+  --r-lg: 30px;          /* riquadri grandi: hero, fasce, pannelli d'apertura */
+  --r:    22px;          /* card, pannelli, riquadri */
+  --r-sm: 13px;          /* bottoni, campi, filtri */
+  --r-xs: 10px;          /* etichette e chip */
   --ease: cubic-bezier(.2,.7,.3,1);
   --ease-soft: cubic-bezier(.33,.9,.4,1);
-  --shadow-card:0 1px 2px rgba(11,42,80,.08), 0 6px 16px -8px rgba(11,42,80,.18);
-  --shadow-pop: 0 4px 10px rgba(11,42,80,.10), 0 18px 36px -16px rgba(11,42,80,.34);
+  /* Ombre a tre strati, tinte del blu elettrico invece che del solito nero
+     slavato: un contatto stretto, una diffusione media e un alone lungo e
+     molto trasparente. E' l'alone lungo a fare "galleggiare" la card sul
+     piano; i primi due strati la tengono ancorata invece di farla volare. */
+  --shadow-card:
+      0 1px 2px  rgba(12,35,64,.06),
+      0 4px 10px -4px  rgba(12,35,64,.10),
+      0 16px 32px -20px rgba(21,54,159,.34);
+  --shadow-pop:
+      0 2px 5px  rgba(12,35,64,.07),
+      0 10px 22px -8px  rgba(12,35,64,.15),
+      0 30px 60px -28px rgba(21,54,159,.48);
 }
 
 @media (min-width:900px){
@@ -149,10 +181,18 @@
 
 /* ---------- Reset ---------- */
 *, *::before, *::after{ box-sizing:border-box; }
-html{ scroll-behavior:smooth; scroll-padding-top:72px; -webkit-text-size-adjust:100%; }
+/* Il gradiente del piano sta sulla RADICE, non sul body: cosi' l'area di
+   posizionamento e' alta quanto il documento e scorrendo si attraversa davvero
+   la sfumatura, dall'azzurro chiaro in testa al blu elettrico in fondo. Sul
+   body diventava il fondo del canvas e restava corretto, ma qui il ruolo e'
+   esplicito e lascia libero il body per lo strato animato qui sotto. */
+html{
+  scroll-behavior:smooth; scroll-padding-top:72px; -webkit-text-size-adjust:100%;
+  background:var(--paper); background-image:var(--grad-page); background-repeat:no-repeat;
+}
 @media (min-width:900px){ html{ scroll-padding-top:80px; } }
 body{
-  margin:0; background:var(--paper); background-image:var(--grad-page); background-repeat:no-repeat;
+  margin:0; background:transparent;
   color:var(--ink);
   font-family:var(--sans); font-size:var(--t-m); line-height:1.6;
   -webkit-font-smoothing:antialiased; overflow-x:clip;
@@ -177,8 +217,58 @@ strong{ font-weight:600; }
 hr{ border:0; border-top:1px solid var(--rule); margin:var(--s-6) 0; }
 ::selection{ background:var(--link); color:#fff; }
 
+/* ==========================================================================
+   L'AURORA — lo sfondo che si muove allo scorrimento
+   Tre aloni di blu elettrico, fissi rispetto alla finestra, dietro tutto il
+   contenuto. Non seguono il puntatore, non sono particelle, non sequestrano lo
+   scorrimento: e' la pagina che scorre e loro rispondono.
+
+   DUE CONTI CHE VANNO FATTI PRIMA, NON DOPO.
+   1) Tre aloni sovrapposti NON danno l'opacita' del singolo: si compongono
+      source-over, quindi dove si sovrappongono tutti e tre l'alfa vale
+      1-(1-a)^3. Con a=.07 fa .196, ed e' QUEL valore che va portato nel
+      calcolo del contrasto. Sul fondo piu' profondo del piano (#BAD0FF) da'
+      #9AB6FF: titoli 7,90:1, testo secondario 4,57:1, occhiello 4,73:1,
+      link 4,75:1. Tutto sopra soglia, con il velo al massimo.
+   2) Si anima SOLO transform e opacity, che il compositore risolve sulla GPU
+      senza ridisegnare nulla: nessun reflow mentre si scorre.
+
+   Con animation-timeline l'aurora e' agganciata all'avanzamento del documento
+   e si intensifica scendendo — il blu "va verso l'elettrico" man mano che si
+   legge. Dove il browser non conosce le timeline di scorrimento (Safari, per
+   ora) resta un respiro lento: l'effetto degrada, non sparisce.
+   ========================================================================== */
+body::before{
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:
+    radial-gradient(58vmax 48vmax at  8%  4%, rgba(27, 77,255,.07), transparent 62%),
+    radial-gradient(62vmax 50vmax at 96% 34%, rgba(37, 96,245,.07), transparent 64%),
+    radial-gradient(56vmax 48vmax at 22% 94%, rgba(21, 54,159,.07), transparent 62%);
+  opacity:.82;
+  animation:aurora-respiro 44s ease-in-out infinite alternate;
+  will-change:transform, opacity;
+}
+@keyframes aurora-respiro{
+  from{ transform:translate3d(-3%,-3%,0) scale(1.04); }
+  to  { transform:translate3d( 3%, 3%,0) scale(1.14); }
+}
+@keyframes aurora-scorrimento{
+  from{ opacity:.72; transform:translate3d(-4%,-7%,0) scale(1.02); }
+  to  { opacity:1;   transform:translate3d( 4%, 7%,0) scale(1.20); }
+}
+@supports (animation-timeline: scroll()){
+  body::before{
+    /* la scorciatoia azzera animation-timeline: va riassegnata DOPO */
+    animation:aurora-scorrimento linear both;
+    animation-timeline:scroll(root block);
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  body::before{ animation:none; opacity:.7; transform:none; }
+}
+
 /* ---------- Focus ---------- */
-:focus-visible{ outline:3px solid transparent; outline-offset:2px; box-shadow:0 0 0 3px var(--paper), 0 0 0 5px var(--navy); border-radius:var(--r); }
+:focus-visible{ outline:3px solid transparent; outline-offset:2px; box-shadow:0 0 0 3px var(--paper), 0 0 0 5px var(--navy); border-radius:var(--r-sm); }
 .band-dark :focus-visible, .site-footer :focus-visible{ box-shadow:0 0 0 3px var(--navy-deep), 0 0 0 5px var(--brass-lt); }
 @media (forced-colors:active){ :focus-visible{ outline:3px solid CanvasText; box-shadow:none; } }
 .skip-link{
@@ -196,7 +286,31 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .section-tight{ padding:calc(var(--sec-y) * .72) 0; }
 .section-airy{ padding:calc(var(--sec-y) * 1.34) 0; }
 .band{ background:var(--paper-2); background-image:var(--grad-band); border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); }
-.band-dark{ background:var(--navy); background-image:var(--grad-dark); color:var(--on-dark); position:relative; }
+.band-dark{ background:var(--navy); background-image:var(--grad-dark); color:var(--on-dark); position:relative; overflow:clip; }
+/* La fascia scura non e' piu' una campitura ferma: un alone elettrico la
+   attraversa mentre passa nella finestra, con view() misurata sulla fascia
+   stessa — cosi' il tempo dell'effetto e' lo stesso su ogni pagina, qualunque
+   sia la lunghezza del documento.
+   CONTO DEL CONTRASTO: l'alone SCHIARISCE, quindi il caso peggiore e' il punto
+   gia' piu' chiaro della fascia (#15369F) con l'alone al massimo. Il massimo
+   effettivo e' .28 x .70 = .196, che da' #163BB2: bianco 9,12:1, ottone
+   4,59:1, terziario 5,02:1. Oltre quel valore l'ottone scenderebbe sotto 4,5.
+   Il vincolo e' l'ottone, non il bianco: e' lui a fissare il tetto. */
+.band-dark::before{
+  content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:radial-gradient(72% 92% at 18% 0%, rgba(27,77,255,.28), transparent 62%);
+  opacity:.55; will-change:transform, opacity;
+}
+.band-dark > *{ position:relative; z-index:1; }
+@keyframes fascia-elettrica{
+  from{ transform:translate3d(-7%,-5%,0) scale(1.06); opacity:.30; }
+  50% { opacity:.70; }
+  to  { transform:translate3d( 7%, 5%,0) scale(1.20); opacity:.30; }
+}
+@supports (animation-timeline: view()){
+  .band-dark::before{ animation:fascia-elettrica linear both; animation-timeline:view(); }
+}
+@media (prefers-reduced-motion:reduce){ .band-dark::before{ animation:none; opacity:.5; transform:none; } }
 .band-dark h1, .band-dark h2, .band-dark h3{ color:#fff; }
 .band-dark a:not(.btn){ color:var(--on-dark); }
 .band-dark .section-head p, .band-dark .lede, .band-dark .small, .band-dark .muted{ color:var(--on-dark-2); }
@@ -290,10 +404,26 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
    di sopra spariva al primo scorrimento portandosi via il logo. Il ruolo
    ripeteva quello gia' scritto sotto il nome e i social sono nel footer. */
 .site-header{ position:sticky; top:0; z-index:200; background:var(--surface); border-bottom:1px solid var(--rule); }
+/* AVANZAMENTO DI LETTURA — un filo sul bordo basso della barra, agganciato allo
+   scorrimento del documento. Nessun JS, nessun listener di scroll: la timeline
+   e' dichiarata in CSS e il compositore la aggiorna senza toccare il layout.
+   Dove le timeline di scorrimento non esistono ancora, il filo resta a
+   larghezza zero e non si vede: e' decorazione, non informazione, quindi puo'
+   mancare senza che nulla si perda. */
+.site-header::after{
+  content:""; position:absolute; left:0; right:0; bottom:-1px; height:3px; z-index:2;
+  background:linear-gradient(90deg, var(--elettrico), var(--brand-lt) 52%, var(--porpora));
+  transform:scaleX(0); transform-origin:0 50%;
+}
+@supports (animation-timeline: scroll()){
+  .site-header::after{ animation:avanzamento linear both; animation-timeline:scroll(root block); }
+}
+@keyframes avanzamento{ from{ transform:scaleX(0); } to{ transform:scaleX(1); } }
+
 .lang-switch{ display:flex; gap:2px; }
 .lang-switch a{
   display:inline-flex; align-items:center; justify-content:center; min-width:32px; min-height:30px;
-  padding:0 7px; border-radius:var(--r); font-size:var(--t-xs); font-weight:600; letter-spacing:.03em;
+  padding:0 7px; border-radius:var(--r-xs); font-size:var(--t-xs); font-weight:600; letter-spacing:.03em;
   text-decoration:none; color:var(--ink-2);
 }
 .lang-switch a:hover{ background:var(--brass-bg); color:var(--brass-ink); }
@@ -303,7 +433,17 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .header-bar{ display:flex; align-items:center; gap:var(--s-4); height:72px; }
 .wordmark{ text-decoration:none; color:var(--ink); line-height:1.05; flex:0 1 auto; min-width:0; }
 .wordmark .name{ font-family:var(--serif); font-weight:600; font-size:1.32rem; letter-spacing:-.01em; display:block; }
-.wordmark .sub{ display:block; font-size:.75rem; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:var(--brass-ink); margin-top:3px; }
+/* nowrap: sopra i 1100px compare il menu esteso, il marchio si stringe e la
+   sottoriga andava a capo spezzando "SENATORE DELLA REPUBBLICA · / ABRUZZO".
+   Senza il ritorno a capo la riga tiene la sua larghezza intrinseca e la barra
+   resta alta 72px invece di crescere a 85. */
+.wordmark .sub{ display:block; white-space:nowrap; font-size:.75rem; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:var(--brass-ink); margin-top:3px; }
+/* Nella BARRA la coda " · Abruzzo" viene tolta sempre: anche a 1440px, con il
+   menu esteso, il marchio riceve 10px meno di quanto le servirebbe e la riga
+   sbordava sotto le voci di menu. Il collegio e' gia' detto tre volte nella
+   prima schermata (logo, occhiello, riga del ruolo). Nel pie' di pagina, dove
+   lo spazio c'e', resta. */
+.site-header .wordmark .sub-terr{ display:none; }
 .wordmark:hover .name{ color:var(--link); }
 .site-nav{ margin-left:auto; display:flex; align-items:center; gap:var(--s-2); }
 .nav-links{ display:flex; align-items:center; gap:2px; }
@@ -362,7 +502,10 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 @media (max-width:640px){
   .header-bar{ height:64px; gap:var(--s-2); }
   .wordmark .name{ font-size:1.12rem; }
-  .wordmark .sub{ font-size:.72rem; letter-spacing:.05em; }
+  /* Era .72rem, cioe' 11,5px: sotto il pavimento di leggibilita' che questo
+     progetto si e' dato per il telefono. Il posto per crescere si ricava
+     togliendo la coda " · Abruzzo", che sul telefono e' ridondante. */
+  .wordmark .sub{ font-size:.8rem; letter-spacing:.04em; }
   .wordmark .sub-terr{ display:none; }
   .icon-btn{ padding:0; min-width:44px; }
   .nav-actions .btn-cta{ display:none; }
@@ -373,7 +516,7 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
    pulsante del menu. Il nome non va mai spezzato e la barra puo' crescere. */
 @media (max-width:359px){
   .wordmark .name{ font-size:1rem; white-space:nowrap; }
-  .wordmark .sub{ font-size:.66rem; letter-spacing:.02em; }
+  .wordmark .sub{ font-size:.75rem; letter-spacing:.01em; }
   .header-bar{ height:auto; min-height:60px; padding-block:8px; }
 }
 
@@ -392,8 +535,12 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .search-results .title{ display:block; font-weight:600; color:var(--ink); margin:2px 0; font-family:var(--serif); }
 .search-results .snip{ font-size:var(--t-s); color:var(--ink-2); }
 .search-status{ font-size:var(--t-s); color:var(--ink-2); margin:var(--s-3) 0 0; }
-.search-page-form{ display:flex; gap:var(--s-2); max-width:640px; }
-.search-page-form input{ flex:1; min-height:48px; padding:0 var(--s-4); font:inherit; border:1px solid var(--rule-strong); border-radius:var(--r-sm); background:var(--surface); }
+/* A 360px il bottone sbordava di 16px: un elemento flessibile ha min-width:auto,
+   cioe' non scende sotto la sua larghezza intrinseca, e il campo non lasciava
+   spazio al bottone. Servono ENTRAMBE le correzioni: min-width:0 sul campo e
+   flex-wrap, che manda il bottone a capo quando anche cosi' non ci sta. */
+.search-page-form{ display:flex; flex-wrap:wrap; gap:var(--s-2); max-width:640px; }
+.search-page-form input{ flex:1 1 190px; min-width:0; min-height:48px; padding:0 var(--s-4); font:inherit; border:1px solid var(--rule-strong); border-radius:var(--r-sm); background:var(--surface); }
 
 /* ---------- Etichette e stati ---------- */
 .tag{
@@ -437,9 +584,20 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
   position:relative; display:flex; flex-direction:column; background:var(--surface);
   border:1px solid var(--rule); border-radius:var(--r); overflow:hidden;
   box-shadow:var(--shadow-card);
-  transition:transform .25s var(--ease), box-shadow .25s var(--ease), border-color .2s var(--ease);
+  transition:transform .3s var(--ease), box-shadow .3s var(--ease), border-color .22s var(--ease);
 }
-.media-card:hover, .media-card:focus-within{ border-color:var(--link); box-shadow:var(--shadow-pop); transform:translateY(-3px); }
+/* Il segno di stato non e' piu' il solito scambio d'ombra: un filo elettrico si
+   tira sul bordo alto della card. Costa un pseudo-elemento e una transizione di
+   transform — niente ridisegno, niente immagini. pointer-events:none e'
+   obbligatorio: quei 3px stanno sopra il collegamento che copre tutta la card
+   e senza la regola diventerebbero una fascia morta al clic. */
+.media-card::after{
+  content:""; position:absolute; left:0; right:0; top:0; height:3px; z-index:3; pointer-events:none;
+  background:linear-gradient(90deg, var(--elettrico), var(--brand-lt) 58%, var(--porpora));
+  transform:scaleX(0); transform-origin:0 50%; transition:transform .4s var(--ease);
+}
+.media-card:hover::after, .media-card:focus-within::after{ transform:scaleX(1); }
+.media-card:hover, .media-card:focus-within{ border-color:var(--brand-lt); box-shadow:var(--shadow-pop); transform:translateY(-4px); }
 /* Il patrimonio fotografico e' eterogeneo: 16 immagini su 41 sono grafiche
    social quadrate con testo gia' impresso, altre sono verticali. Un taglio
    troppo panoramico le decapita: su telefono tutte le card usano lo stesso
@@ -494,12 +652,18 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
    fotografia propria, quindi non hanno spazio immagine. Il filetto ottone in
    testa le distingue dalle card fotografiche senza fingere una miniatura. */
 .role-card{
-  background:var(--surface); border:1px solid var(--rule); border-top:3px solid var(--brass);
-  border-radius:var(--r); padding:var(--s-5); display:grid; gap:var(--s-3); align-content:start;
-  transition:border-color .2s var(--ease), box-shadow .22s var(--ease), transform .22s var(--ease);
+  position:relative; overflow:hidden;
+  background:var(--surface); border:1px solid var(--rule);
+  border-radius:var(--r); padding:calc(var(--s-5) + 3px) var(--s-5) var(--s-5);
+  display:grid; gap:var(--s-3); align-content:start;
+  transition:border-color .2s var(--ease), box-shadow .26s var(--ease), transform .26s var(--ease);
 }
+/* Un border-top spesso, con un raggio di 22px, si incurva contro i lati da 1px
+   e agli angoli forma due cunei: e' esattamente il dettaglio che fa sembrare
+   vecchio l'arrotondamento. La striscia va DENTRO, come pseudo-elemento. */
+.role-card::before{ content:""; position:absolute; left:0; right:0; top:0; height:3px; pointer-events:none; background:linear-gradient(90deg, var(--brass), var(--brass-lt)); }
 .role-card{ box-shadow:var(--shadow-card); }
-.role-card:hover, .role-card:focus-within{ border-color:var(--link); box-shadow:var(--shadow-pop); transform:translateY(-3px); }
+.role-card:hover, .role-card:focus-within{ border-color:var(--brand-lt); box-shadow:var(--shadow-pop); transform:translateY(-4px); }
 .role-card .tag{ justify-self:start; }
 .role-card h3{ margin:0; font-size:var(--t-card); }
 .role-card h3 a{ color:var(--ink); text-decoration:underline; text-decoration-color:var(--rule-strong); text-underline-offset:.18em; }
@@ -537,25 +701,48 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .hero{
   position:relative; color:var(--ink); overflow:clip; border-bottom:1px solid var(--rule);
   background:var(--paper);
-  background-image:linear-gradient(170deg, #FFFFFF 0%, var(--paper) 42%, var(--brand-bg) 100%);
+  /* Dal bianco in alto a sinistra al pieno del piano in basso: l'hero apre la
+     stessa discesa verso l'elettrico che poi fa tutta la pagina scorrendo.
+     Il filetto navy che stava qui sopra e' stato tolto: sotto il bordo della
+     barra e la barra di avanzamento faceva una fascia tripla di 6px. */
+  background-image:linear-gradient(160deg, #F4F8FF 0%, #D8E4FF 32%, var(--paper) 100%);
 }
-.hero::before{ content:""; position:absolute; left:0; right:0; top:0; height:3px; background:var(--navy); z-index:2; }
-/* Sfondo vivo dell'hero: due aloni azzurri che derivano lentamente uno rispetto
-   all'altro. Si anima solo "transform", che il browser compone sulla GPU senza
-   ridisegnare, quindi non pesa; nessuna particella, nessun video, nessun
-   movimento che rincorra lo scorrimento. Ventisei secondi per ciclo: si
-   percepisce come respiro, non come animazione. */
+/* Sfondo vivo dell'hero: due aloni elettrici che derivano lentamente uno
+   rispetto all'altro, piu' un terzo agganciato allo scorrimento. Si animano
+   solo transform e opacity, che il browser compone sulla GPU senza ridisegnare;
+   nessuna particella, nessun video, nessun movimento che rincorra il puntatore.
+   ALFA: due aloni a .105 si compongono a 1-(1-.105)^2 = .199 nel punto di
+   sovrapposizione. Sul fondo del gradiente (#BAD0FF) da' #9AB6FF, che e' il
+   fondo peggiore gia' verificato per tutti gli inchiostri dell'hero. */
 .hero::after{
   content:""; position:absolute; inset:-25% -12%; z-index:0; pointer-events:none;
   background:
-    radial-gradient(42% 52% at 28% 38%, rgba(20,80,143,.20), transparent 68%),
-    radial-gradient(38% 48% at 74% 66%, rgba(27,92,175,.16), transparent 70%);
-  animation:deriva 26s ease-in-out infinite alternate;
+    radial-gradient(44% 54% at 26% 36%, rgba(27,77,255,.105), transparent 68%),
+    radial-gradient(40% 50% at 76% 68%, rgba(37,96,245,.105), transparent 70%);
+  animation:deriva 30s ease-in-out infinite alternate;
   will-change:transform;
 }
 @keyframes deriva{
   from{ transform:translate3d(-2.5%, -1.5%, 0) scale(1); }
   to  { transform:translate3d(2.5%, 1.5%, 0) scale(1.07); }
+}
+/* Parallasse dell'hero: mentre la pagina scorre via, gli aloni scendono a meta'
+   velocita' e si spengono. view() misura l'attraversamento dell'hero stesso,
+   non del documento, quindi l'effetto e' identico su ogni pagina qualunque sia
+   la sua lunghezza. */
+@keyframes hero-parallasse{
+  from{ transform:translate3d(0,0,0) scale(1.02); opacity:1; }
+  to  { transform:translate3d(0,14%,0) scale(1.12); opacity:.35; }
+}
+@supports (animation-timeline: view()){
+  .hero::after{
+    animation:hero-parallasse linear both;
+    animation-timeline:view();
+    /* nessun animation-range esplicito: gli intervalli "contain" e "entry"
+       degenerano quando il soggetto e' piu' alto della finestra (e l'hero, su
+       un telefono, lo e' quasi sempre). L'intervallo predefinito "cover" e'
+       l'unico sempre ben definito, qualunque sia il rapporto fra i due. */
+  }
 }
 @media (prefers-reduced-motion:reduce){ .hero::after{ animation:none; } }
 /* La filigrana della legislatura vive solo dove c'e' spazio: su telefono
@@ -611,7 +798,7 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 /* Il rapporto deve seguire quello del riquadro (4/3): con un valore diverso la
    lastra sbordava in basso e la didascalia, in inchiostro scuro, ci finiva
    sopra diventando illeggibile. */
-.hero-figure::before{ content:""; position:absolute; top:18px; left:18px; right:-18px; aspect-ratio:4/3; background:var(--navy); z-index:0; }
+.hero-figure::before{ content:""; position:absolute; top:18px; left:18px; right:-18px; aspect-ratio:4/3; border-radius:var(--r); background:var(--navy); background-image:linear-gradient(140deg, var(--dark-lt), var(--navy) 62%); z-index:0; }
 .hero-figure .frame{ position:relative; z-index:1; overflow:hidden; border-radius:var(--r); background:var(--navy); }
 /* La fotografia principale e' l'intervento in Aula: orizzontale e a
    risoluzione contenuta (353x272). Il riquadro segue il rapporto della
@@ -730,14 +917,18 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 /* ---------- Dossier interno ---------- */
 .dossier-head{ display:grid; gap:var(--s-5); padding-bottom:var(--s-6); }
 @media (min-width:900px){ .dossier-head{ grid-template-columns:minmax(0, 2fr) minmax(0, 1fr); align-items:start; } }
-.status-box{ background:var(--surface); border:1px solid var(--rule); border-left:4px solid var(--navy); border-radius:var(--r); padding:var(--s-5); display:grid; gap:var(--s-2); min-width:0; overflow-wrap:break-word; }
-.status-box.concluso{ border-left-color:var(--ink); }
-.status-box.in-esame{ border-left-color:var(--brass); }
-.status-box.aggiornamento{ border-left-color:var(--porpora); }
+/* Il filetto verticale sta dentro il raggio (pseudo-elemento), non sul bordo:
+   un border-left da 4px contro un raggio da 22px si incurva e forma un cuneo. */
+.status-box{ position:relative; overflow:hidden; background:var(--surface); border:1px solid var(--rule); border-radius:var(--r); padding:var(--s-5) var(--s-5) var(--s-5) calc(var(--s-5) + 4px); display:grid; gap:var(--s-2); min-width:0; overflow-wrap:break-word; }
+.status-box::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:4px; pointer-events:none; background:linear-gradient(180deg, var(--elettrico), var(--navy)); }
+.status-box.concluso::before{ background:linear-gradient(180deg, var(--ink-2), var(--ink)); }
+.status-box.in-esame::before{ background:linear-gradient(180deg, var(--brass-lt), var(--brass)); }
+.status-box.aggiornamento::before{ background:linear-gradient(180deg, var(--porpora), var(--porpora-deep)); }
 .status-box h2{ font-family:var(--sans); font-size:var(--t-xs); letter-spacing:.08em; text-transform:uppercase; color:var(--brass-ink); margin:0; font-weight:650; }
 .status-box .status{ font-size:var(--t-m); }
 .status-box p{ margin:0; font-size:var(--t-m); }
-.why{ background:var(--porpora-bg); border-radius:var(--r); padding:var(--s-5) var(--s-6); border-left:4px solid var(--porpora); position:relative; }
+.why{ background:var(--porpora-bg); border-radius:var(--r); padding:var(--s-5) var(--s-6) var(--s-5) calc(var(--s-6) + 4px); position:relative; overflow:hidden; }
+.why::after{ content:""; position:absolute; left:0; top:0; bottom:0; width:4px; pointer-events:none; background:linear-gradient(180deg, var(--porpora), var(--porpora-deep)); }
 .why h2{ font-size:var(--t-h3); color:var(--porpora-deep); margin-bottom:var(--s-2); }
 .why p{ margin:0; color:var(--ink); }
 .chrono{ list-style:none; margin:0; padding:0; position:relative; }
@@ -765,8 +956,16 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .related .m{ font-size:var(--t-xs); color:var(--ink-2); }
 
 /* ---------- Pagina interna ---------- */
-.page-head{ background:var(--surface); border-bottom:1px solid var(--rule); padding:var(--s-5) 0 var(--s-7); position:relative; }
-.page-head::before{ content:""; position:absolute; left:0; right:0; top:0; height:3px; background:var(--navy); }
+/* Era una campitura bianca piatta: sulle pagine interne era la prima cosa che
+   si vedeva e spegneva il colore prima ancora di cominciare. Ora e' la stessa
+   discesa verso l'elettrico dell'hero, in versione breve. Il filetto navy in
+   testa e' stato tolto per la stessa ragione dell'hero: sotto il bordo della
+   barra e la barra di avanzamento faceva una fascia tripla. */
+.page-head{
+  background:var(--surface);
+  background-image:linear-gradient(162deg, #FFFFFF 0%, #E9F0FF 58%, #D6E3FF 100%);
+  border-bottom:1px solid var(--rule); padding:var(--s-5) 0 var(--s-7); position:relative;
+}
 .breadcrumb{ font-size:var(--t-xs); color:var(--ink-2); margin:0 0 var(--s-4); }
 .breadcrumb ol{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
 .breadcrumb li{ max-width:none; display:flex; gap:6px; align-items:center; }
@@ -843,9 +1042,12 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 /* ---------- Contatti ---------- */
 .paths{ display:grid; gap:var(--s-5); }
 @media (min-width:900px){ .paths{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
-.path{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--r); box-shadow:var(--shadow-card); padding:var(--s-5); display:grid; gap:var(--s-3); align-content:start; border-top:3px solid var(--navy); transition:transform .22s var(--ease), box-shadow .22s var(--ease), border-color .2s; }
-.path:nth-child(2){ border-top-color:var(--porpora); }
-.path:hover{ transform:translateY(-3px); box-shadow:var(--shadow-pop); }
+.path{ position:relative; overflow:hidden; background:var(--surface); border:1px solid var(--rule); border-radius:var(--r); box-shadow:var(--shadow-card); padding:calc(var(--s-5) + 3px) var(--s-5) var(--s-5); display:grid; gap:var(--s-3); align-content:start; transition:transform .26s var(--ease), box-shadow .26s var(--ease), border-color .2s; }
+/* Come per le card della stampa: striscia sfumata dentro il raggio, non un
+   border-top che agli angoli sporge dall'arrotondamento. */
+.path::before{ content:""; position:absolute; left:0; right:0; top:0; height:3px; pointer-events:none; background:linear-gradient(90deg, var(--elettrico), var(--brand-lt) 58%, var(--porpora)); }
+.path:nth-child(2)::before{ background:linear-gradient(90deg, var(--porpora), var(--brand-lt) 55%, var(--elettrico)); }
+.path:hover{ transform:translateY(-4px); box-shadow:var(--shadow-pop); border-color:var(--brand-lt); }
 .path h3{ margin:0; }
 .path p{ margin:0; color:var(--ink-2); font-size:var(--t-m); }
 .path .btn{ justify-self:start; margin-top:var(--s-2); }
@@ -868,8 +1070,36 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .form-note, .form-required-note{ font-size:var(--t-s); color:var(--ink-2); margin:0; }
 
 /* ---------- Footer ---------- */
-.site-footer{ background:var(--navy); background-image:var(--grad-dark); color:var(--on-dark-2); padding:var(--s-8) 0 var(--s-6); margin-top:var(--s-8); font-size:var(--t-s); position:relative; }
-.site-footer::before{ content:""; position:absolute; left:0; right:0; top:0; height:3px; background:var(--porpora); }
+.site-footer{ background:var(--navy); background-image:var(--grad-dark); color:var(--on-dark-2); padding:var(--s-8) 0 var(--s-6); margin-top:var(--s-8); font-size:var(--t-s); position:relative; overflow:clip; }
+.site-footer::before{ content:""; position:absolute; left:0; right:0; top:0; height:3px; z-index:2; background:linear-gradient(90deg, var(--elettrico), var(--brand-lt) 45%, var(--porpora)); }
+/* Chiusura della discesa: il pie' di pagina e' l'ultima cosa che si incontra e
+   qui l'alone elettrico arriva al massimo. Stesso tetto della fascia scura
+   (.28 x .70 = .196 effettivo): oltre, l'ottone della qualifica istituzionale
+   scenderebbe sotto 4,5:1. */
+.site-footer::after{
+  content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:radial-gradient(80% 100% at 15% 0%, rgba(27,77,255,.28), transparent 64%);
+  opacity:.6; will-change:transform, opacity;
+}
+.site-footer > *{ position:relative; z-index:1; }
+/* Il pie' di pagina e' l'ULTIMO elemento del documento: non esce mai dalla
+   finestra, quindi con view() l'animazione si fermerebbe a meta' corsa e
+   l'alone non arriverebbe mai al massimo. E "entry" degenera appena il piede
+   e' piu' alto della finestra. Qui la misura giusta e' l'avanzamento del
+   DOCUMENTO, ristretto all'ultimo terzo: e' esattamente quando il piede si
+   avvicina, su qualunque pagina e qualunque altezza di schermo. */
+@keyframes piede-elettrico{
+  from{ opacity:.22; transform:translate3d(-7%,-5%,0) scale(1.04); }
+  to  { opacity:.70; transform:translate3d( 2%, 2%,0) scale(1.18); }
+}
+@supports (animation-timeline: scroll()){
+  .site-footer::after{
+    animation:piede-elettrico linear both;
+    animation-timeline:scroll(root block);
+    animation-range:68% 100%;
+  }
+}
+@media (prefers-reduced-motion:reduce){ .site-footer::after{ animation:none; opacity:.5; transform:none; } }
 .footer-grid{ display:grid; gap:var(--s-6); padding-bottom:var(--s-6); border-bottom:1px solid var(--divider-dark); }
 @media (min-width:700px){ .footer-grid{ grid-template-columns:1.4fr 1fr 1fr 1fr; } }
 .site-footer h2{ color:#fff; font-family:var(--sans); font-size:var(--t-xs); letter-spacing:.08em; text-transform:uppercase; margin-bottom:var(--s-3); font-weight:650; }
@@ -907,13 +1137,22 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 @media (min-width:700px){ .latest-press ul{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
 @media (min-width:1040px){ .latest-press ul{ grid-template-columns:repeat(3, minmax(0,1fr)); } }
 .latest-press li{ max-width:none; }
+/* Il filetto in testa era un border-top a tinta unita: ora e' una striscia
+   sfumata dall'elettrico al porpora, dentro l'arrotondamento della card (un
+   border non si stonda insieme al raggio grande e sporgeva agli angoli). */
 .latest-press a{
+  position:relative; overflow:hidden;
   display:block; height:100%; text-decoration:none; color:var(--ink);
-  background:var(--surface); border:1px solid var(--rule); border-top:3px solid var(--link);
-  border-radius:var(--r); padding:var(--s-4); box-shadow:var(--shadow-card);
-  transition:border-color .2s var(--ease), box-shadow .22s var(--ease), transform .22s var(--ease);
+  background:var(--surface); border:1px solid var(--rule);
+  border-radius:var(--r); padding:calc(var(--s-4) + 3px) var(--s-4) var(--s-4);
+  box-shadow:var(--shadow-card);
+  transition:border-color .2s var(--ease), box-shadow .26s var(--ease), transform .26s var(--ease);
 }
-.latest-press a:hover, .latest-press a:focus-visible{ border-color:var(--link); box-shadow:var(--shadow-pop); transform:translateY(-3px); }
+.latest-press a::before{
+  content:""; position:absolute; left:0; right:0; top:0; height:3px; pointer-events:none;
+  background:linear-gradient(90deg, var(--elettrico), var(--brand-lt) 58%, var(--porpora));
+}
+.latest-press a:hover, .latest-press a:focus-visible{ border-color:var(--brand-lt); box-shadow:var(--shadow-pop); transform:translateY(-4px); }
 .latest-press time{ display:inline; color:var(--ink-2); font-size:var(--t-xs); }
 .latest-press b{ display:inline; color:var(--navy); font-weight:650; }
 .latest-press time::after{ content:" · "; color:var(--rule-strong); }
