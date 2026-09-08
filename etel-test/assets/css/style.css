@@ -262,7 +262,13 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 @media (max-width:640px){ .preview-banner .pv-detail{ display:none; } }
 
 /* ---------- Header ---------- */
-.site-header{ --topbar-h:38px; position:sticky; top:calc(-1 * var(--topbar-h)); z-index:200; background:var(--surface); border-bottom:1px solid var(--rule); }
+.site-header{ --topbar-h:54px; position:sticky; top:calc(-1 * var(--topbar-h)); z-index:200; background:var(--surface); border-bottom:1px solid var(--rule); }
+/* Il logo "L'Abruzzo in Parlamento" apre ogni pagina: dice a colpo d'occhio
+   collegio di elezione e appartenenza politica, che il solo nome non comunica.
+   Sta nella fascia superiore perche' nella barra sticky, accanto al nome, su
+   telefono resterebbero circa 85px — una riduzione a 23px di altezza, in cui
+   la scritta non si leggerebbe piu'. */
+.header-logo{ height:40px; width:auto; flex-shrink:0; }
 .header-top{
   height:var(--topbar-h); display:flex; align-items:center; justify-content:space-between; gap:var(--s-4);
   font-size:var(--t-xs); color:var(--ink-2); border-bottom:1px solid var(--hair); background:var(--paper);
@@ -340,10 +346,13 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
   html:not(.js) .nav-toggle{ display:none; }
 }
 @media (max-width:900px){
-  /* La fascia superiore conteneva solo lingue e social, entrambi già replicati
-     nel menu e nel footer: su telefono rubava 38px prima del contenuto vero. */
-  .header-top{ display:none; }
-  .site-header{ --topbar-h:0px; }
+  /* La fascia resta, ma con il solo logo: lingue e social sono gia' nel menu e
+     nel footer, e il testo del ruolo e' ripetuto sotto il nome. Cosi' il logo
+     ha tutta la larghezza per restare leggibile anche su telefono. */
+  .header-top{ justify-content:flex-start; }
+  .header-top .role, .header-top-right{ display:none; }
+  .site-header{ --topbar-h:58px; }
+  .header-logo{ height:44px; }
 }
 @media (max-width:640px){
   .header-bar{ height:64px; gap:var(--s-2); }
