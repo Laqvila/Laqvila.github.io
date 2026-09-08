@@ -42,29 +42,29 @@
 
 :root{
   /* ---- Fondi: azzurro chiaro, mai scuro ---- */
-  --paper:      #F1F6FC;   /* fondo pagina, azzurrino chiaro */
-  --paper-2:    #E1ECF8;   /* azzurro un gradino piu' pieno: fasce e registri */
+  --paper:      #D9E9F8;   /* azzurro pieno: il fondo deve leggersi come azzurro */
+  --paper-2:    #C2DBF2;   /* un gradino ancora piu' carico: fasce e registri */
   --surface:    #FFFFFF;   /* superficie di card e riquadri */
 
   /* ---- Inchiostri, nella stessa famiglia blu (su pagina: 14,2 / 6,8 / 5,3 : 1) ---- */
-  --ink:        #0F2542;
-  --ink-2:      #42576F;
-  --ink-3:      #51687F;
+  --ink:        #0C2340;
+  --ink-2:      #3A5170;
+  --ink-3:      #465E7C;
 
   /* ---- Filetti. Il bordo deve VEDERSI: e' l'articolazione della pagina. ---- */
-  --hair:       #CBDCEE;   /* capillare, separatori interni */
-  --rule:       #6E8CAA;   /* strutturale: bordo card, regola di sezione (3,22:1) */
-  --rule-strong:#5D7692;   /* bordo dei CONTROLLI: input, filtri, bottoni (4,32:1) */
+  --hair:       #A9C8E6;   /* capillare, separatori interni */
+  --rule:       #5C83AB;   /* strutturale: bordo card, regola di sezione (3,21:1) */
+  --rule-strong:#4E7096;   /* bordo dei CONTROLLI: input, filtri, bottoni (4,16:1) */
 
   /* ---- Blu di Fratelli d'Italia: marchio, link, azione ---- */
-  --link:       #17529B;   /* 7,11:1 su pagina — link sempre sottolineati */
+  --link:       #14508F;   /* 6,59:1 su pagina — link sempre sottolineati */
   --brand-lt:   #1B5CAF;   /* estremo chiaro della sfumatura dei bottoni */
-  --brand-deep: #0F3D78;   /* estremo scuro e stato premuto */
-  --brand-bg:   #E4EFFB;   /* tinta tenue per riquadri e chip */
+  --brand-deep: #0D3A72;   /* estremo scuro e stato premuto */
+  --brand-bg:   #E7F1FC;   /* tinta tenue per riquadri e chip */
 
   /* ---- Fasce scure: blu notte della stessa famiglia ---- */
-  --navy:       #0D2C55;   /* 13,9:1 col bianco */
-  --navy-deep:  #08203F;
+  --navy:       #0B2A50;   /* 14,4:1 col bianco */
+  --navy-deep:  #071D3A;
 
   /* ---- Porpora del laticlavio: accento raro, solo su fondo chiaro ---- */
   --porpora:     #8A1F35;  /* 8,30:1 su pagina */
@@ -72,8 +72,8 @@
   --porpora-bg:  #FBE9EC;
 
   /* ---- Ottone: contrappunto caldo, in dose minima ---- */
-  --brass:      #8A6A22;   /* grafico su chiaro (4,64:1) */
-  --brass-ink:  #6E5316;   /* testo su chiaro (6,64:1) */
+  --brass:      #7E5F1C;   /* grafico su chiaro (4,79:1) */
+  --brass-ink:  #654C12;   /* testo su chiaro (6,53:1) */
   --brass-lt:   #D9B44A;   /* su navy (7,01:1) */
   --brass-bg:   #F2E7CC;
 
@@ -86,9 +86,9 @@
   /* ---- Sfumature. Entrambi gli estremi di ogni gradiente sono verificati
        per il testo che ci va sopra, cosi' il contrasto regge lungo tutta la
        transizione e non solo al centro. ---- */
-  --grad-page:  linear-gradient(180deg, #FFFFFF 0%, var(--paper) 340px);
-  --grad-band:  linear-gradient(180deg, var(--paper-2) 0%, #EDF3FB 100%);
-  --grad-dark:  linear-gradient(155deg, #123A6B 0%, var(--navy) 45%, var(--navy-deep) 100%);
+  --grad-page:  linear-gradient(180deg, #EDF5FD 0%, var(--paper) 420px);
+  --grad-band:  linear-gradient(180deg, var(--paper-2) 0%, #D6E7F6 100%);
+  --grad-dark:  linear-gradient(155deg, #16457E 0%, var(--navy) 48%, var(--navy-deep) 100%);
   --grad-brand: linear-gradient(180deg, var(--brand-lt) 0%, var(--link) 52%, var(--brand-deep) 100%);
   --grad-rule:  linear-gradient(90deg, var(--link) 0%, var(--rule) 60%, transparent 100%);
 
@@ -532,6 +532,24 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
   background-image:linear-gradient(170deg, #FFFFFF 0%, var(--paper) 42%, var(--brand-bg) 100%);
 }
 .hero::before{ content:""; position:absolute; left:0; right:0; top:0; height:3px; background:var(--navy); z-index:2; }
+/* Sfondo vivo dell'hero: due aloni azzurri che derivano lentamente uno rispetto
+   all'altro. Si anima solo "transform", che il browser compone sulla GPU senza
+   ridisegnare, quindi non pesa; nessuna particella, nessun video, nessun
+   movimento che rincorra lo scorrimento. Ventisei secondi per ciclo: si
+   percepisce come respiro, non come animazione. */
+.hero::after{
+  content:""; position:absolute; inset:-25% -12%; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(42% 52% at 28% 38%, rgba(20,80,143,.20), transparent 68%),
+    radial-gradient(38% 48% at 74% 66%, rgba(27,92,175,.16), transparent 70%);
+  animation:deriva 26s ease-in-out infinite alternate;
+  will-change:transform;
+}
+@keyframes deriva{
+  from{ transform:translate3d(-2.5%, -1.5%, 0) scale(1); }
+  to  { transform:translate3d(2.5%, 1.5%, 0) scale(1.07); }
+}
+@media (prefers-reduced-motion:reduce){ .hero::after{ animation:none; } }
 /* La filigrana della legislatura vive solo dove c'e' spazio: su telefono
    finiva dietro il paragrafo e lo sporcava. */
 .hero-watermark{ display:none; }
@@ -862,30 +880,42 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .footer-logo{ display:inline-block; background:#fff; border-radius:var(--r); padding:6px 10px; margin-top:var(--s-3); }
 .footer-logo img{ height:32px; width:auto; }
 
-/* ---------- Ultime dalla stampa ---------- */
-.latest-press{ background:var(--surface); border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); }
-.latest-press .row{ display:flex; gap:var(--s-2) var(--s-5); align-items:baseline; padding:var(--s-4) 0; flex-wrap:wrap; }
-.latest-press .lbl{ font-size:var(--t-xs); font-weight:650; letter-spacing:.08em; text-transform:uppercase; color:var(--brass-ink); white-space:nowrap; }
-.latest-press ul{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px var(--s-5); flex:1 1 320px; min-width:0; }
-.latest-press li{ max-width:none; font-size:var(--t-s); line-height:1.45; }
-.latest-press a{ text-decoration:none; color:var(--ink); display:inline-flex; align-items:center; min-height:28px; }
-/* Su telefono le voci non stanno in riga: diventano un elenco vero, con data e
-   testata sopra e titolo sotto, separate da un filetto. In riga il titolo si
-   spezzava in colonne strettissime e la data restava orfana a sinistra. */
-@media (max-width:760px){
-  .latest-press .row{ display:block; padding:var(--s-4) 0 var(--s-2); }
-  .latest-press .lbl{ display:block; margin-bottom:var(--s-3); }
-  .latest-press ul{ display:block; }
-  .latest-press li{ border-top:1px solid var(--hair); }
-  .latest-press li:first-child{ border-top:0; }
-  .latest-press a{ display:block; padding:10px 0; min-height:44px; }
-  .latest-press time{ display:inline; }
-  .latest-press b{ display:inline; }
-  .latest-press a > span{ display:block; margin-top:2px; color:var(--ink); }
+/* ---------- Ultime dalla stampa ----------
+   Erano righe di elenco a filo del container: su telefono il testo finiva
+   attaccato al bordo dello schermo e la data restava orfana a sinistra. Ora
+   sono card come le altre del sito — superficie bianca, bordo visibile, filetto
+   blu in testa — cosi' la sezione parla la stessa lingua delle notizie. */
+.latest-press{ background:transparent; padding:var(--sec-y) 0 0; }
+/* padding-block, non la scorciatoia: "padding:0" azzerava anche il margine
+   laterale ereditato da .container e le card finivano a filo dello schermo. */
+.latest-press .row{ display:block; padding-block:0; }
+.latest-press .lbl{
+  display:inline-flex; align-items:center; gap:10px; margin:0 0 var(--s-4);
+  font-size:var(--t-xs); font-weight:650; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--brass-ink);
 }
-.latest-press a:hover{ color:var(--link); text-decoration:underline; }
-.latest-press b{ color:var(--navy); font-weight:650; margin-right:6px; }
-.latest-press time{ color:var(--ink-2); font-size:var(--t-xs); margin-right:6px; }
+.latest-press .lbl::before{ content:""; width:26px; height:2px; background:var(--brass); flex-shrink:0; }
+.latest-press ul{ list-style:none; margin:0; padding:0; display:grid; gap:var(--s-4); grid-template-columns:1fr; }
+@media (min-width:700px){ .latest-press ul{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+@media (min-width:1040px){ .latest-press ul{ grid-template-columns:repeat(3, minmax(0,1fr)); } }
+.latest-press li{ max-width:none; }
+.latest-press a{
+  display:block; height:100%; text-decoration:none; color:var(--ink);
+  background:var(--surface); border:1px solid var(--rule); border-top:3px solid var(--link);
+  border-radius:var(--r); padding:var(--s-4);
+  transition:border-color .2s var(--ease), box-shadow .22s var(--ease), transform .22s var(--ease);
+}
+.latest-press a:hover, .latest-press a:focus-visible{ border-color:var(--link); box-shadow:var(--shadow-pop); transform:translateY(-3px); }
+.latest-press time{ display:inline; color:var(--ink-2); font-size:var(--t-xs); }
+.latest-press b{ display:inline; color:var(--navy); font-weight:650; }
+.latest-press time::after{ content:" · "; color:var(--rule-strong); }
+/* Il capoverso lo apre la testata, non il titolo: un blocco vuoto dopo <b> manda
+   a capo, cosi' il titolo resta in linea e la freccia del link esterno lo segue
+   invece di finire su una riga tutta sua. */
+.latest-press b::after{ content:""; display:block; height:6px; }
+.latest-press a > span:not(.visually-hidden){ display:inline; font-size:var(--t-m); line-height:1.4; color:var(--ink); }
+.latest-press a:hover > span:not(.visually-hidden){ color:var(--link); }
+@media (prefers-reduced-motion:reduce){ .latest-press a:hover{ transform:none; } }
 
 /* ---------- 404 / ricerca ---------- */
 .empty{ text-align:center; padding:var(--s-8) 0; }
