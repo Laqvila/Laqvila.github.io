@@ -345,6 +345,14 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
   .nav-actions .btn-cta{ display:none; }
 }
 @media (max-width:1100px) and (min-width:641px){ .nav-actions .btn-cta{ display:inline-flex; } }
+/* Sotto i 360px (telefoni piccoli) "Etelwardo Sigismondi" andava a capo e il
+   blocco del nome sfondava l'altezza fissa della barra, finendo sotto il
+   pulsante del menu. Il nome non va mai spezzato e la barra puo' crescere. */
+@media (max-width:359px){
+  .wordmark .name{ font-size:1rem; white-space:nowrap; }
+  .wordmark .sub{ font-size:.66rem; letter-spacing:.02em; }
+  .header-bar{ height:auto; min-height:60px; padding-block:8px; }
+}
 
 /* ---------- Ricerca ---------- */
 .search-dialog{ border:1px solid var(--rule); border-radius:var(--r); padding:0; max-width:min(680px, calc(100vw - 32px)); width:100%; box-shadow:var(--shadow-pop); background:var(--surface); }
