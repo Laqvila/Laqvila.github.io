@@ -42,18 +42,18 @@
 
 :root{
   /* ---- Fondi: azzurro chiaro, mai scuro ---- */
-  --paper:      #D9E9F8;   /* azzurro pieno: il fondo deve leggersi come azzurro */
-  --paper-2:    #C2DBF2;   /* un gradino ancora piu' carico: fasce e registri */
+  --paper:      #ACCDEE;   /* IL PIANO: blu deciso. Le card ci galleggiano sopra */
+  --paper-2:    #E8F2FB;   /* pannelli CHIARI sul piano blu: il ritmo si inverte */
   --surface:    #FFFFFF;   /* superficie di card e riquadri */
 
   /* ---- Inchiostri, nella stessa famiglia blu (su pagina: 14,2 / 6,8 / 5,3 : 1) ---- */
   --ink:        #0C2340;
   --ink-2:      #3A5170;
-  --ink-3:      #465E7C;
+  --ink-3:      #3C5169;
 
   /* ---- Filetti. Il bordo deve VEDERSI: e' l'articolazione della pagina. ---- */
-  --hair:       #A9C8E6;   /* capillare, separatori interni */
-  --rule:       #5C83AB;   /* strutturale: bordo card, regola di sezione (3,21:1) */
+  --hair:       #DCE8F5;   /* capillare: separatori DENTRO le card, su bianco */
+  --rule:       #7093B6;   /* strutturale: bordo card e regola di sezione */
   --rule-strong:#4E7096;   /* bordo dei CONTROLLI: input, filtri, bottoni (4,16:1) */
 
   /* ---- Blu di Fratelli d'Italia: marchio, link, azione ---- */
@@ -86,8 +86,8 @@
   /* ---- Sfumature. Entrambi gli estremi di ogni gradiente sono verificati
        per il testo che ci va sopra, cosi' il contrasto regge lungo tutta la
        transizione e non solo al centro. ---- */
-  --grad-page:  linear-gradient(180deg, #EDF5FD 0%, var(--paper) 420px);
-  --grad-band:  linear-gradient(180deg, var(--paper-2) 0%, #D6E7F6 100%);
+  --grad-page:  linear-gradient(180deg, #A4C9EC 0%, var(--paper) 380px, #B6D3F0 100%);
+  --grad-band:  linear-gradient(180deg, #FFFFFF 0%, var(--paper-2) 100%);
   --grad-dark:  linear-gradient(155deg, #16457E 0%, var(--navy) 48%, var(--navy-deep) 100%);
   --grad-brand: linear-gradient(180deg, var(--brand-lt) 0%, var(--link) 52%, var(--brand-deep) 100%);
   --grad-rule:  linear-gradient(90deg, var(--link) 0%, var(--rule) 60%, transparent 100%);
@@ -127,10 +127,16 @@
      riga, è l'errore da cui veniamo. Su desktop 62ch dà ~66 caratteri (il
      vecchio 68ch ne dava 82, sopra il tetto). */
   --measure: 62ch;
-  --r: 2px;              /* mai pillole: il raggio grande è il segnale n.1 del template */
+  /* Raggi: morbidi ma sobri. Mai pillole (999px), che è il segnale numero uno
+     del template comprato; ma nemmeno lo spigolo vivo, che su un piano colorato
+     fa sembrare le card ritagliate col taglierino. */
+  --r:    14px;          /* card, pannelli, riquadri */
+  --r-sm: 9px;           /* bottoni, campi, filtri */
+  --r-xs: 6px;           /* etichette e chip */
   --ease: cubic-bezier(.2,.7,.3,1);
   --ease-soft: cubic-bezier(.33,.9,.4,1);
-  --shadow-pop: 0 12px 28px -14px rgba(26,23,20,.28);
+  --shadow-card:0 1px 2px rgba(11,42,80,.08), 0 6px 16px -8px rgba(11,42,80,.18);
+  --shadow-pop: 0 4px 10px rgba(11,42,80,.10), 0 18px 36px -16px rgba(11,42,80,.34);
 }
 
 @media (min-width:900px){
@@ -240,7 +246,7 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 /* ---------- Bottoni ---------- */
 .btn{
   position:relative; display:inline-flex; align-items:center; gap:10px; min-height:48px; padding:12px 22px;
-  border-radius:var(--r); border:1px solid transparent; font-weight:600; font-size:var(--t-s);
+  border-radius:var(--r-sm); border:1px solid transparent; font-weight:600; font-size:var(--t-s);
   text-decoration:none; cursor:pointer; line-height:1.2;
   transition:background .18s var(--ease), color .18s var(--ease), border-color .18s var(--ease), transform .12s var(--ease);
 }
@@ -317,7 +323,7 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .nav-actions{ display:flex; align-items:center; gap:var(--s-2); margin-left:var(--s-2); }
 .icon-btn{
   display:inline-flex; align-items:center; justify-content:center; gap:8px; min-width:44px; min-height:44px;
-  padding:0 12px; border-radius:var(--r); border:1px solid var(--rule-strong); background:var(--surface);
+  padding:0 12px; border-radius:var(--r-sm); border:1px solid var(--rule-strong); background:var(--surface);
   color:var(--ink); text-decoration:none; font-weight:500; font-size:var(--t-s); cursor:pointer; transition:border-color .18s, color .18s, background .18s;
 }
 .icon-btn:hover{ border-color:var(--navy); color:var(--navy); background:var(--paper); }
@@ -342,7 +348,7 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
   .nav-links a{ min-height:52px; padding:0 var(--s-2); font-size:var(--t-m); border-bottom:1px solid var(--hair); }
   .nav-links a::after{ display:none; }
   .nav-links a[aria-current="page"]{ box-shadow:inset 3px 0 0 var(--link); padding-left:var(--s-3); }
-  .nav-links a.btn-cta{ display:inline-flex; justify-content:center; margin-top:var(--s-4); border:0; background:var(--link); background-image:var(--grad-brand); color:#fff; font-weight:600; border-radius:var(--r); }
+  .nav-links a.btn-cta{ display:inline-flex; justify-content:center; margin-top:var(--s-4); border:0; background:var(--link); background-image:var(--grad-brand); color:#fff; font-weight:600; border-radius:var(--r-sm); }
   .nav-links a.btn-cta:hover{ background:var(--brand-deep); background-image:none; color:#fff; }
   /* Sotto i 1100px le lingue vivono nel menu: quella in barra sparisce per non
      duplicare il comando. */
@@ -376,7 +382,7 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .search-dialog::backdrop{ background:rgba(13,31,51,.6); }
 .search-inner{ padding:var(--s-5); }
 .search-row{ display:flex; gap:var(--s-2); align-items:center; }
-.search-row input{ flex:1; min-height:48px; padding:0 var(--s-4); font:inherit; border:1px solid var(--rule-strong); border-radius:var(--r); color:var(--ink); background:var(--paper); }
+.search-row input{ flex:1; min-height:48px; padding:0 var(--s-4); font:inherit; border:1px solid var(--rule-strong); border-radius:var(--r-sm); color:var(--ink); background:var(--surface); }
 .search-row input:focus-visible{ border-color:var(--navy); }
 .search-results{ list-style:none; margin:var(--s-4) 0 0; padding:0; max-height:52vh; overflow:auto; }
 .search-results li{ max-width:none; border-top:1px solid var(--hair); }
@@ -387,12 +393,12 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .search-results .snip{ font-size:var(--t-s); color:var(--ink-2); }
 .search-status{ font-size:var(--t-s); color:var(--ink-2); margin:var(--s-3) 0 0; }
 .search-page-form{ display:flex; gap:var(--s-2); max-width:640px; }
-.search-page-form input{ flex:1; min-height:48px; padding:0 var(--s-4); font:inherit; border:1px solid var(--rule-strong); border-radius:var(--r); background:var(--surface); }
+.search-page-form input{ flex:1; min-height:48px; padding:0 var(--s-4); font:inherit; border:1px solid var(--rule-strong); border-radius:var(--r-sm); background:var(--surface); }
 
 /* ---------- Etichette e stati ---------- */
 .tag{
   display:inline-flex; align-items:center; gap:6px; min-height:28px; padding:4px 12px;
-  border-radius:var(--r); font-size:var(--t-xs); font-weight:650; letter-spacing:.05em; text-transform:uppercase;
+  border-radius:var(--r-xs); font-size:var(--t-xs); font-weight:650; letter-spacing:.05em; text-transform:uppercase;
   background:var(--surface); border:1px solid var(--rule); color:var(--navy);
   text-decoration:none; white-space:normal; text-align:left; line-height:1.3;
 }
@@ -430,6 +436,7 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .media-card{
   position:relative; display:flex; flex-direction:column; background:var(--surface);
   border:1px solid var(--rule); border-radius:var(--r); overflow:hidden;
+  box-shadow:var(--shadow-card);
   transition:transform .25s var(--ease), box-shadow .25s var(--ease), border-color .2s var(--ease);
 }
 .media-card:hover, .media-card:focus-within{ border-color:var(--link); box-shadow:var(--shadow-pop); transform:translateY(-3px); }
@@ -491,6 +498,7 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
   border-radius:var(--r); padding:var(--s-5); display:grid; gap:var(--s-3); align-content:start;
   transition:border-color .2s var(--ease), box-shadow .22s var(--ease), transform .22s var(--ease);
 }
+.role-card{ box-shadow:var(--shadow-card); }
 .role-card:hover, .role-card:focus-within{ border-color:var(--link); box-shadow:var(--shadow-pop); transform:translateY(-3px); }
 .role-card .tag{ justify-self:start; }
 .role-card h3{ margin:0; font-size:var(--t-card); }
@@ -502,7 +510,7 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 /* ---------- Griglia timeline / dossier ---------- */
 .filters{ display:flex; flex-wrap:wrap; gap:var(--s-2); margin-bottom:var(--s-4); }
 .filter{
-  display:inline-flex; align-items:center; min-height:44px; padding:0 16px; border-radius:var(--r);
+  display:inline-flex; align-items:center; min-height:44px; padding:0 16px; border-radius:var(--r-sm);
   border:1px solid var(--rule-strong); background:var(--surface); color:var(--ink);
   font-size:var(--t-s); font-weight:500; text-decoration:none; cursor:pointer; transition:border-color .18s, color .18s, background .18s;
 }
@@ -639,17 +647,17 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
   .hero-mandate{ order:6; }
   .hero-actions{ order:7; }
 
-  /* Su telefono il ritratto va a piena larghezza e in taglio orizzontale:
-     250px invece dei 568px di prima, senza rimpicciolire la foto. */
-  .hero-figure{ max-width:none; margin-inline:calc(-1 * var(--pad)); }
+  /* Su telefono il ritratto resta nel container e stondato come tutto il resto:
+     a filo dello schermo e con gli angoli vivi sembrava ritagliato. */
+  .hero-figure{ max-width:none; }
   .hero-figure::before{ display:none; }
-  .hero-figure .frame{ border-radius:0; aspect-ratio:4/3; }
+  .hero-figure .frame{ border-radius:var(--r); aspect-ratio:4/3; box-shadow:var(--shadow-card); }
   /* Sui telefoni piu' stretti il taglio si abbassa ancora, cosi' la fotografia
      entra per intero nella prima schermata. */
   @media (max-width:400px){ .hero-figure .frame{ aspect-ratio:16/10; } }
   .hero-figure .frame img{ width:100%; height:100%; object-fit:cover; object-position:50% 30%; }
-  .hero-figure .rule{ left:0; top:0; width:6px; height:100%; }
-  .hero-figure figcaption{ margin-inline:var(--pad); }
+  .hero-figure .rule{ left:-6px; top:22px; width:6px; height:64px; border-radius:3px; }
+  .hero-figure figcaption{ margin-inline:0; }
   .hero-watermark{ font-size:44vw; right:-8vw; opacity:.55; }
 }
 
@@ -691,7 +699,7 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .now-card .btn-secondary{ align-self:flex-start; margin-top:var(--s-4); background:#fff; color:var(--navy); border-color:#fff; }
 .now-card .btn-secondary:hover{ background:var(--brass-lt); color:var(--navy-deep); border-color:var(--brass-lt); }
 
-.mandate{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--r); padding:var(--s-5); display:grid; gap:var(--s-4); align-content:start; }
+.mandate{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--r); box-shadow:var(--shadow-card); padding:var(--s-5); display:grid; gap:var(--s-4); align-content:start; }
 .mandate h2{ font-size:var(--t-xs); font-family:var(--sans); letter-spacing:.08em; text-transform:uppercase; color:var(--brass-ink); margin:0; font-weight:650; }
 .mandate dl{ margin:0; display:grid; gap:var(--s-3); }
 .mandate div{ display:grid; gap:2px; padding-bottom:var(--s-3); border-bottom:1px solid var(--hair); }
@@ -746,7 +754,7 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .acts .iter{ font-size:var(--t-s); color:var(--ink-2); }
 .acts a{ display:inline-block; min-height:24px; padding:3px 0; }
 .chips{ display:flex; flex-wrap:wrap; gap:6px; }
-.chip{ display:inline-flex; align-items:center; min-height:30px; padding:3px 11px; border-radius:var(--r); background:var(--surface); border:1px solid var(--rule-strong); font-size:var(--t-s); color:var(--ink); }
+.chip{ display:inline-flex; align-items:center; min-height:30px; padding:3px 11px; border-radius:var(--r-xs); background:var(--surface); border:1px solid var(--rule-strong); font-size:var(--t-s); color:var(--ink); }
 .dossier-section{ padding:var(--s-6) 0; border-top:1px solid var(--rule); }
 .dossier-section h2{ font-size:var(--t-h3); }
 .related{ list-style:none; margin:0; padding:0; display:grid; gap:var(--s-2); }
@@ -835,7 +843,7 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 /* ---------- Contatti ---------- */
 .paths{ display:grid; gap:var(--s-5); }
 @media (min-width:900px){ .paths{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
-.path{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--r); padding:var(--s-5); display:grid; gap:var(--s-3); align-content:start; border-top:3px solid var(--navy); transition:transform .22s var(--ease), box-shadow .22s var(--ease), border-color .2s; }
+.path{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--r); box-shadow:var(--shadow-card); padding:var(--s-5); display:grid; gap:var(--s-3); align-content:start; border-top:3px solid var(--navy); transition:transform .22s var(--ease), box-shadow .22s var(--ease), border-color .2s; }
 .path:nth-child(2){ border-top-color:var(--porpora); }
 .path:hover{ transform:translateY(-3px); box-shadow:var(--shadow-pop); }
 .path h3{ margin:0; }
@@ -850,7 +858,7 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .form-field label{ font-weight:650; color:var(--ink); }
 .form-field input, .form-field textarea, .form-field select{
   font:inherit; color:var(--ink); background:var(--surface); border:1px solid var(--rule-strong);
-  border-radius:var(--r); padding:12px 14px; min-height:48px; width:100%; transition:border-color .18s, box-shadow .18s;
+  border-radius:var(--r-sm); padding:12px 14px; min-height:48px; width:100%; transition:border-color .18s, box-shadow .18s;
 }
 .form-field textarea{ min-height:160px; resize:vertical; }
 .form-field input:focus-visible, .form-field textarea:focus-visible, .form-field select:focus-visible{ border-color:var(--navy); }
@@ -902,7 +910,7 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .latest-press a{
   display:block; height:100%; text-decoration:none; color:var(--ink);
   background:var(--surface); border:1px solid var(--rule); border-top:3px solid var(--link);
-  border-radius:var(--r); padding:var(--s-4);
+  border-radius:var(--r); padding:var(--s-4); box-shadow:var(--shadow-card);
   transition:border-color .2s var(--ease), box-shadow .22s var(--ease), transform .22s var(--ease);
 }
 .latest-press a:hover, .latest-press a:focus-visible{ border-color:var(--link); box-shadow:var(--shadow-pop); transform:translateY(-3px); }
@@ -929,10 +937,12 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
    la colonna di lettura a 37 caratteri per riga.
    ========================================================================== */
 @media (max-width:559px){
-  .media-card{ border-left:0; border-right:0; border-radius:0; }
-  .media-card:hover, .media-card:focus-within{ transform:none; box-shadow:none; }
-  .media-card .body{ padding:var(--s-4) 0 var(--s-5); }
-  .media-card .media{ margin:0; }
+  /* Le card NON vanno piu' a filo del container: su un piano colorato una card
+     senza bordi laterali e senza angoli sembra ritagliata col taglierino. Si
+     recupera larghezza di lettura stringendo il padding interno, non togliendo
+     la scatola. */
+  .media-card .body{ padding:var(--s-4); }
+  .media-card:hover, .media-card:focus-within{ transform:none; }
   .timeline{ gap:var(--s-4); }
   .tl li{ padding-left:26px; }
   .chrono li{ padding-left:24px; }
