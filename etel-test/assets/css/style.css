@@ -41,42 +41,56 @@
 }
 
 :root{
-  /* ---- Carta ---- */
-  --paper:      #FAF7F0;   /* fondo pagina, sempre */
-  --paper-2:    #EFE8DA;   /* sabbia: fasce, registro dati, card senza foto */
-  --surface:    #FFFDF9;   /* superficie di card e riquadri. Mai #FFF puro */
+  /* ---- Fondi: azzurro chiaro, mai scuro ---- */
+  --paper:      #F1F6FC;   /* fondo pagina, azzurrino chiaro */
+  --paper-2:    #E1ECF8;   /* azzurro un gradino piu' pieno: fasce e registri */
+  --surface:    #FFFFFF;   /* superficie di card e riquadri */
 
-  /* ---- Inchiostri (su carta: 16,68 / 7,40 / 5,97 : 1) ---- */
-  --ink:        #1A1714;
-  --ink-2:      #57504A;
-  --ink-3:      #665E52;
+  /* ---- Inchiostri, nella stessa famiglia blu (su pagina: 14,2 / 6,8 / 5,3 : 1) ---- */
+  --ink:        #0F2542;
+  --ink-2:      #42576F;
+  --ink-3:      #51687F;
 
-  /* ---- Filetti. Il vecchio --border stava a 1,26:1: invisibile. ---- */
-  --hair:       #D8CEBA;   /* capillare, separatori interni (1,46:1) */
-  --rule:       #988E7C;   /* strutturale: bordo card, regola di sezione (3,02:1) */
-  --rule-strong:#857B6B;   /* bordo dei CONTROLLI: input, filtri, bottoni (3,89:1) */
+  /* ---- Filetti. Il bordo deve VEDERSI: e' l'articolazione della pagina. ---- */
+  --hair:       #CBDCEE;   /* capillare, separatori interni */
+  --rule:       #6E8CAA;   /* strutturale: bordo card, regola di sezione (3,22:1) */
+  --rule-strong:#5D7692;   /* bordo dei CONTROLLI: input, filtri, bottoni (4,32:1) */
 
-  /* ---- Blu istituzionale ---- */
-  --navy:       #16304C;   /* 12,57:1 su carta */
-  --navy-deep:  #0D1F33;
-  --link:       #1B4B7F;   /* 8,32:1 — link sempre sottolineati */
+  /* ---- Blu di Fratelli d'Italia: marchio, link, azione ---- */
+  --link:       #17529B;   /* 7,11:1 su pagina — link sempre sottolineati */
+  --brand-lt:   #1B5CAF;   /* estremo chiaro della sfumatura dei bottoni */
+  --brand-deep: #0F3D78;   /* estremo scuro e stato premuto */
+  --brand-bg:   #E4EFFB;   /* tinta tenue per riquadri e chip */
 
-  /* ---- Porpora del laticlavio: accento primario, solo su fondo chiaro ---- */
-  --porpora:     #7B1E2B;  /* 9,51:1 su carta */
-  --porpora-deep:#5E1620;
-  --porpora-bg:  #F6E8E5;
+  /* ---- Fasce scure: blu notte della stessa famiglia ---- */
+  --navy:       #0D2C55;   /* 13,9:1 col bianco */
+  --navy-deep:  #08203F;
 
-  /* ---- Ottone: la stessa marca tradotta per il fondo scuro ---- */
-  --brass:      #8A6A22;   /* grafico su chiaro (4,71:1) */
-  --brass-ink:  #6E5316;   /* testo su chiaro (6,74:1) */
-  --brass-lt:   #D9B44A;   /* su navy (6,78:1) */
+  /* ---- Porpora del laticlavio: accento raro, solo su fondo chiaro ---- */
+  --porpora:     #8A1F35;  /* 8,30:1 su pagina */
+  --porpora-deep:#6B1628;
+  --porpora-bg:  #FBE9EC;
+
+  /* ---- Ottone: contrappunto caldo, in dose minima ---- */
+  --brass:      #8A6A22;   /* grafico su chiaro (4,64:1) */
+  --brass-ink:  #6E5316;   /* testo su chiaro (6,64:1) */
+  --brass-lt:   #D9B44A;   /* su navy (7,01:1) */
   --brass-bg:   #F2E7CC;
 
   /* ---- Su fondo scuro ---- */
   --on-dark:    #FFFFFF;
-  --on-dark-2:  #E5DFD2;   /* opaco, non rgba: verificabile una volta per tutte */
-  --on-dark-3:  #BDB6A6;
-  --divider-dark:#6E8299;  /* bordi di controllo dentro le fasce scure (3,40:1) */
+  --on-dark-2:  #D7E4F3;   /* opaco, non rgba: verificabile una volta per tutte */
+  --on-dark-3:  #AEC2DC;
+  --divider-dark:#5E7EA6;  /* bordi di controllo dentro le fasce scure (3,32:1) */
+
+  /* ---- Sfumature. Entrambi gli estremi di ogni gradiente sono verificati
+       per il testo che ci va sopra, cosi' il contrasto regge lungo tutta la
+       transizione e non solo al centro. ---- */
+  --grad-page:  linear-gradient(180deg, #FFFFFF 0%, var(--paper) 340px);
+  --grad-band:  linear-gradient(180deg, var(--paper-2) 0%, #EDF3FB 100%);
+  --grad-dark:  linear-gradient(155deg, #123A6B 0%, var(--navy) 45%, var(--navy-deep) 100%);
+  --grad-brand: linear-gradient(180deg, var(--brand-lt) 0%, var(--link) 52%, var(--brand-deep) 100%);
+  --grad-rule:  linear-gradient(90deg, var(--link) 0%, var(--rule) 60%, transparent 100%);
 
   --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
   --sans:  "Inter", "Segoe UI", Roboto, Arial, sans-serif;
@@ -132,7 +146,8 @@
 html{ scroll-behavior:smooth; scroll-padding-top:72px; -webkit-text-size-adjust:100%; }
 @media (min-width:900px){ html{ scroll-padding-top:80px; } }
 body{
-  margin:0; background:var(--paper); color:var(--ink);
+  margin:0; background:var(--paper); background-image:var(--grad-page); background-repeat:no-repeat;
+  color:var(--ink);
   font-family:var(--sans); font-size:var(--t-m); line-height:1.6;
   -webkit-font-smoothing:antialiased; overflow-x:clip;
 }
@@ -154,7 +169,7 @@ p, li{ max-width:var(--measure); }
 strong{ font-weight:600; }
 .num, time, .kpi-value{ font-variant-numeric:tabular-nums; }
 hr{ border:0; border-top:1px solid var(--rule); margin:var(--s-6) 0; }
-::selection{ background:var(--porpora); color:#fff; }
+::selection{ background:var(--link); color:#fff; }
 
 /* ---------- Focus ---------- */
 :focus-visible{ outline:3px solid transparent; outline-offset:2px; box-shadow:0 0 0 3px var(--paper), 0 0 0 5px var(--navy); border-radius:var(--r); }
@@ -174,8 +189,8 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .section{ padding:var(--sec-y) 0; }
 .section-tight{ padding:calc(var(--sec-y) * .72) 0; }
 .section-airy{ padding:calc(var(--sec-y) * 1.34) 0; }
-.band{ background:var(--paper-2); border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); }
-.band-dark{ background:var(--navy); color:var(--on-dark); position:relative; }
+.band{ background:var(--paper-2); background-image:var(--grad-band); border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); }
+.band-dark{ background:var(--navy); background-image:var(--grad-dark); color:var(--on-dark); position:relative; }
 .band-dark h1, .band-dark h2, .band-dark h3{ color:#fff; }
 .band-dark a:not(.btn){ color:var(--on-dark); }
 .band-dark .section-head p, .band-dark .lede, .band-dark .small, .band-dark .muted{ color:var(--on-dark-2); }
@@ -185,7 +200,7 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
    porpora: costa 2 pseudo-elementi e si vede sempre. */
 .section-head{ position:relative; max-width:760px; margin-bottom:var(--s-5); padding-top:var(--s-4); }
 @media (min-width:900px){ .section-head{ margin-bottom:var(--s-7); } }
-.section-head::before{ content:""; position:absolute; left:0; right:0; top:0; height:1px; background:var(--rule); }
+.section-head::before{ content:""; position:absolute; left:0; right:0; top:0; height:1px; background:var(--grad-rule); }
 .section-head::after{
   content:""; position:absolute; left:0; top:0; width:64px; height:3px; background:var(--porpora);
   transform-origin:left; transform:scaleX(0); transition:transform .55s var(--ease) .05s;
@@ -232,8 +247,10 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .btn .arrow{ transition:transform .28s var(--ease); }
 .btn:hover .arrow{ transform:translateX(4px); }
 .btn:active{ transform:translateY(1px); }   /* lo stato :active mancava del tutto */
-.btn-primary{ background:var(--porpora); color:#fff; }
-.btn-primary:hover{ background:var(--porpora-deep); color:#fff; }
+/* L'azione primaria e' nel blu di Fratelli d'Italia, sfumato: il porpora resta
+   solo come segno d'identita' (il laticlavio), non come colore dei comandi. */
+.btn-primary{ background:var(--link); background-image:var(--grad-brand); color:#fff; }
+.btn-primary:hover{ background:var(--brand-deep); background-image:none; color:#fff; }
 .btn-secondary{ background:transparent; color:var(--ink); border-color:var(--rule-strong); }
 .btn-secondary:hover{ border-color:var(--navy); color:var(--navy); background:var(--surface); }
 .band-dark .btn-secondary, .hero-actions .btn-secondary{ color:var(--ink); border-color:var(--rule-strong); }
@@ -281,14 +298,14 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .wordmark{ text-decoration:none; color:var(--ink); line-height:1.05; flex:0 1 auto; min-width:0; }
 .wordmark .name{ font-family:var(--serif); font-weight:600; font-size:1.32rem; letter-spacing:-.01em; display:block; }
 .wordmark .sub{ display:block; font-size:.75rem; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:var(--brass-ink); margin-top:3px; }
-.wordmark:hover .name{ color:var(--porpora); }
+.wordmark:hover .name{ color:var(--link); }
 .site-nav{ margin-left:auto; display:flex; align-items:center; gap:var(--s-2); }
 .nav-links{ display:flex; align-items:center; gap:2px; }
 .nav-links a{
   position:relative; display:inline-flex; align-items:center; min-height:44px; padding:0 13px;
   font-size:var(--t-s); font-weight:500; color:var(--ink); text-decoration:none; white-space:nowrap;
 }
-.nav-links a::after{ content:""; position:absolute; left:13px; right:13px; bottom:10px; height:2px; background:var(--porpora); transform:scaleX(0); transform-origin:left; transition:transform .25s var(--ease); }
+.nav-links a::after{ content:""; position:absolute; left:13px; right:13px; bottom:10px; height:2px; background:var(--link); transform:scaleX(0); transform-origin:left; transition:transform .25s var(--ease); }
 .nav-links a:hover::after{ transform:scaleX(1); }
 /* Il laticlavio segna la posizione corrente */
 .nav-links a[aria-current="page"]{ font-weight:650; }
@@ -324,9 +341,9 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
   .nav-links.open{ display:flex; }
   .nav-links a{ min-height:52px; padding:0 var(--s-2); font-size:var(--t-m); border-bottom:1px solid var(--hair); }
   .nav-links a::after{ display:none; }
-  .nav-links a[aria-current="page"]{ box-shadow:inset 3px 0 0 var(--porpora); padding-left:var(--s-3); }
-  .nav-links a.btn-cta{ display:inline-flex; justify-content:center; margin-top:var(--s-4); border:0; background:var(--porpora); color:#fff; font-weight:600; border-radius:var(--r); }
-  .nav-links a.btn-cta:hover{ background:var(--porpora-deep); color:#fff; }
+  .nav-links a[aria-current="page"]{ box-shadow:inset 3px 0 0 var(--link); padding-left:var(--s-3); }
+  .nav-links a.btn-cta{ display:inline-flex; justify-content:center; margin-top:var(--s-4); border:0; background:var(--link); background-image:var(--grad-brand); color:#fff; font-weight:600; border-radius:var(--r); }
+  .nav-links a.btn-cta:hover{ background:var(--brand-deep); background-image:none; color:#fff; }
   /* Sotto i 1100px le lingue vivono nel menu: quella in barra sparisce per non
      duplicare il comando. */
   .nav-actions .lang-switch{ display:none; }
@@ -415,7 +432,7 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
   border:1px solid var(--rule); border-radius:var(--r); overflow:hidden;
   transition:transform .25s var(--ease), box-shadow .25s var(--ease), border-color .2s var(--ease);
 }
-.media-card:hover, .media-card:focus-within{ border-color:var(--porpora); box-shadow:var(--shadow-pop); transform:translateY(-3px); }
+.media-card:hover, .media-card:focus-within{ border-color:var(--link); box-shadow:var(--shadow-pop); transform:translateY(-3px); }
 /* Il patrimonio fotografico e' eterogeneo: 16 immagini su 41 sono grafiche
    social quadrate con testo gia' impresso, altre sono verticali. Un taglio
    troppo panoramico le decapita: su telefono tutte le card usano lo stesso
@@ -435,10 +452,13 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .media-card h3{ margin:0; font-size:var(--t-card); line-height:1.30; }
 .media-card h3 a{ text-decoration:none; color:var(--ink); }
 .media-card h3 a::after{ content:""; position:absolute; inset:0; z-index:1; }
-.media-card:hover h3 a, .media-card:focus-within h3 a{ color:var(--porpora); }
+.media-card:hover h3 a, .media-card:focus-within h3 a{ color:var(--link); }
 .media-card p{ margin:0; color:var(--ink-2); font-size:var(--t-m); }
 .media-card .foot{ margin-top:auto; padding-top:var(--s-3); border-top:1px solid var(--hair); display:flex; align-items:center; justify-content:space-between; gap:var(--s-3); flex-wrap:wrap; }
-.media-card .more{ position:relative; z-index:2; font-size:var(--t-s); font-weight:650; color:var(--porpora); display:inline-flex; gap:6px; align-items:center; }
+/* Le card delle notizie non portano piu' lo stato: il piede ha un solo elemento
+   e va allineato a destra invece di restare spaiato a sinistra. */
+.media-card .foot-end{ justify-content:flex-end; }
+.media-card .more{ position:relative; z-index:2; font-size:var(--t-s); font-weight:650; color:var(--link); display:inline-flex; gap:6px; align-items:center; }
 .media-card .more .arrow{ transition:transform .25s var(--ease); }
 .media-card:hover .more .arrow, .media-card:focus-within .more .arrow{ transform:translateX(4px); }
 /* Riferimento al dossier: era un <a> alto 22px sovrapposto all'area cliccabile
@@ -471,11 +491,11 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
   border-radius:var(--r); padding:var(--s-5); display:grid; gap:var(--s-3); align-content:start;
   transition:border-color .2s var(--ease), box-shadow .22s var(--ease), transform .22s var(--ease);
 }
-.role-card:hover, .role-card:focus-within{ border-color:var(--porpora); box-shadow:var(--shadow-pop); transform:translateY(-3px); }
+.role-card:hover, .role-card:focus-within{ border-color:var(--link); box-shadow:var(--shadow-pop); transform:translateY(-3px); }
 .role-card .tag{ justify-self:start; }
 .role-card h3{ margin:0; font-size:var(--t-card); }
 .role-card h3 a{ color:var(--ink); text-decoration:underline; text-decoration-color:var(--rule-strong); text-underline-offset:.18em; }
-.role-card h3 a:hover{ color:var(--porpora); text-decoration-color:var(--porpora); }
+.role-card h3 a:hover{ color:var(--link); text-decoration-color:var(--link); }
 .role-card p{ margin:0; color:var(--ink-2); font-size:var(--t-m); }
 @media (prefers-reduced-motion:reduce){ .role-card:hover{ transform:none; } }
 
@@ -486,7 +506,7 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
   border:1px solid var(--rule-strong); background:var(--surface); color:var(--ink);
   font-size:var(--t-s); font-weight:500; text-decoration:none; cursor:pointer; transition:border-color .18s, color .18s, background .18s;
 }
-.filter:hover{ border-color:var(--porpora); color:var(--porpora); }
+.filter:hover{ border-color:var(--link); color:var(--link); }
 .filter[aria-pressed="true"], .filter[aria-current="true"]{ background:var(--navy); border-color:var(--navy); color:#fff; }
 .filter-status{ font-size:var(--t-s); color:var(--ink-2); margin:0 0 var(--s-5); }
 .timeline{ list-style:none; margin:0; padding:0; display:grid; gap:var(--s-5); grid-template-columns:1fr; }
@@ -506,7 +526,11 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
    gli dà profondità. Sparisce anche tutto il testo chiaro su fondo saturo, che
    era la causa principale dell'affaticamento in lettura su telefono.
    ========================================================================== */
-.hero{ position:relative; background:var(--paper); color:var(--ink); overflow:clip; border-bottom:1px solid var(--rule); }
+.hero{
+  position:relative; color:var(--ink); overflow:clip; border-bottom:1px solid var(--rule);
+  background:var(--paper);
+  background-image:linear-gradient(170deg, #FFFFFF 0%, var(--paper) 42%, var(--brand-bg) 100%);
+}
 .hero::before{ content:""; position:absolute; left:0; right:0; top:0; height:3px; background:var(--navy); z-index:2; }
 /* La filigrana della legislatura vive solo dove c'e' spazio: su telefono
    finiva dietro il paragrafo e lo sporcava. */
@@ -579,11 +603,32 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .js .hero-figure.rv{ opacity:1; transform:none; }
 
 @media (max-width:699px){
+  /* LA FOTOGRAFIA DEVE VEDERSI SENZA SCORRERE. Restando in fondo alla colonna,
+     dopo il testo lungo di presentazione, cadeva sotto la piega. Ora sale
+     subito dopo la riga del ruolo: display:contents porta i figli della colonna
+     dentro la griglia dell'hero, cosi' si riordinano con "order" senza toccare
+     il markup generato e senza cambiare nulla su desktop. Il gap della griglia
+     va azzerato perche' con sette elementi sommerebbe 32px sei volte: la
+     spaziatura resta quella dei margini dei singoli blocchi. */
+  .hero-grid{ gap:0; padding-block:var(--s-4) var(--s-6); }
+  .hero-grid > div{ display:contents; }
+  .hero-logo{ order:1; height:38px; margin-bottom:var(--s-3); padding-bottom:var(--s-3); }
+  .hero .eyebrow{ order:2; margin-bottom:var(--s-2); }
+  .hero h1{ order:3; margin-bottom:var(--s-2); }
+  .hero h1::after{ margin-top:var(--s-3); }
+  .hero .role-line{ order:4; margin-bottom:var(--s-3); }
+  .hero-figure{ order:5; margin-bottom:var(--s-5); }
+  .hero-mandate{ order:6; }
+  .hero-actions{ order:7; }
+
   /* Su telefono il ritratto va a piena larghezza e in taglio orizzontale:
      250px invece dei 568px di prima, senza rimpicciolire la foto. */
   .hero-figure{ max-width:none; margin-inline:calc(-1 * var(--pad)); }
   .hero-figure::before{ display:none; }
   .hero-figure .frame{ border-radius:0; aspect-ratio:4/3; }
+  /* Sui telefoni piu' stretti il taglio si abbassa ancora, cosi' la fotografia
+     entra per intero nella prima schermata. */
+  @media (max-width:400px){ .hero-figure .frame{ aspect-ratio:16/10; } }
   .hero-figure .frame img{ width:100%; height:100%; object-fit:cover; object-position:50% 30%; }
   .hero-figure .rule{ left:0; top:0; width:6px; height:100%; }
   .hero-figure figcaption{ margin-inline:var(--pad); }
@@ -602,7 +647,7 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .now-card{
   position:relative; overflow:hidden; border-radius:var(--r); min-height:0;
   display:flex; flex-direction:column; padding:var(--s-6);
-  color:#fff; background:var(--navy); border:1px solid var(--navy);
+  color:#fff; background:var(--navy); background-image:var(--grad-dark); border:1px solid var(--navy);
   transition:transform .25s var(--ease), box-shadow .25s var(--ease);
 }
 .now-card:hover{ transform:translateY(-3px); box-shadow:var(--shadow-pop); }
@@ -679,7 +724,7 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .chrono .src{ font-size:var(--t-s); }
 .acts{ list-style:none; margin:0; padding:0; display:grid; gap:var(--s-3); }
 .acts li{ max-width:none; background:var(--surface); border:1px solid var(--rule); border-radius:var(--r); padding:var(--s-4); display:grid; gap:4px; }
-.acts .num{ font-weight:650; color:var(--porpora); font-size:var(--t-s); letter-spacing:.02em; }
+.acts .num{ font-weight:650; color:var(--link); font-size:var(--t-s); letter-spacing:.02em; }
 .acts .iter{ font-size:var(--t-s); color:var(--ink-2); }
 .acts a{ display:inline-block; min-height:24px; padding:3px 0; }
 .chips{ display:flex; flex-wrap:wrap; gap:6px; }
@@ -689,7 +734,7 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .related{ list-style:none; margin:0; padding:0; display:grid; gap:var(--s-2); }
 .related li{ max-width:none; }
 .related a{ display:grid; gap:2px; padding:13px 15px; border:1px solid var(--rule); border-radius:var(--r); background:var(--surface); text-decoration:none; color:var(--ink); transition:border-color .18s, background .18s; }
-.related a:hover{ border-color:var(--porpora); background:var(--paper); }
+.related a:hover{ border-color:var(--link); background:var(--brand-bg); }
 .related .t{ font-weight:600; color:var(--ink); }
 .related .m{ font-size:var(--t-xs); color:var(--ink-2); }
 
@@ -735,7 +780,7 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .tl{ position:relative; list-style:none; margin:0; padding:0; }
 .tl::before{ content:""; position:absolute; left:6px; top:6px; bottom:6px; width:1px; background:var(--rule); }
 .tl li{ position:relative; max-width:none; padding:0 0 var(--s-6) var(--s-6); }
-.tl li::before{ content:""; position:absolute; left:0; top:5px; width:13px; height:13px; border-radius:50%; background:var(--surface); border:2px solid var(--porpora); }
+.tl li::before{ content:""; position:absolute; left:0; top:5px; width:13px; height:13px; border-radius:50%; background:var(--surface); border:2px solid var(--link); }
 .tl .year{ display:block; font-size:var(--t-xs); font-weight:650; letter-spacing:.06em; text-transform:uppercase; color:var(--brass-ink); margin-bottom:4px; }
 .tl h3{ margin-bottom:6px; font-size:var(--t-card); }
 .tl p{ margin:0; color:var(--ink-2); }
@@ -755,14 +800,14 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
   grid-template-columns:1fr; border-radius:var(--r); transition:background .15s, box-shadow .15s;
 }
 @media (min-width:720px){ .press-row{ grid-template-columns:118px minmax(0,1fr) auto; align-items:baseline; } }
-.press-row:hover{ background:var(--surface); box-shadow:inset 3px 0 0 var(--porpora); }
+.press-row:hover{ background:var(--surface); box-shadow:inset 3px 0 0 var(--link); }
 .press-row time{ font-size:var(--t-xs); font-weight:650; color:var(--brass-ink); text-transform:uppercase; letter-spacing:.04em; }
 .press-row .t{ font-family:var(--serif); font-size:var(--t-m); font-weight:500; color:var(--ink); }
-.press-row:hover .t{ color:var(--porpora); }
+.press-row:hover .t{ color:var(--link); }
 .press-row .s{ font-size:var(--t-s); color:var(--ink-2); }
 .press-row .r{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
 .press-year{ margin:var(--s-6) 0 var(--s-2); }
-.press-year h3{ font-size:var(--t-h3); padding-bottom:6px; border-bottom:3px solid var(--porpora); display:inline-block; }
+.press-year h3{ font-size:var(--t-h3); padding-bottom:6px; border-bottom:3px solid var(--link); display:inline-block; }
 .press-count{ font-size:var(--t-m); color:var(--ink-2); margin:0 0 var(--s-4); }
 .press-count strong{ color:var(--navy); }
 .press-orig-note{ font-size:var(--t-s); color:var(--ink-2); }
@@ -797,7 +842,7 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .form-note, .form-required-note{ font-size:var(--t-s); color:var(--ink-2); margin:0; }
 
 /* ---------- Footer ---------- */
-.site-footer{ background:var(--navy); color:var(--on-dark-2); padding:var(--s-8) 0 var(--s-6); margin-top:var(--s-8); font-size:var(--t-s); position:relative; }
+.site-footer{ background:var(--navy); background-image:var(--grad-dark); color:var(--on-dark-2); padding:var(--s-8) 0 var(--s-6); margin-top:var(--s-8); font-size:var(--t-s); position:relative; }
 .site-footer::before{ content:""; position:absolute; left:0; right:0; top:0; height:3px; background:var(--porpora); }
 .footer-grid{ display:grid; gap:var(--s-6); padding-bottom:var(--s-6); border-bottom:1px solid var(--divider-dark); }
 @media (min-width:700px){ .footer-grid{ grid-template-columns:1.4fr 1fr 1fr 1fr; } }
@@ -818,13 +863,27 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .footer-logo img{ height:32px; width:auto; }
 
 /* ---------- Ultime dalla stampa ---------- */
-.latest-press{ background:var(--surface); border-bottom:1px solid var(--rule); }
-.latest-press .row{ display:flex; gap:var(--s-2) var(--s-4); align-items:baseline; padding:13px 0; flex-wrap:wrap; }
+.latest-press{ background:var(--surface); border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); }
+.latest-press .row{ display:flex; gap:var(--s-2) var(--s-5); align-items:baseline; padding:var(--s-4) 0; flex-wrap:wrap; }
 .latest-press .lbl{ font-size:var(--t-xs); font-weight:650; letter-spacing:.08em; text-transform:uppercase; color:var(--brass-ink); white-space:nowrap; }
 .latest-press ul{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px var(--s-5); flex:1 1 320px; min-width:0; }
 .latest-press li{ max-width:none; font-size:var(--t-s); line-height:1.45; }
 .latest-press a{ text-decoration:none; color:var(--ink); display:inline-flex; align-items:center; min-height:28px; }
-.latest-press a:hover{ color:var(--porpora); text-decoration:underline; }
+/* Su telefono le voci non stanno in riga: diventano un elenco vero, con data e
+   testata sopra e titolo sotto, separate da un filetto. In riga il titolo si
+   spezzava in colonne strettissime e la data restava orfana a sinistra. */
+@media (max-width:760px){
+  .latest-press .row{ display:block; padding:var(--s-4) 0 var(--s-2); }
+  .latest-press .lbl{ display:block; margin-bottom:var(--s-3); }
+  .latest-press ul{ display:block; }
+  .latest-press li{ border-top:1px solid var(--hair); }
+  .latest-press li:first-child{ border-top:0; }
+  .latest-press a{ display:block; padding:10px 0; min-height:44px; }
+  .latest-press time{ display:inline; }
+  .latest-press b{ display:inline; }
+  .latest-press a > span{ display:block; margin-top:2px; color:var(--ink); }
+}
+.latest-press a:hover{ color:var(--link); text-decoration:underline; }
 .latest-press b{ color:var(--navy); font-weight:650; margin-right:6px; }
 .latest-press time{ color:var(--ink-2); font-size:var(--t-xs); margin-right:6px; }
 
@@ -873,7 +932,7 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
   opacity:0; visibility:hidden; pointer-events:none; transform:translateY(8px);
   transition:opacity .2s, transform .2s var(--ease), visibility 0s .2s, background .18s;
 }
-.back-top:hover{ background:var(--porpora); border-color:var(--porpora); }
+.back-top:hover{ background:var(--brand-deep); border-color:var(--brand-deep); }
 .back-top.show{ opacity:1; visibility:visible; pointer-events:auto; transform:none; transition-delay:0s; }
 .back-top svg{ width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2.2; stroke-linecap:round; }
 
