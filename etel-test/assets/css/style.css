@@ -546,14 +546,18 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
    figura arrivava anche dietro la didascalia, che essendo in inchiostro scuro
    diventava illeggibile sul navy. L'aspect-ratio la aggancia all'altezza del
    riquadro, qualunque sia la lunghezza della didascalia. */
-.hero-figure::before{ content:""; position:absolute; top:18px; left:18px; right:-18px; aspect-ratio:4/5; background:var(--navy); z-index:0; }
+/* Il rapporto deve seguire quello del riquadro (4/3): con un valore diverso la
+   lastra sbordava in basso e la didascalia, in inchiostro scuro, ci finiva
+   sopra diventando illeggibile. */
+.hero-figure::before{ content:""; position:absolute; top:18px; left:18px; right:-18px; aspect-ratio:4/3; background:var(--navy); z-index:0; }
 .hero-figure .frame{ position:relative; z-index:1; overflow:hidden; border-radius:var(--r); background:var(--navy); }
-/* Il ritratto sorgente e' 370x643: a piena altezza sfonderebbe la piega.
-   Il taglio 4/5 stringe su volto e spalle e riduce lo sfondo azzurro dello
-   studio, che cosi' legge come prosecuzione della lastra invece che come
-   conflitto con la carta. */
-.hero-figure .frame{ aspect-ratio:4/5; }
-.hero-figure .frame img{ width:100%; height:100%; object-fit:cover; object-position:50% 14%; display:block; }
+/* La fotografia principale e' l'intervento in Aula: orizzontale e a
+   risoluzione contenuta (353x272). Il riquadro segue il rapporto della
+   sorgente, cosi' non si ingrandisce piu' del necessario e non si taglia
+   nulla dell'inquadratura. */
+.hero-figure{ max-width:460px; }
+.hero-figure .frame{ aspect-ratio:4/3; }
+.hero-figure .frame img{ width:100%; height:100%; object-fit:cover; object-position:50% 30%; display:block; }
 .hero-figure figcaption{ position:relative; z-index:1; font-size:var(--t-xs); color:var(--ink-3); margin-top:26px; padding-top:var(--s-2); border-top:1px solid var(--hair); }
 /* IL LATICLAVIO: la banda purpurea dei senatori romani. È l'unico segno
    identitario del sito e vive già nel markup (<span class="rule">). */
@@ -567,11 +571,8 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
      250px invece dei 568px di prima, senza rimpicciolire la foto. */
   .hero-figure{ max-width:none; margin-inline:calc(-1 * var(--pad)); }
   .hero-figure::before{ display:none; }
-  /* Il ritratto sorgente e' verticale (370x643): un taglio 3/2 mostrerebbe solo
-     una fascia all'altezza degli occhi. Il quadrato tiene testa e spalle e
-     costa 375px invece dei 568px dell'immagine intera. */
-  .hero-figure .frame{ border-radius:0; aspect-ratio:1/1; }
-  .hero-figure .frame img{ width:100%; height:100%; object-fit:cover; object-position:50% 12%; }
+  .hero-figure .frame{ border-radius:0; aspect-ratio:4/3; }
+  .hero-figure .frame img{ width:100%; height:100%; object-fit:cover; object-position:50% 30%; }
   .hero-figure .rule{ left:0; top:0; width:6px; height:100%; }
   .hero-figure figcaption{ margin-inline:var(--pad); }
   .hero-watermark{ font-size:44vw; right:-8vw; opacity:.55; }
@@ -758,10 +759,9 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 
 /* ---------- Contatti ---------- */
 .paths{ display:grid; gap:var(--s-5); }
-@media (min-width:900px){ .paths{ grid-template-columns:repeat(3, minmax(0,1fr)); } }
+@media (min-width:900px){ .paths{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
 .path{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--r); padding:var(--s-5); display:grid; gap:var(--s-3); align-content:start; border-top:3px solid var(--navy); transition:transform .22s var(--ease), box-shadow .22s var(--ease), border-color .2s; }
 .path:nth-child(2){ border-top-color:var(--porpora); }
-.path:nth-child(3){ border-top-color:var(--brass); }
 .path:hover{ transform:translateY(-3px); box-shadow:var(--shadow-pop); }
 .path h3{ margin:0; }
 .path p{ margin:0; color:var(--ink-2); font-size:var(--t-m); }
