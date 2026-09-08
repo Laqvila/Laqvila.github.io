@@ -1,358 +1,180 @@
 /* ==========================================================================
    Etelwardo Sigismondi — Senatore della Repubblica · Abruzzo
-   Design system v10 — identita' visiva di Fratelli d'Italia.
+   Design system v19 — "Il banner". Riscritto da zero.
 
-   Non e' piu' una palette inventata: e' quella del partito, presa dal loro kit
-   di tema e verificata. I quattro colori dichiarati su fratelli-italia.it sono
-   #0B3B6A (navy), #0085D7 (azzurro), #FFDE00 (giallo), #4A4A4A (testo), su
-   bianco e grigio #E6E7E8. Il carattere e' Kanit, con i titoli in CORSIVO
-   pesante e interlinea stretta: e' quella la loro voce tipografica.
+   IL BRIEF NON E' PIU' UNA MIA INTERPRETAZIONE: E' IL SUO BANNER.
+   Tutto viene dal materiale ufficiale del Senatore (il banner con ritratto,
+   fascia tricolore e nome nei blocchi gialli), campionato pixel per pixel:
+     campo blu        #004781   (zone senza testo del banner)
+     blu medio        #015CA1   (le luci del campo)
+     giallo-oro       #FFB901   (i blocchi del nome: NON il giallo del partito)
+     tricolore        #46B054 / bianco / #910F1A  (solo nella fascia della foto
+                                                    e in un filo sottile)
+   Il carattere di stampa e' Montserrat, il piu' vicino al geometrico pesante
+   del banner; il testo corrente e' Inter. Entrambi serviti da qui.
 
-   DUE TRAPPOLE DI QUESTA FAMIGLIA, misurate prima di scrivere qualsiasi cosa.
-   1) IL GIALLO NON REGGE MAI IL BIANCO: 1,34:1. Sul giallo va solo inchiostro
-      scuro (navy 8,50:1). Sul loro sito il giallo appare infatti solo come
-      fascia piena con scritta navy, mai come colore di testo.
-   2) L'AZZURRO NON REGGE IL TESTO NORMALE IN BIANCO: 3,94:1. Regge i TITOLI
-      GRANDI (soglia 3:1) — ed e' esattamente cosi' che lo usano, per lo
-      slogan dell'apertura. Per i link su fondo chiaro serve una variante
-      scurita, --link #0066A4, che resta riconoscibile come lo stesso azzurro
-      ma sta a 6,11:1 sul bianco e 4,94:1 sulla fascia grigia.
+   COSA FA IL SITO ATTUALE DEL SENATORE, E CHE QUI E' RIFATTO MEGLIO:
+   banner in apertura; card delle notizie con badge della data sulla foto;
+   una sezione con immagine che RESTA FISSA mentre la pagina scorre; una fascia
+   colorata di invito; elenco del percorso con spunte. Sono le cose che gia'
+   riconosce come sue, eseguite a un altro livello.
 
-   41 coppie verificate una per una con la formula della luminanza relativa
-   prima di scrivere questi valori; gli estremi delle sfumature sono verificati
-   entrambi, e i fondi che ospitano il velo animato sono verificati sul
-   composito peggiore, non sul colore nominale.
-
-   Restano fuori: tricolore come campitura, glassmorphism, ombre diffuse,
-   count-up sui KPI, caroselli automatici, scroll-jacking. Font self-hosted,
-   CSP 'self'.
+   ACCESSIBILITA' (WCAG 2.2 AA), come sempre in questo progetto: ogni coppia di
+   colore e' stata calcolata prima di essere scritta. Il giallo-oro regge il
+   testo scuro (navy 8,28:1, blu 5,50:1) e NON regge il bianco (1,72:1): sta
+   sempre e solo come blocco pieno con scritta scura, come nel banner. Sul
+   blu medio #015CA1 il giallo scende a 4,00: il blu medio e' quindi solo un
+   colore da luci e sfumature, mai un fondo sotto testo giallo.
    ========================================================================== */
 
-/* Kanit — il carattere di Fratelli d'Italia. Sottoinsieme latino, servito da
-   qui e non da un CDN: la CSP di questo sito consente font-src 'self'. */
-@font-face{ font-family:"Kanit"; font-style:normal; font-weight:400; font-display:swap; src:url("../fonts/kanit-400.woff2") format("woff2"); }
-@font-face{ font-family:"Kanit"; font-style:normal; font-weight:500; font-display:swap; src:url("../fonts/kanit-500.woff2") format("woff2"); }
-@font-face{ font-family:"Kanit"; font-style:normal; font-weight:600; font-display:swap; src:url("../fonts/kanit-600.woff2") format("woff2"); }
-@font-face{ font-family:"Kanit"; font-style:italic; font-weight:400; font-display:swap; src:url("../fonts/kanit-400i.woff2") format("woff2"); }
-@font-face{ font-family:"Kanit"; font-style:italic; font-weight:600; font-display:swap; src:url("../fonts/kanit-600i.woff2") format("woff2"); }
+@font-face{
+  font-family:"Montserrat"; font-style:normal; font-weight:100 900; font-display:swap;
+  src:url("../fonts/montserrat-var.woff2") format("woff2");
+}
+@font-face{
+  font-family:"Inter"; font-style:normal; font-weight:400 700; font-display:swap;
+  src:url("../fonts/inter-var.woff2") format("woff2");
+}
 
 :root{
-  /* ---- I QUATTRO COLORI DEL PARTITO, non ritoccati ---- */
-  --navy:       #0B3B6A;   /* primary   — fascia scura, bottoni, titoli */
-  --azzurro:    #0085D7;   /* azzurro   — campiture e segni grafici */
-  --giallo:     #FFDE00;   /* secondary — solo fasce piene, mai testo */
-  --testo:      #4A4A4A;   /* text      — il grigio del corpo */
+  /* ---- dal banner ---- */
+  --blu:        #004781;   /* campo: bianco 9,47:1, oro 5,50:1 */
+  --blu-2:      #015CA1;   /* luci: bianco 6,89:1 — mai sotto testo oro */
+  --navy:       #0A2A54;   /* profondita': bianco 14,3:1, oro 8,28:1 */
+  --navy-deep:  #061B37;
+  --oro:        #FFB901;   /* blocchi e bottoni: navy sopra 8,28:1 */
+  --oro-scuro:  #E5A600;   /* stato attivo dei bottoni oro: navy 6,65:1 */
+  --verde:      #46B054;
+  --rosso:      #910F1A;
 
-  /* ---- Fondi: la pagina e' BIANCA, come la loro ---- */
+  /* ---- fondi chiari ---- */
   --paper:      #FFFFFF;
-  --paper-2:    #E6E7E8;   /* la loro fascia grigia */
+  --paper-2:    #F4F6F9;   /* fascia alternata */
   --surface:    #FFFFFF;
 
-  /* ---- Inchiostri ---- */
-  --ink:        var(--navy);   /* titoli: 11,36:1 su bianco */
-  --ink-2:      #4A4A4A;       /* corrente: 8,86:1 su bianco, 7,16 su grigio */
-  --ink-3:      #5F5F5F;       /* terziario: 6,39:1 / 5,16:1 */
+  /* ---- inchiostri ---- */
+  --ink:        var(--navy);  /* titoli */
+  --ink-2:      #24303F;      /* testo corrente: 13,4:1 su bianco */
+  --ink-3:      #5F6B78;      /* terziario: 5,44:1 / 5,02:1 su fascia */
+  --muted:      #4B5563;      /* secondario: 7,56:1 / 6,98:1 */
+  --link:       var(--blu);   /* 9,47:1 */
 
-  /* ---- Filetti ---- */
-  --hair:       #E6E7E8;   /* capillare dentro le card */
-  --rule:       #DDE1E5;   /* definizione: decorativa (il segno che IDENTIFICA
-                              la card e' il filetto azzurro in testa, 3,94:1) */
-  --rule-strong:#767E86;   /* bordo dei CONTROLLI: 4,12:1 / 3,33:1 */
+  /* ---- filetti ---- */
+  --hair:       #E4E8EE;
+  --rule:       #DCE1E8;      /* definizione (decorativa) */
+  --rule-strong:#7C8896;      /* bordo dei controlli: 3,6 / 3,3 */
 
-  /* ---- Azzurro: la variante per il testo e quella per le campiture ---- */
-  --link:       #0066A4;   /* 6,11:1 su bianco, 4,94:1 su fascia grigia */
-  --brand-lt:   var(--azzurro);
-  --brand-deep: #005D98;   /* estremo scuro: bianco 6,96 e giallo 5,20 */
-  --brand-bg:   #E3F1FB;
-  --elettrico:  var(--azzurro);
-
-  /* ---- Fasce scure ---- */
-  --dark-lt:    #134C84;   /* estremo chiaro: bianco 8,77, giallo 6,56,
-                              terziario 4,98, link chiaro 5,40 */
-  --navy-deep:  #072947;
-
-  /* ---- Il giallo, e la sua variante utilizzabile come SEGNO su bianco ---- */
-  --giallo-ink: #B08F00;   /* 3,10:1 su bianco: filetti e icone, non testo */
-
-  /* Il porpora del laticlavio esce di scena: era un'identita' mia, e la
-     richiesta e' di usare la loro. Il suo ruolo di accento passa al giallo
-     dove c'e' un fondo scuro, e all'azzurro dove il fondo e' chiaro. */
-  --porpora:     var(--navy);
-  --porpora-deep:var(--navy-deep);
-  --porpora-bg:  var(--brand-bg);
-  /* Stessa sorte per l'ottone: sostituito dall'azzurro sui fondi chiari e dal
-     giallo su quelli scuri. I nomi restano per non toccare la struttura. */
-  --brass:      var(--azzurro);
-  --brass-ink:  var(--link);
-  --brass-lt:   var(--giallo);
-  --brass-bg:   var(--brand-bg);
-
-  /* ---- Su fondo scuro ---- */
+  /* ---- su fondo scuro ---- */
   --on-dark:    #FFFFFF;
-  --on-dark-2:  #D3E4F2;   /* 8,74:1 su navy */
-  /* Schiariti apposta: sull'estremo chiaro della fascia CON SOPRA l'alone
-     animato (composito #0E5A98) i valori precedenti scendevano a 4,07 e 4,41.
-     Cosi' stanno a 4,62 e 4,92, e sul navy pieno restano a 7,33 e 7,82. */
-  --on-dark-3:  #BFD2E4;
-  --on-dark-link:#A8DDFF;
-  --divider-dark:#6A93C0;  /* 3,54:1 su navy */
+  --on-dark-2:  #C9D6E6;      /* 6,42:1 su blu */
+  --on-dark-3:  #A9BBD1;      /* 4,83:1 su blu, 7,28 su navy */
+  --divider-dark:#6F98C6;     /* 3:1+ su blu e navy */
 
-  /* ---- Sfumature ---- */
-  --grad-page:  none;
-  --grad-band:  linear-gradient(180deg, #F2F3F4 0%, var(--paper-2) 100%);
-  --grad-dark:  linear-gradient(115deg, var(--navy-deep) 0%, var(--navy) 42%, var(--dark-lt) 100%);
-  --grad-azzurra:linear-gradient(115deg, var(--brand-deep) 0%, var(--azzurro) 100%);
-  --grad-brand: linear-gradient(120deg, var(--link) 0%, var(--navy) 100%);
-  --grad-rule:  linear-gradient(90deg, var(--azzurro) 0%, var(--azzurro) 38%, var(--rule) 70%, transparent 100%);
+  /* ---- compatibilita' con i nomi usati dal markup generato ---- */
+  --brand-lt:   var(--blu-2);
+  --brand-deep: var(--navy);
+  --brand-bg:   #E6F0F9;
+  --porpora:    var(--rosso);
+  --porpora-deep:#6F0B13;
+  --porpora-bg: #FBEBEC;
+  --brass:      var(--oro);
+  --brass-ink:  var(--blu);   /* "occhiello": blu su chiaro, oro su scuro */
+  --brass-lt:   var(--oro);
+  --brass-bg:   #FFF3CC;
 
-  /* Un solo carattere per tutto, come sul sito del partito. I due nomi
-     restano perche' li usa tutto il foglio, ma puntano allo stesso posto:
-     la distinzione fra titolo e testo la fanno il CORSIVO e il peso, non
-     due famiglie diverse. */
-  --serif: "Kanit", "Segoe UI", Roboto, Arial, sans-serif;
-  --sans:  "Kanit", "Segoe UI", Roboto, Arial, sans-serif;
+  /* si ferma al blu del campo, NON al blu medio: sul blu medio l'oro degli
+     occhielli scende a 4,00:1, sul blu del campo sta a 5,50:1 */
+  --grad-blu:   linear-gradient(120deg, var(--navy-deep) 0%, var(--navy) 45%, var(--blu) 100%);
+  --grad-band:  linear-gradient(180deg, #FFFFFF 0%, var(--paper-2) 100%);
+  --tricolore:  linear-gradient(90deg, var(--verde) 0 33.4%, #FFFFFF 33.4% 66.7%, var(--rosso) 66.7% 100%);
 
-  /* ---- Scala tipografica ----
-     I titoli interpolano fra 375px e 1440px. Le interlinee NON sono più un
-     unico 1.12 imposto a tutta la scala: a 375px quel valore lasciava 3,3px
-     fra due righe di h2. */
-  --t-h1:     clamp(2.125rem, 1.553rem + 2.441vw, 3.75rem);   /* 34 -> 60px */
-  --t-h2:     clamp(1.625rem, 1.317rem + 1.315vw, 2.5rem);    /* 26 -> 40px */
-  --t-h3:     clamp(1.25rem,  1.162rem + 0.376vw, 1.5rem);    /* 20 -> 24px */
-  --t-card:   clamp(1.1875rem,1.122rem + 0.282vw, 1.375rem);  /* 19 -> 22px */
-  --t-lede:   clamp(1.1875rem,1.122rem + 0.282vw, 1.375rem);  /* 19 -> 22px */
-  --t-ledger: clamp(2.375rem, 1.979rem + 1.690vw, 3.5rem);    /* 38 -> 56px */
+  --display: "Montserrat", "Segoe UI", Arial, sans-serif;
+  --serif:   var(--display);      /* i titoli del markup usano --serif */
+  --sans:    "Inter", "Segoe UI", Roboto, Arial, sans-serif;
 
-  /* Quattro token al posto delle SEDICI misure ad hoc sotto 1rem del vecchio
-     foglio (16 corpi distinti schiacciati in 5,6px, 11 dei quali sotto i 16px:
-     è letteralmente questo che significava "non legge bene"). */
-  --t-xs: .8125rem;   /* 13px */
-  --t-s:  .9375rem;   /* 15px */
-  --t-m:  1.0625rem;  /* 17px */
-  --t-l:  1.125rem;   /* 18px */
+  /* ---- scala tipografica: 375px -> 1440px ---- */
+  --t-h1:     clamp(2.25rem, 1.55rem + 3vw, 4.25rem);       /* 36 -> 68 */
+  --t-h2:     clamp(1.75rem, 1.35rem + 1.7vw, 2.75rem);     /* 28 -> 44 */
+  --t-h3:     clamp(1.25rem, 1.16rem + 0.4vw, 1.5rem);      /* 20 -> 24 */
+  --t-card:   clamp(1.125rem, 1.06rem + 0.3vw, 1.3rem);     /* 18 -> 21 */
+  --t-lede:   clamp(1.125rem, 1.06rem + 0.3vw, 1.3rem);
+  --t-ledger: clamp(2.5rem, 2rem + 2vw, 3.75rem);           /* KPI: 40 -> 60 */
+  --t-xs: .8125rem; --t-s: .9375rem; --t-m: 1.0625rem; --t-l: 1.125rem;
 
   --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px; --s-5: 24px;
   --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px;
-
-  --pad: clamp(18px, 5vw, 32px);   /* padding orizzontale del container */
-  --sec-y: 48px;                   /* ritmo verticale delle sezioni */
+  --pad: clamp(18px, 5vw, 32px);
+  --sec-y: 56px;
   --maxw: 1240px;
-  /* NOTA DI METODO, da non "correggere" in futuro: l'intervallo 45-75 caratteri
-     per riga è una regola DESKTOP. A 375px, con corpo 17px e padding usabile,
-     il massimo raggiungibile è ~40 caratteri. Il pavimento dei 16px viene
-     PRIMA della misura di riga: non rimpicciolire il testo per allungare la
-     riga, è l'errore da cui veniamo. Su desktop 62ch dà ~66 caratteri (il
-     vecchio 68ch ne dava 82, sopra il tetto). */
-  --measure: 62ch;
-  /* Raggi presi dal loro kit: l'unico valore che dichiarano e' 24px, sui
-     bottoni. Su un bottone alto 48-52px 24px e' esattamente uno stadio, ed e'
-     infatti cosi' che appaiono sul loro sito (il bottone "ISCRIVITI" della
-     fascia gialla). Quindi qui le pillole ci sono: era una regola mia, e la
-     richiesta e' di seguire la loro identita', non la mia. */
-  --r-lg: 28px;          /* riquadri grandi */
-  --r:    24px;          /* card e pannelli: lo stesso valore dei loro bottoni */
-  --r-btn: 999px;        /* bottoni: stadio, come i loro */
-  --r-sm: 10px;          /* campi e filtri */
-  --r-xs: 8px;           /* etichette e chip */
-  --ease: cubic-bezier(.2,.7,.3,1);
-  --ease-soft: cubic-bezier(.33,.9,.4,1);
-  /* Su fondo bianco le ombre vanno tenute basse: il loro sito e' piatto e
-     un alone lungo su carta bianca legge come sporco, non come rilievo. */
-  --shadow-card:
-      0 1px 2px  rgba(11,59,106,.07),
-      0 6px 16px -8px rgba(11,59,106,.18);
-  --shadow-pop:
-      0 2px 6px  rgba(11,59,106,.10),
-      0 16px 34px -14px rgba(11,59,106,.30);
-}
+  --measure: 64ch;
 
-@media (min-width:900px){
-  :root{ --sec-y: 96px; }
+  /* raggi: i blocchi del banner sono squadrati; le card e i bottoni prendono
+     un raggio deciso ma non gonfio */
+  --r:    14px;   /* card */
+  --r-sm: 8px;    /* bottoni, campi */
+  --r-xs: 4px;    /* etichette a blocco, come i blocchi del nome */
+  --ease: cubic-bezier(.2,.7,.3,1);
+  --shadow-card: 0 1px 2px rgba(10,42,84,.06), 0 10px 24px -12px rgba(10,42,84,.22);
+  --shadow-pop:  0 2px 6px rgba(10,42,84,.08), 0 22px 44px -18px rgba(10,42,84,.34);
 }
-/* Regola GOV.UK: sul telefono il testo piccolo non rimpicciolisce, semmai cresce. */
-@media (max-width:640px){
-  :root{ --t-xs:.875rem; --t-s:1rem; }   /* 14px / 16px */
-}
+@media (min-width:900px){ :root{ --sec-y: 104px; } }
+@media (max-width:640px){ :root{ --t-xs:.875rem; --t-s:1rem; } }
 
 /* ---------- Reset ---------- */
 *, *::before, *::after{ box-sizing:border-box; }
-/* Il gradiente del piano sta sulla RADICE, non sul body: cosi' l'area di
-   posizionamento e' alta quanto il documento e scorrendo si attraversa davvero
-   la sfumatura, dall'azzurro chiaro in testa al blu elettrico in fondo. Sul
-   body diventava il fondo del canvas e restava corretto, ma qui il ruolo e'
-   esplicito e lascia libero il body per lo strato animato qui sotto. */
-html{
-  scroll-behavior:smooth; scroll-padding-top:72px; -webkit-text-size-adjust:100%;
-  background:var(--paper); background-image:var(--grad-page); background-repeat:no-repeat;
-}
-@media (min-width:900px){ html{ scroll-padding-top:80px; } }
-body{
-  margin:0; background:transparent;
-  /* Il corpo nel loro grigio #4A4A4A; il navy resta ai titoli. */
-  color:var(--ink-2);
-  font-family:var(--sans); font-size:var(--t-m); line-height:1.6;
-  -webkit-font-smoothing:antialiased; overflow-x:clip;
-}
+html{ scroll-behavior:smooth; scroll-padding-top:84px; -webkit-text-size-adjust:100%; background:var(--paper); }
+body{ margin:0; background:var(--paper); color:var(--ink-2); font-family:var(--sans); font-size:var(--t-m); line-height:1.65; -webkit-font-smoothing:antialiased; overflow-x:clip; }
 img, svg, video{ max-width:100%; height:auto; display:block; }
 a{ color:var(--link); text-decoration:none; }
 button{ font:inherit; }
-h1, h2, h3, h4{ margin:0 0 .45em; color:var(--ink); font-weight:600; text-wrap:balance; }
-/* La voce tipografica del partito: titoli in CORSIVO peso 600, interlinea
-   1,1 e crenatura negativa. E' il tratto che si riconosce a colpo d'occhio sul
-   loro sito, prima ancora dei colori. */
-h1{ font-family:var(--serif); font-size:var(--t-h1); font-style:italic; font-weight:600; letter-spacing:-.022em; line-height:1.08; }
-h2{ font-family:var(--serif); font-size:var(--t-h2); font-style:italic; font-weight:600; letter-spacing:-.018em; line-height:1.14; }
-h3{ font-family:var(--serif); font-size:var(--t-h3); font-style:italic; font-weight:600; letter-spacing:-.012em; line-height:1.22; }
-h4{ font-family:var(--sans); font-size:var(--t-m); font-weight:600; line-height:1.40; }
-@media (min-width:900px){
-  h1{ line-height:1.06; }
-  h2{ line-height:1.16; }
-  h3{ line-height:1.28; }
-}
+h1, h2, h3, h4{ margin:0 0 .5em; color:var(--ink); font-family:var(--display); text-wrap:balance; }
+h1{ font-size:var(--t-h1); font-weight:800; line-height:1.02; letter-spacing:-.02em; text-transform:uppercase; }
+h2{ font-size:var(--t-h2); font-weight:800; line-height:1.08; letter-spacing:-.015em; text-transform:uppercase; }
+h3{ font-size:var(--t-h3); font-weight:700; line-height:1.25; letter-spacing:-.005em; }
+h4{ font-family:var(--sans); font-size:var(--t-m); font-weight:700; line-height:1.4; }
 p{ margin:0 0 1em; text-wrap:pretty; }
 p, li{ max-width:var(--measure); }
-strong{ font-weight:600; }
+strong{ font-weight:700; }
 .num, time, .kpi-value{ font-variant-numeric:tabular-nums; }
 hr{ border:0; border-top:1px solid var(--rule); margin:var(--s-6) 0; }
-::selection{ background:var(--link); color:#fff; }
-
-/* ==========================================================================
-   L'AURORA — lo sfondo che si muove allo scorrimento
-   Tre aloni di blu elettrico, fissi rispetto alla finestra, dietro tutto il
-   contenuto. Non seguono il puntatore, non sono particelle, non sequestrano lo
-   scorrimento: e' la pagina che scorre e loro rispondono.
-
-   DUE CONTI CHE VANNO FATTI PRIMA, NON DOPO.
-   1) Tre aloni sovrapposti NON danno l'opacita' del singolo: si compongono
-      source-over, quindi dove si sovrappongono tutti e tre l'alfa vale
-      1-(1-a)^3. Con a=.07 fa .196, ed e' QUEL valore che va portato nel
-      calcolo del contrasto. Sul fondo piu' profondo del piano (#BAD0FF) da'
-      #9AB6FF: titoli 7,90:1, testo secondario 4,57:1, occhiello 4,73:1,
-      link 4,75:1. Tutto sopra soglia, con il velo al massimo.
-   2) Si anima SOLO transform e opacity, che il compositore risolve sulla GPU
-      senza ridisegnare nulla: nessun reflow mentre si scorre.
-
-   Con animation-timeline l'aurora e' agganciata all'avanzamento del documento
-   e si intensifica scendendo — il blu "va verso l'elettrico" man mano che si
-   legge. Dove il browser non conosce le timeline di scorrimento (Safari, per
-   ora) resta un respiro lento: l'effetto degrada, non sparisce.
-   ========================================================================== */
-body::before{
-  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
-  background:
-    radial-gradient(58vmax 48vmax at  8%  4%, rgba(0,133,215,.042), transparent 62%),
-    radial-gradient(62vmax 50vmax at 96% 34%, rgba(0,133,215,.042), transparent 64%),
-    radial-gradient(56vmax 48vmax at 22% 94%, rgba(11, 59,106,.042), transparent 62%);
-  opacity:.9;
-  animation:aurora-respiro 44s ease-in-out infinite alternate;
-  will-change:transform, opacity;
-}
-@keyframes aurora-respiro{
-  from{ transform:translate3d(-3%,-3%,0) scale(1.04); }
-  to  { transform:translate3d( 3%, 3%,0) scale(1.14); }
-}
-@keyframes aurora-scorrimento{
-  from{ opacity:.72; transform:translate3d(-4%,-7%,0) scale(1.02); }
-  to  { opacity:1;   transform:translate3d( 4%, 7%,0) scale(1.20); }
-}
-@supports (animation-timeline: scroll()){
-  body::before{
-    /* la scorciatoia azzera animation-timeline: va riassegnata DOPO */
-    animation:aurora-scorrimento linear both;
-    animation-timeline:scroll(root block);
-  }
-}
-@media (prefers-reduced-motion:reduce){
-  body::before{ animation:none; opacity:.7; transform:none; }
-}
+::selection{ background:var(--oro); color:var(--navy); }
 
 /* ---------- Focus ---------- */
-:focus-visible{ outline:3px solid transparent; outline-offset:2px; box-shadow:0 0 0 3px var(--paper), 0 0 0 5px var(--navy); border-radius:var(--r-sm); }
-.band-dark :focus-visible, .site-footer :focus-visible{ box-shadow:0 0 0 3px var(--navy-deep), 0 0 0 5px var(--brass-lt); }
-@media (forced-colors:active){ :focus-visible{ outline:3px solid CanvasText; box-shadow:none; } }
-.skip-link{
-  position:absolute; left:var(--s-4); top:-80px; z-index:400;
-  background:var(--navy); color:#fff; font-weight:600; padding:12px 18px;
-  border-radius:0 0 var(--r) var(--r); text-decoration:none; transition:top .15s var(--ease);
-}
+:focus-visible{ outline:3px solid var(--oro); outline-offset:3px; }
+@media (forced-colors:active){ :focus-visible{ outline:3px solid CanvasText; } }
+.skip-link{ position:absolute; left:var(--s-4); top:-80px; z-index:400; background:var(--navy); color:#fff; font-weight:700; padding:12px 18px; border-radius:0 0 var(--r-sm) var(--r-sm); transition:top .15s var(--ease); }
 .skip-link:focus{ top:0; }
 main:focus{ outline:none; }
-main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offset:-2px; }
+main:focus-visible{ outline:2px solid var(--blu); outline-offset:-2px; }
 
 /* ---------- Layout ---------- */
 .container{ max-width:var(--maxw); margin:0 auto; padding:0 var(--pad); }
 .section{ padding:var(--sec-y) 0; }
-.section-tight{ padding:calc(var(--sec-y) * .72) 0; }
-.section-airy{ padding:calc(var(--sec-y) * 1.34) 0; }
-.band{ background:var(--paper-2); background-image:var(--grad-band); border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); }
-/* Fascia azzurra piena: ci sta SOLO il titolo grande in bianco (3:1 basta per
-   il testo grande), il resto del testo va sulla variante scurita. */
-.band-azzurra{ background:var(--brand-deep); background-image:var(--grad-azzurra); color:#fff; position:relative; overflow:clip; }
-.band-azzurra h1, .band-azzurra h2, .band-azzurra h3{ color:#fff; }
-/* Fascia gialla: la loro firma. Mai bianco sopra — 1,34:1. */
-.band-giallo{ background:var(--giallo); color:var(--navy); border-top:0; border-bottom:0; }
-.band-giallo h1, .band-giallo h2, .band-giallo h3, .band-giallo p, .band-giallo .lede{ color:var(--navy); }
-.band-dark{ background:var(--navy); background-image:var(--grad-dark); color:var(--on-dark); position:relative; overflow:clip; }
-/* La fascia scura non e' piu' una campitura ferma: un alone elettrico la
-   attraversa mentre passa nella finestra, con view() misurata sulla fascia
-   stessa — cosi' il tempo dell'effetto e' lo stesso su ogni pagina, qualunque
-   sia la lunghezza del documento.
-   CONTO DEL CONTRASTO: l'alone SCHIARISCE, quindi il caso peggiore e' il punto
-   gia' piu' chiaro della fascia (#15369F) con l'alone al massimo. Il massimo
-   effettivo e' .28 x .70 = .196, che da' #163BB2: bianco 9,12:1, ottone
-   4,59:1, terziario 5,02:1. Oltre quel valore l'ottone scenderebbe sotto 4,5.
-   Il vincolo e' l'ottone, non il bianco: e' lui a fissare il tetto. */
-.band-dark::before{
-  content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
-  background:radial-gradient(72% 92% at 18% 0%, rgba(0,133,215,.34), transparent 62%);
-  opacity:.55; will-change:transform, opacity;
-}
-.band-dark > *{ position:relative; z-index:1; }
-@keyframes fascia-elettrica{
-  from{ transform:translate3d(-7%,-5%,0) scale(1.06); opacity:.30; }
-  50% { opacity:.70; }
-  to  { transform:translate3d( 7%, 5%,0) scale(1.20); opacity:.30; }
-}
-@supports (animation-timeline: view()){
-  .band-dark::before{ animation:fascia-elettrica linear both; animation-timeline:view(); }
-}
-@media (prefers-reduced-motion:reduce){ .band-dark::before{ animation:none; opacity:.5; transform:none; } }
+.section-tight{ padding:calc(var(--sec-y) * .7) 0; }
+.section-airy{ padding:calc(var(--sec-y) * 1.3) 0; }
+.band{ background:var(--paper-2); background-image:var(--grad-band); }
+.band-dark{ background:var(--navy); background-image:var(--grad-blu); color:var(--on-dark); }
 .band-dark h1, .band-dark h2, .band-dark h3{ color:#fff; }
-.band-dark a:not(.btn){ color:var(--on-dark); }
+.band-dark a:not(.btn){ color:#fff; }
 .band-dark .section-head p, .band-dark .lede, .band-dark .small, .band-dark .muted{ color:var(--on-dark-2); }
+.band-azzurra{ background:var(--blu); color:#fff; }
+.band-giallo{ background:var(--oro); color:var(--navy); }
 
-/* LA REGOLA DI SEZIONE — è il device che sostituisce l'alternanza di fondi.
-   Un filetto a tutta larghezza sopra l'occhiello, con il segmento iniziale in
-   porpora: costa 2 pseudo-elementi e si vede sempre. */
-.section-head{ position:relative; max-width:760px; margin-bottom:var(--s-5); padding-top:var(--s-4); }
+/* Testa di sezione: occhiello con trattino oro, titolo maiuscolo, riga oro sotto */
+.section-head{ position:relative; max-width:780px; margin-bottom:var(--s-6); }
 @media (min-width:900px){ .section-head{ margin-bottom:var(--s-7); } }
-.section-head::before{ content:""; position:absolute; left:0; right:0; top:0; height:1px; background:var(--grad-rule); }
-.section-head::after{
-  content:""; position:absolute; left:0; top:0; width:64px; height:3px; background:var(--azzurro);
-  transform-origin:left; transform:scaleX(0); transition:transform .55s var(--ease) .05s;
-}
-.js .rv.in .section-head::after, .js .section-head.rv.in::after, html:not(.js) .section-head::after{ transform:scaleX(1); }
-.band-dark .section-head::before{ background:var(--divider-dark); }
-.band-dark .section-head::after{ background:var(--giallo); }
-.section-head p{ color:var(--ink-2); font-size:var(--t-l); }
-.section-bridge{ display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:var(--s-4); margin-bottom:var(--s-5); }
+.section-head h2::after, .page-head h1::after{ content:""; display:block; width:72px; height:5px; background:var(--oro); margin-top:.45em; border-radius:2px; }
+.section-head p{ color:var(--muted); font-size:var(--t-l); }
+.section-bridge{ display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:var(--s-4); margin-bottom:var(--s-6); }
 .section-bridge .section-head{ margin-bottom:0; }
 
-.eyebrow{
-  display:inline-flex; align-items:center; gap:10px; margin-bottom:var(--s-3);
-  font-size:var(--t-xs); font-weight:500; letter-spacing:.10em; text-transform:uppercase;
-  color:var(--link); flex-wrap:wrap; max-width:100%; line-height:1.35;
-}
-.eyebrow::before{ content:""; width:26px; height:3px; background:var(--azzurro); flex-shrink:0; }
-.eyebrow.on-dark{ color:var(--giallo); }
-.eyebrow.on-dark::before{ background:var(--giallo); }
-/* .eyebrow.green è emessa dal generatore per le sezioni territoriali: ottone, mai verde */
-.eyebrow.green{ color:var(--brass-ink); }
-.eyebrow.green::before{ background:var(--brass); }
-
-.lede{ font-size:var(--t-lede); color:var(--ink-2); line-height:1.55; max-width:58ch; }
-.small{ font-size:var(--t-s); color:var(--ink-2); }
-.muted{ color:var(--ink-2); }
+.eyebrow{ display:inline-flex; align-items:center; gap:10px; margin:0 0 var(--s-3); font-family:var(--display); font-size:var(--t-xs); font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--blu); flex-wrap:wrap; max-width:100%; line-height:1.35; }
+.eyebrow::before{ content:""; width:28px; height:4px; background:var(--oro); border-radius:2px; flex-shrink:0; }
+.eyebrow.on-dark{ color:var(--oro); }
+.eyebrow.green{ color:var(--blu); }
+.lede{ font-size:var(--t-lede); color:var(--muted); line-height:1.55; max-width:60ch; }
+.small{ font-size:var(--t-s); color:var(--muted); }
+.muted{ color:var(--muted); }
 .grid-2, .grid-3, .grid-4{ display:grid; gap:var(--s-5); grid-template-columns:1fr; }
 @media (min-width:700px){ .grid-2, .grid-3, .grid-4{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
 @media (min-width:1000px){ .grid-3{ grid-template-columns:repeat(3, minmax(0,1fr)); } .grid-4{ grid-template-columns:repeat(4, minmax(0,1fr)); } }
@@ -364,348 +186,187 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .visually-hidden{ position:absolute !important; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap; }
 
 /* ---------- Bottoni ---------- */
-/* I loro bottoni: stadio, fondo navy, testo bianco, e allo stato attivo si
-   rovesciano in bianco con bordo navy (e' letteralmente la regola scritta nel
-   loro kit: background #FFFFFF, color primary, border 1px primary). */
 .btn{
-  position:relative; display:inline-flex; align-items:center; gap:10px; min-height:48px; padding:12px 26px;
-  border-radius:var(--r-btn); border:1px solid transparent; font-weight:500; font-size:var(--t-s);
-  letter-spacing:.01em;
-  text-decoration:none; cursor:pointer; line-height:1.2;
-  transition:background .18s var(--ease), color .18s var(--ease), border-color .18s var(--ease), transform .12s var(--ease);
+  position:relative; display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:50px; padding:13px 26px;
+  border-radius:var(--r-sm); border:2px solid transparent; font-family:var(--display); font-weight:700; font-size:var(--t-s);
+  letter-spacing:.02em; text-transform:uppercase; line-height:1.15; text-decoration:none; cursor:pointer;
+  transition:background .18s var(--ease), color .18s var(--ease), border-color .18s var(--ease), transform .12s var(--ease), box-shadow .18s var(--ease);
 }
-.btn .arrow{ transition:transform .28s var(--ease); }
+.btn .arrow{ transition:transform .28s var(--ease); font-family:var(--sans); }
 .btn:hover .arrow{ transform:translateX(4px); }
-.btn:active{ transform:translateY(1px); }   /* lo stato :active mancava del tutto */
-/* L'azione primaria e' nel blu di Fratelli d'Italia, sfumato: il porpora resta
-   solo come segno d'identita' (il laticlavio), non come colore dei comandi. */
-.btn-primary{ background:var(--navy); background-image:none; color:#fff; }
-.btn-primary:hover{ background:#fff; color:var(--navy); border-color:var(--navy); }
-.btn-secondary{ background:transparent; color:var(--navy); border-color:var(--navy); }
-.btn-secondary:hover{ border-color:var(--navy); color:#fff; background:var(--navy); }
-/* Il terzo bottone del loro sito: azzurro pieno. Usa la variante scurita,
-   perche' sull'azzurro nominale il bianco sta a 3,94:1. */
-.btn-azzurro{ background:var(--brand-deep); color:#fff; }
-.btn-azzurro:hover{ background:#fff; color:var(--brand-deep); border-color:var(--brand-deep); }
-/* Il bottone della fascia gialla: navy su giallo, 8,50:1. */
-.btn-giallo{ background:var(--giallo); color:var(--navy); }
-.btn-giallo:hover{ background:var(--navy); color:var(--giallo); }
-.hero-actions .btn-secondary{ color:#fff; border-color:#fff; }
-.hero-actions .btn-secondary:hover{ background:#fff; color:var(--navy); }
-.hero-actions .btn-primary{ background:var(--giallo); color:var(--navy-deep); }
-.hero-actions .btn-primary:hover{ background:#fff; color:var(--navy-deep); border-color:#fff; }
-.band-dark .btn-secondary{ color:#fff; border-color:var(--divider-dark); }
-.band-dark .btn-secondary{ color:#fff; border-color:var(--divider-dark); }
-.band-dark .btn-secondary:hover{ border-color:#fff; color:var(--navy); background:#fff; }
-/* Dentro le fasce scure l'azione primaria diventa GIALLA con testo navy:
-   e' il contrasto che usano loro, e sta a 8,50:1. */
-.band-dark .btn-primary{ background:var(--giallo); color:var(--navy-deep); }
-.band-dark .btn-primary:hover{ background:#fff; color:var(--navy-deep); }
-.btn-ghost{ background:transparent; color:var(--link); padding:8px 2px; border-radius:0; min-height:44px; }
-.btn-ghost::after{ content:""; position:absolute; left:2px; right:calc(100% - 2px); bottom:6px; height:2px; background:var(--link); transition:right .25s var(--ease); }
+.btn:active{ transform:translateY(1px); }
+/* l'azione primaria e' l'ORO del banner con scritta navy: 8,28:1 */
+.btn-primary{ background:var(--oro); color:var(--navy); border-color:var(--oro); box-shadow:0 6px 16px -8px rgba(255,185,1,.7); }
+.btn-primary:hover{ background:var(--oro-scuro); border-color:var(--oro-scuro); color:var(--navy); }
+.btn-secondary{ background:transparent; color:var(--blu); border-color:var(--blu); }
+.btn-secondary:hover{ background:var(--blu); color:#fff; }
+.btn-navy{ background:var(--navy); color:#fff; border-color:var(--navy); }
+.btn-navy:hover{ background:var(--blu); border-color:var(--blu); color:#fff; }
+.btn-ghost{ background:transparent; color:var(--blu); padding:8px 2px; border-radius:0; min-height:44px; border:0; }
+.btn-ghost::after{ content:""; position:absolute; left:2px; right:calc(100% - 2px); bottom:6px; height:3px; background:var(--oro); transition:right .25s var(--ease); }
 .btn-ghost:hover::after{ right:2px; }
-.btn-navy{ background:var(--navy); color:#fff; }
-.btn-navy:hover{ background:var(--navy-deep); color:#fff; }
-.btn-sm{ min-height:40px; padding:8px 15px; font-size:var(--t-xs); }
-
+.btn-sm{ min-height:42px; padding:9px 18px; font-size:var(--t-xs); }
+/* dentro i fondi scuri */
+.band-dark .btn-secondary, .hero .btn-secondary, .fissa .btn-secondary, .now-card .btn-secondary{ color:#fff; border-color:#fff; }
+.band-dark .btn-secondary:hover, .hero .btn-secondary:hover, .fissa .btn-secondary:hover, .now-card .btn-secondary:hover{ background:#fff; color:var(--navy); }
 .underline-fx{ text-decoration:underline; text-decoration-color:var(--rule-strong); text-decoration-thickness:1px; text-underline-offset:.18em; transition:text-decoration-color .2s var(--ease); }
-.underline-fx:hover, .underline-fx:focus-visible{ text-decoration-color:var(--link); text-decoration-thickness:2px; }
+.underline-fx:hover, .underline-fx:focus-visible{ text-decoration-color:var(--blu); text-decoration-thickness:2px; }
 
 /* ---------- Barra di anteprima ---------- */
-.preview-banner{
-  background:var(--navy-deep); color:var(--on-dark-2); font-size:var(--t-xs); text-align:center;
-  padding:9px var(--s-4); border-bottom:2px solid var(--porpora);
-}
-.preview-banner strong{ font-weight:700; letter-spacing:.07em; text-transform:uppercase; margin-right:6px; color:var(--brass-lt); }
-/* Su telefono la frase descrittiva mandava la fascia su due righe, rubando
-   spazio prima del contenuto: resta la sola etichetta. */
+.preview-banner{ background:var(--navy-deep); color:var(--on-dark-2); font-size:var(--t-xs); text-align:center; padding:9px var(--s-4); }
+.preview-banner strong{ font-weight:700; letter-spacing:.07em; text-transform:uppercase; margin-right:6px; color:var(--oro); }
 @media (max-width:640px){ .preview-banner .pv-detail{ display:none; } }
 
 /* ---------- Header ---------- */
-/* Barra unica. Prima erano due fasce sovrapposte (una con logo, ruolo, lingue
-   e social, una con nome e menu): pesante da guardare e, su telefono, la fascia
-   di sopra spariva al primo scorrimento portandosi via il logo. Il ruolo
-   ripeteva quello gia' scritto sotto il nome e i social sono nel footer. */
-.site-header{ position:sticky; top:0; z-index:200; background:var(--surface); border-bottom:1px solid var(--rule); }
-/* AVANZAMENTO DI LETTURA — un filo sul bordo basso della barra, agganciato allo
-   scorrimento del documento. Nessun JS, nessun listener di scroll: la timeline
-   e' dichiarata in CSS e il compositore la aggiorna senza toccare il layout.
-   Dove le timeline di scorrimento non esistono ancora, il filo resta a
-   larghezza zero e non si vede: e' decorazione, non informazione, quindi puo'
-   mancare senza che nulla si perda. */
-.site-header::after{
-  content:""; position:absolute; left:0; right:0; bottom:-1px; height:3px; z-index:2;
-  background:linear-gradient(90deg, var(--azzurro), var(--navy) 60%, var(--giallo));
-  transform:scaleX(0); transform-origin:0 50%;
-}
-@supports (animation-timeline: scroll()){
-  .site-header::after{ animation:avanzamento linear both; animation-timeline:scroll(root block); }
-}
-@keyframes avanzamento{ from{ transform:scaleX(0); } to{ transform:scaleX(1); } }
-
-.lang-switch{ display:flex; gap:2px; }
-.lang-switch a{
-  display:inline-flex; align-items:center; justify-content:center; min-width:32px; min-height:30px;
-  padding:0 7px; border-radius:var(--r-xs); font-size:var(--t-xs); font-weight:600; letter-spacing:.03em;
-  text-decoration:none; color:var(--ink-2);
-}
-.lang-switch a:hover{ background:var(--brass-bg); color:var(--brass-ink); }
-.lang-switch a.active{ background:var(--navy); color:#fff; }
-.lang-switch.in-menu{ display:none; }
-
-.header-bar{ display:flex; align-items:center; gap:var(--s-4); height:72px; }
-.wordmark{ text-decoration:none; color:var(--ink); line-height:1.05; flex:0 1 auto; min-width:0; }
-.wordmark .name{ font-family:var(--serif); font-weight:600; font-size:1.22rem; letter-spacing:-.015em; display:block; white-space:nowrap; }
-/* nowrap: sopra i 1100px compare il menu esteso, il marchio si stringe e la
-   sottoriga andava a capo spezzando "SENATORE DELLA REPUBBLICA · / ABRUZZO".
-   Senza il ritorno a capo la riga tiene la sua larghezza intrinseca e la barra
-   resta alta 72px invece di crescere a 85. */
-.wordmark .sub{ display:block; white-space:nowrap; font-size:.75rem; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:var(--brass-ink); margin-top:3px; }
-/* Nella BARRA la coda " · Abruzzo" viene tolta sempre: anche a 1440px, con il
-   menu esteso, il marchio riceve 10px meno di quanto le servirebbe e la riga
-   sbordava sotto le voci di menu. Il collegio e' gia' detto tre volte nella
-   prima schermata (logo, occhiello, riga del ruolo). Nel pie' di pagina, dove
-   lo spazio c'e', resta. */
-.site-header .wordmark .sub-terr{ display:none; }
-.wordmark:hover .name{ color:var(--link); }
+.site-header{ position:sticky; top:0; z-index:200; background:var(--surface); box-shadow:0 1px 0 var(--rule); }
+/* filo ORO sotto la barra: il tricolore a tutta larghezza su fondo bianco
+   perdeva il segmento centrale e restavano due barre sconnesse. Il tricolore
+   sta sul pie' di pagina, dove il navy fa vedere tutti e tre i colori. */
+.site-header::after{ content:""; display:block; height:4px; background:var(--oro); }
+.header-bar{ display:flex; align-items:center; gap:var(--s-4); height:78px; }
+.wordmark{ display:inline-flex; align-items:center; text-decoration:none; color:var(--ink); flex:0 0 auto; min-width:0; }
+.wordmark .logo{ height:48px; width:auto; }
+.wordmark .sub{ display:none; }
 .site-nav{ margin-left:auto; display:flex; align-items:center; gap:var(--s-2); }
 .nav-links{ display:flex; align-items:center; gap:2px; }
-/* Menu in MAIUSCOLO, come il loro. */
-.nav-links a{
-  position:relative; display:inline-flex; align-items:center; min-height:44px; padding:0 13px;
-  font-size:var(--t-s); font-weight:400; color:var(--navy); text-decoration:none; white-space:nowrap;
-  text-transform:uppercase; letter-spacing:.02em;
-}
-.nav-links a::after{ content:""; position:absolute; left:13px; right:13px; bottom:10px; height:2px; background:var(--link); transform:scaleX(0); transform-origin:left; transition:transform .25s var(--ease); }
-.nav-links a:hover::after{ transform:scaleX(1); }
-/* Il laticlavio segna la posizione corrente */
-.nav-links a[aria-current="page"]{ font-weight:650; }
-.nav-links a[aria-current="page"]::after{ transform:scaleX(1); height:3px; }
-/* Il CTA duplicato: il generatore lo emette due volte (una per il menu mobile,
-   una per la barra desktop) e mancava la regola che nasconde il primo sopra i
-   1100px — su desktop comparivano DUE "Scrivi al Senatore" affiancati. */
+.nav-links a{ position:relative; display:inline-flex; align-items:center; min-height:44px; padding:0 12px; font-family:var(--display); font-size:.8125rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--navy); text-decoration:none; white-space:nowrap; }
+.nav-links a::after{ content:""; position:absolute; left:12px; right:12px; bottom:8px; height:3px; background:var(--oro); border-radius:2px; transform:scaleX(0); transform-origin:left; transition:transform .25s var(--ease); }
+.nav-links a:hover::after, .nav-links a[aria-current="page"]::after{ transform:scaleX(1); }
+.nav-links a[aria-current="page"]{ color:var(--blu); }
 .nav-links .btn-cta{ display:none; }
-.nav-actions{ display:flex; align-items:center; gap:var(--s-2); margin-left:var(--s-2); }
-.icon-btn{
-  display:inline-flex; align-items:center; justify-content:center; gap:8px; min-width:44px; min-height:44px;
-  padding:0 12px; border-radius:var(--r-sm); border:1px solid var(--rule-strong); background:var(--surface);
-  color:var(--ink); text-decoration:none; font-weight:500; font-size:var(--t-s); cursor:pointer; transition:border-color .18s, color .18s, background .18s;
-}
-.icon-btn:hover{ border-color:var(--navy); color:var(--navy); background:var(--paper); }
-.icon-btn svg{ width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
-.icon-btn .label{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap; }
-.nav-toggle{ display:none; }
-.nav-toggle .bars{ position:relative; width:20px; height:14px; }
+.nav-actions{ display:flex; align-items:center; gap:var(--s-2); }
+.lang-switch{ display:flex; gap:2px; }
+.lang-switch a{ display:inline-flex; align-items:center; justify-content:center; min-width:34px; min-height:32px; padding:0 7px; border-radius:var(--r-xs); font-family:var(--display); font-size:.75rem; font-weight:700; color:var(--muted); }
+.lang-switch a:hover{ background:var(--paper-2); color:var(--navy); }
+.lang-switch a.active{ background:var(--navy); color:#fff; }
+.lang-switch.in-menu{ display:none; }
+.icon-btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; min-width:44px; min-height:44px; padding:0 12px; border-radius:var(--r-sm); border:1px solid var(--rule-strong); background:var(--surface); color:var(--navy); cursor:pointer; text-decoration:none; }
+.icon-btn:hover{ border-color:var(--blu); color:var(--blu); }
+.icon-btn svg{ width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.icon-btn .label{ display:none; }
+.nav-toggle{ display:none; position:relative; }
+.nav-toggle .bars{ position:relative; width:20px; height:14px; display:block; }
 .nav-toggle .bars span{ position:absolute; left:0; width:100%; height:2px; background:currentColor; border-radius:2px; transition:transform .2s var(--ease), opacity .15s; }
 .nav-toggle .bars span:nth-child(1){ top:0; } .nav-toggle .bars span:nth-child(2){ top:6px; } .nav-toggle .bars span:nth-child(3){ top:12px; }
 .nav-toggle[aria-expanded="true"] .bars span:nth-child(1){ transform:translateY(6px) rotate(45deg); }
 .nav-toggle[aria-expanded="true"] .bars span:nth-child(2){ opacity:0; }
 .nav-toggle[aria-expanded="true"] .bars span:nth-child(3){ transform:translateY(-6px) rotate(-45deg); }
-
 @media (max-width:1100px){
   .nav-toggle{ display:inline-flex; }
-  .nav-links{
-    display:none; position:absolute; left:0; right:0; top:100%;
-    flex-direction:column; align-items:stretch; gap:0; padding:var(--s-3) var(--pad) var(--s-5);
-    background:var(--surface); border-bottom:1px solid var(--rule); box-shadow:var(--shadow-pop);
-  }
+  .nav-links{ display:none; position:absolute; left:0; right:0; top:100%; flex-direction:column; align-items:stretch; padding:var(--s-3) var(--pad) var(--s-5); background:var(--surface); box-shadow:var(--shadow-pop); border-top:4px solid var(--oro); }
   .nav-links.open{ display:flex; }
-  .nav-links a{ min-height:52px; padding:0 var(--s-2); font-size:var(--t-m); border-bottom:1px solid var(--hair); }
+  .nav-links a{ min-height:52px; padding:0 4px; border-bottom:1px solid var(--hair); font-size:var(--t-m); letter-spacing:.04em; }
   .nav-links a::after{ display:none; }
-  .nav-links a[aria-current="page"]{ box-shadow:inset 3px 0 0 var(--link); padding-left:var(--s-3); }
-  .nav-links a.btn-cta{ display:inline-flex; justify-content:center; margin-top:var(--s-4); border:0; background:var(--link); background-image:var(--grad-brand); color:#fff; font-weight:600; border-radius:var(--r-sm); }
-  .nav-links a.btn-cta:hover{ background:var(--brand-deep); background-image:none; color:#fff; }
-  /* Sotto i 1100px le lingue vivono nel menu: quella in barra sparisce per non
-     duplicare il comando. */
-  .nav-actions .lang-switch{ display:none; }
-  .lang-switch.in-menu{ display:flex; gap:6px; padding-top:var(--s-4); }
-  .lang-switch.in-menu a{ min-width:46px; min-height:44px; font-size:var(--t-s); border:1px solid var(--rule-strong); }
+  .nav-links a[aria-current="page"]{ box-shadow:inset 4px 0 0 var(--oro); padding-left:12px; }
+  .nav-links .btn-cta{ display:inline-flex; margin-top:var(--s-4); border:0; background:var(--oro); color:var(--navy); font-size:var(--t-s); }
+  .nav-links .lang-switch.in-menu{ display:flex; margin-top:var(--s-4); gap:6px; }
+  .lang-switch.in-menu a{ border:1px solid var(--rule-strong); }
   .lang-switch.in-menu a.active{ border-color:var(--navy); }
+  .nav-actions .lang-switch{ display:none; }
   html:not(.js) .nav-links{ display:flex; position:static; box-shadow:none; }
   html:not(.js) .nav-toggle{ display:none; }
 }
 @media (max-width:640px){
-  .header-bar{ height:64px; gap:var(--s-2); }
-  .wordmark .name{ font-size:1.12rem; }
-  /* Era .72rem, cioe' 11,5px: sotto il pavimento di leggibilita' che questo
-     progetto si e' dato per il telefono. Il posto per crescere si ricava
-     togliendo la coda " · Abruzzo", che sul telefono e' ridondante. */
-  .wordmark .sub{ font-size:.8rem; letter-spacing:.04em; }
-  .wordmark .sub-terr{ display:none; }
+  .header-bar{ height:66px; gap:var(--s-2); }
+  .wordmark .logo{ height:40px; }
   .icon-btn{ padding:0; min-width:44px; }
   .nav-actions .btn-cta{ display:none; }
 }
 @media (max-width:1100px) and (min-width:641px){ .nav-actions .btn-cta{ display:inline-flex; } }
-/* Sotto i 360px (telefoni piccoli) "Etelwardo Sigismondi" andava a capo e il
-   blocco del nome sfondava l'altezza fissa della barra, finendo sotto il
-   pulsante del menu. Il nome non va mai spezzato e la barra puo' crescere. */
-@media (max-width:359px){
-  .wordmark .name{ font-size:1rem; white-space:nowrap; }
-  .wordmark .sub{ font-size:.75rem; letter-spacing:.01em; }
-  .header-bar{ height:auto; min-height:60px; padding-block:8px; }
-}
+@media (max-width:359px){ .wordmark .logo{ height:34px; } }
 
 /* ---------- Ricerca ---------- */
-.search-dialog{ border:1px solid var(--rule); border-radius:var(--r); padding:0; max-width:min(680px, calc(100vw - 32px)); width:100%; box-shadow:var(--shadow-pop); background:var(--surface); }
-.search-dialog::backdrop{ background:rgba(13,31,51,.6); }
+.search-dialog{ border:0; border-radius:var(--r); padding:0; max-width:min(680px, calc(100vw - 32px)); width:100%; box-shadow:var(--shadow-pop); background:var(--surface); }
+.search-dialog::backdrop{ background:rgba(6,27,55,.6); }
 .search-inner{ padding:var(--s-5); }
-.search-row{ display:flex; gap:var(--s-2); align-items:center; }
-.search-row input{ flex:1; min-height:48px; padding:0 var(--s-4); font:inherit; border:1px solid var(--rule-strong); border-radius:var(--r-sm); color:var(--ink); background:var(--surface); }
-.search-row input:focus-visible{ border-color:var(--navy); }
-.search-results{ list-style:none; margin:var(--s-4) 0 0; padding:0; max-height:52vh; overflow:auto; }
-.search-results li{ max-width:none; border-top:1px solid var(--hair); }
-.search-results a{ display:block; padding:12px 4px; text-decoration:none; color:var(--ink); border-radius:var(--r); }
-.search-results a:hover, .search-results a:focus-visible{ background:var(--paper-2); }
-.search-results .kind{ font-size:var(--t-xs); font-weight:650; letter-spacing:.06em; text-transform:uppercase; color:var(--brass-ink); }
-.search-results .title{ display:block; font-weight:600; color:var(--ink); margin:2px 0; font-family:var(--serif); }
-.search-results .snip{ font-size:var(--t-s); color:var(--ink-2); }
-.search-status{ font-size:var(--t-s); color:var(--ink-2); margin:var(--s-3) 0 0; }
-/* A 360px il bottone sbordava di 16px: un elemento flessibile ha min-width:auto,
-   cioe' non scende sotto la sua larghezza intrinseca, e il campo non lasciava
-   spazio al bottone. Servono ENTRAMBE le correzioni: min-width:0 sul campo e
-   flex-wrap, che manda il bottone a capo quando anche cosi' non ci sta. */
+.search-row{ display:flex; gap:var(--s-2); }
+.search-row input{ flex:1; min-width:0; min-height:48px; padding:0 var(--s-4); font:inherit; border:1px solid var(--rule-strong); border-radius:var(--r-sm); color:var(--ink-2); background:var(--surface); }
+.search-status{ font-size:var(--t-s); color:var(--muted); margin:var(--s-3) 0 0; }
+.search-results{ list-style:none; margin:var(--s-3) 0 0; padding:0; max-height:50vh; overflow:auto; }
+.search-results a{ display:block; padding:12px 6px; color:var(--ink-2); border-radius:var(--r-xs); }
+.search-results a:hover{ background:var(--paper-2); }
+.search-results .kind{ font-family:var(--display); font-size:var(--t-xs); font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--blu); }
+.search-results .title{ display:block; font-weight:600; color:var(--navy); }
+.search-results .snip{ display:block; font-size:var(--t-s); color:var(--muted); }
 .search-page-form{ display:flex; flex-wrap:wrap; gap:var(--s-2); max-width:640px; }
-.search-page-form input{ flex:1 1 190px; min-width:0; min-height:48px; padding:0 var(--s-4); font:inherit; border:1px solid var(--rule-strong); border-radius:var(--r-sm); background:var(--surface); }
+.search-page-form input{ flex:1 1 190px; min-width:0; min-height:50px; padding:0 var(--s-4); font:inherit; border:1px solid var(--rule-strong); border-radius:var(--r-sm); background:var(--surface); }
+.press-count{ font-size:var(--t-s); color:var(--muted); }
 
-/* ---------- Etichette e stati ---------- */
-.tag{
-  display:inline-flex; align-items:center; gap:6px; min-height:28px; padding:4px 12px;
-  border-radius:var(--r-xs); font-size:var(--t-xs); font-weight:650; letter-spacing:.05em; text-transform:uppercase;
-  background:var(--surface); border:1px solid var(--rule); color:var(--navy);
-  text-decoration:none; white-space:normal; text-align:left; line-height:1.3;
-}
-.tag.memoria{ background:var(--porpora-bg); border-color:var(--porpora); color:var(--porpora-deep); }
-.tag.green, .tag.abruzzo{ background:var(--brass-bg); border-color:var(--brass); color:var(--brass-ink); }
-.tag.on-photo{ background:var(--navy-deep); border-color:var(--navy-deep); color:#fff; }
-
-/* Gli stati hanno FORMA diversa, non solo colore diverso: la forma è il canale
-   primario, il colore il secondario (nessuna informazione affidata al colore). */
-.status{ display:inline-flex; align-items:center; gap:8px; font-size:var(--t-s); font-weight:600; color:var(--ink); white-space:normal; }
-.band-dark .status{ color:#fff; }
+/* ---------- Etichette e stati ----------
+   L'etichetta e' un BLOCCO ORO con scritta navy: e' il gesto del banner
+   (i blocchi del nome), riusato in piccolo su ogni card. */
+.tag{ display:inline-flex; align-items:center; min-height:26px; padding:3px 10px; border-radius:var(--r-xs); background:var(--oro); color:var(--navy); font-family:var(--display); font-size:var(--t-xs); font-weight:800; letter-spacing:.06em; text-transform:uppercase; line-height:1.2; }
+.tag.on-photo{ box-shadow:0 2px 8px rgba(0,0,0,.25); }
+.tag.abruzzo, .tag.green{ background:var(--blu); color:#fff; }
+.tag.memoria{ background:var(--navy); color:#fff; }
+.status{ display:inline-flex; align-items:center; gap:8px; font-size:var(--t-s); font-weight:600; color:var(--ink-2); }
 .status::before{ content:""; width:10px; height:10px; flex-shrink:0; background:var(--ink-3); border-radius:50%; }
-.status.in-corso::before{ background:var(--navy); border-radius:50%; }                                   /* disco pieno */
-.status.in-esame::before{ background:linear-gradient(90deg, var(--brass) 50%, transparent 50%); border:2px solid var(--brass); border-radius:50%; } /* cerchio a metà */
-.status.concluso::before{ background:var(--ink); border-radius:1px; }                                     /* quadrato */
-.status.aggiornamento::before{ background:var(--porpora); border-radius:1px; transform:rotate(45deg); }   /* rombo */
-.status.archiviato::before{ background:transparent; border:2px solid var(--rule-strong); border-radius:50%; } /* anello */
-.band-dark .status.in-corso::before{ background:var(--brass-lt); }
-.band-dark .status.archiviato::before{ border-color:var(--on-dark-3); }
-
-.meta-line{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--s-2) var(--s-3); font-size:var(--t-xs); color:var(--ink-2); }
-.band-dark .meta-line{ color:var(--on-dark-2); }
-.meta-line time{ font-weight:600; color:var(--ink); }
-.band-dark .meta-line time{ color:#fff; }
+.status.in-corso::before{ background:var(--blu); }
+.status.in-esame::before{ background:linear-gradient(90deg, var(--oro-scuro) 50%, transparent 50%); border:2px solid var(--oro-scuro); }
+.status.concluso::before{ background:var(--navy); border-radius:2px; }
+.status.aggiornamento::before{ background:var(--rosso); border-radius:2px; transform:rotate(45deg); }
+.status.archiviato::before{ background:transparent; border:2px solid var(--rule-strong); }
+.band-dark .status, .now-card .status{ color:#fff; }
+.band-dark .status.in-corso::before, .now-card .status.in-corso::before{ background:var(--oro); }
+.meta-line{ display:inline-flex; flex-wrap:wrap; align-items:center; gap:6px 10px; font-size:var(--t-s); color:var(--muted); }
+.meta-line time{ color:var(--ink-2); font-weight:600; }
+.band-dark .meta-line, .now-card .meta-line{ color:var(--on-dark-2); }
+.band-dark .meta-line time, .now-card .meta-line time{ color:#fff; }
 .ext::after{ content:"↗"; display:inline-block; margin-left:.3em; font-size:.85em; }
+
+/* BADGE DELLA DATA sulla fotografia: giorno grande, mese sotto. E' l'elemento
+   che il Senatore ha gia' sul suo sito; qui e' un blocco navy con il giorno
+   in oro. E' aria-hidden: la data completa resta nel <time> del testo. */
+.date-badge{ position:absolute; left:14px; bottom:14px; z-index:2; display:grid; place-items:center; min-width:58px; padding:8px 10px 7px; background:var(--navy); color:#fff; border-radius:var(--r-xs); font-family:var(--display); line-height:1; box-shadow:0 4px 12px rgba(0,0,0,.3); }
+.date-badge b{ display:block; font-size:1.45rem; font-weight:800; color:var(--oro); }
+.date-badge i{ display:block; font-style:normal; font-size:.72rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; margin-top:3px; }
 
 /* ==========================================================================
    CARD FOTOGRAFICHE
-   Foto in testa, testo su fondo pieno sotto. Il bordo è ora VISIBILE (3,02:1
-   contro gli 1,26:1 di prima): è il bordo, non l'ombra, a dare articolazione.
-   Sotto i 560px le card smettono di essere scatole e vanno a filo del
-   container: recupera i 96px di padding annidato che schiacciavano la
-   colonna di lettura a 37 caratteri per riga.
    ========================================================================== */
-.media-card{
-  position:relative; display:flex; flex-direction:column; background:var(--surface);
-  border:1px solid var(--rule); border-radius:var(--r); overflow:hidden;
-  box-shadow:var(--shadow-card);
-  transition:transform .3s var(--ease), box-shadow .3s var(--ease), border-color .22s var(--ease);
-}
-/* Il segno di stato non e' piu' il solito scambio d'ombra: un filo elettrico si
-   tira sul bordo alto della card. Costa un pseudo-elemento e una transizione di
-   transform — niente ridisegno, niente immagini. pointer-events:none e'
-   obbligatorio: quei 3px stanno sopra il collegamento che copre tutta la card
-   e senza la regola diventerebbero una fascia morta al clic. */
-.media-card::after{
-  content:""; position:absolute; left:0; right:0; top:0; height:3px; z-index:3; pointer-events:none;
-  background:linear-gradient(90deg, var(--azzurro), var(--navy));
-  transform:scaleX(0); transform-origin:0 50%; transition:transform .4s var(--ease);
-}
-.media-card:hover::after, .media-card:focus-within::after{ transform:scaleX(1); }
-.media-card:hover, .media-card:focus-within{ border-color:var(--brand-lt); box-shadow:var(--shadow-pop); transform:translateY(-4px); }
-/* Il patrimonio fotografico e' eterogeneo: 16 immagini su 41 sono grafiche
-   social quadrate con testo gia' impresso, altre sono verticali. Un taglio
-   troppo panoramico le decapita: su telefono tutte le card usano lo stesso
-   16/10, che regge sia le foto orizzontali sia le quadrate. */
-.media-card .media{ position:relative; aspect-ratio:16/10; overflow:hidden; background:var(--navy); flex-shrink:0; border-bottom:1px solid var(--rule); }
-@media (min-width:700px){
-  .media-card .media{ aspect-ratio:4/3; }
-  .media-card.featured .media{ aspect-ratio:16/9; }
-}
-.media-card .media img{
-  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 32%;
-  transition:transform .5s var(--ease-soft);
-}
-.media-card:hover .media img, .media-card:focus-within .media img{ transform:scale(1.04); }
-.media-card .media .tag{ position:absolute; left:12px; top:12px; z-index:2; }
+.media-card{ position:relative; display:flex; flex-direction:column; background:var(--surface); border:1px solid var(--rule); border-radius:var(--r); overflow:hidden; box-shadow:var(--shadow-card); transition:transform .28s var(--ease), box-shadow .28s var(--ease), border-color .2s var(--ease); }
+.media-card:hover, .media-card:focus-within{ transform:translateY(-4px); box-shadow:var(--shadow-pop); border-color:transparent; }
+.media-card .media{ position:relative; aspect-ratio:16/10; overflow:hidden; background:var(--navy); flex-shrink:0; }
+@media (min-width:700px){ .media-card .media{ aspect-ratio:4/3; } .media-card.featured .media{ aspect-ratio:16/9; } }
+.media-card .media img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 32%; transition:transform .6s var(--ease); }
+.media-card:hover .media img, .media-card:focus-within .media img{ transform:scale(1.05); }
+.media-card .media .tag{ position:absolute; left:14px; top:14px; z-index:2; }
 .media-card .body{ padding:var(--s-5); display:flex; flex-direction:column; gap:var(--s-2); flex:1; }
-.media-card h3{ margin:0; font-size:var(--t-card); line-height:1.30; }
-.media-card h3 a{ text-decoration:none; color:var(--ink); }
+.media-card h3{ margin:0; font-size:var(--t-card); line-height:1.28; }
+.media-card h3 a{ color:var(--navy); }
 .media-card h3 a::after{ content:""; position:absolute; inset:0; z-index:1; }
-.media-card:hover h3 a, .media-card:focus-within h3 a{ color:var(--link); }
-.media-card p{ margin:0; color:var(--ink-2); font-size:var(--t-m); }
+.media-card:hover h3 a, .media-card:focus-within h3 a{ color:var(--blu); }
+.media-card p{ margin:0; color:var(--muted); font-size:var(--t-m); }
 .media-card .foot{ margin-top:auto; padding-top:var(--s-3); border-top:1px solid var(--hair); display:flex; align-items:center; justify-content:space-between; gap:var(--s-3); flex-wrap:wrap; }
-/* Le card delle notizie non portano piu' lo stato: il piede ha un solo elemento
-   e va allineato a destra invece di restare spaiato a sinistra. */
 .media-card .foot-end{ justify-content:flex-end; }
-.media-card .more{ position:relative; z-index:2; font-size:var(--t-s); font-weight:650; color:var(--link); display:inline-flex; gap:6px; align-items:center; }
-.media-card .more .arrow{ transition:transform .25s var(--ease); }
+.media-card .more{ position:relative; z-index:2; font-family:var(--display); font-size:var(--t-xs); font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--blu); display:inline-flex; gap:6px; align-items:center; }
+.media-card .more .arrow{ font-family:var(--sans); transition:transform .25s var(--ease); }
 .media-card:hover .more .arrow, .media-card:focus-within .more .arrow{ transform:translateX(4px); }
-/* Riferimento al dossier: era un <a> alto 22px sovrapposto all'area cliccabile
-   della card — due bersagli sovrapposti, non conforme a WCAG 2.5.8. Resta
-   leggibile ma non è più un secondo bersaglio. */
 .media-card .foot .underline-fx{ position:relative; z-index:2; }
 @media (min-width:1000px){
   .media-card.featured, .tl-item.featured{ grid-column:span 2; }
   .media-card.featured .body{ padding:var(--s-6); }
-  .media-card.featured h3{ font-size:clamp(1.5rem, 1.2rem + 1vw, 1.9rem); }
+  .media-card.featured h3{ font-size:clamp(1.4rem, 1.1rem + 1vw, 1.8rem); }
 }
+.media-card .media.no-photo{ display:flex; align-items:center; justify-content:center; background:var(--paper-2); }
+.media-card .media.no-photo .glyph{ width:34%; max-width:78px; color:var(--blu); opacity:.5; }
 
-/* Card senza foto: non un grigio anonimo, ma un cartiglio su carta sabbia con
-   il filetto ottone in testa e il numerale in filigrana. */
-.media-card .media.no-photo{
-  display:flex; align-items:center; justify-content:center;
-  background:var(--paper-2); border-top:3px solid var(--brass); border-bottom:1px solid var(--rule);
-}
-.media-card .media.no-photo::before{
-  content:""; position:absolute; inset:0; opacity:.5;
-  background-image:repeating-linear-gradient(115deg, var(--hair) 0 1px, transparent 1px 22px);
-}
-.media-card .media.no-photo .glyph{ position:relative; z-index:1; color:var(--navy); opacity:.5; width:34%; max-width:78px; }
-
-/* Schede istituzionali (le commissioni): non sono notizie e non hanno una
-   fotografia propria, quindi non hanno spazio immagine. Il filetto ottone in
-   testa le distingue dalle card fotografiche senza fingere una miniatura. */
-.role-card{
-  position:relative; overflow:hidden;
-  background:var(--surface); border:1px solid var(--rule);
-  border-radius:var(--r); padding:calc(var(--s-5) + 3px) var(--s-5) var(--s-5);
-  display:grid; gap:var(--s-3); align-content:start;
-  transition:border-color .2s var(--ease), box-shadow .26s var(--ease), transform .26s var(--ease);
-}
-/* Un border-top spesso, con un raggio di 22px, si incurva contro i lati da 1px
-   e agli angoli forma due cunei: e' esattamente il dettaglio che fa sembrare
-   vecchio l'arrotondamento. La striscia va DENTRO, come pseudo-elemento. */
-.role-card::before{ content:""; position:absolute; left:0; right:0; top:0; height:3px; pointer-events:none; background:linear-gradient(90deg, var(--azzurro), var(--navy)); }
-.role-card{ box-shadow:var(--shadow-card); }
-.role-card:hover, .role-card:focus-within{ border-color:var(--brand-lt); box-shadow:var(--shadow-pop); transform:translateY(-4px); }
+/* Schede istituzionali (commissioni) */
+.role-card{ position:relative; overflow:hidden; background:var(--surface); border:1px solid var(--rule); border-radius:var(--r); padding:calc(var(--s-5) + 5px) var(--s-5) var(--s-5); display:grid; gap:var(--s-3); align-content:start; box-shadow:var(--shadow-card); transition:transform .26s var(--ease), box-shadow .26s var(--ease); }
+.role-card::before{ content:""; position:absolute; left:0; right:0; top:0; height:5px; background:var(--oro); }
+.role-card:hover, .role-card:focus-within{ transform:translateY(-4px); box-shadow:var(--shadow-pop); }
 .role-card .tag{ justify-self:start; }
 .role-card h3{ margin:0; font-size:var(--t-card); }
-.role-card h3 a{ color:var(--ink); text-decoration:underline; text-decoration-color:var(--rule-strong); text-underline-offset:.18em; }
-.role-card h3 a:hover{ color:var(--link); text-decoration-color:var(--link); }
-.role-card p{ margin:0; color:var(--ink-2); font-size:var(--t-m); }
-@media (prefers-reduced-motion:reduce){ .role-card:hover{ transform:none; } }
+.role-card h3 a{ display:inline-block; min-height:24px; padding:1px 0; color:var(--navy); text-decoration:underline; text-decoration-color:var(--rule-strong); text-underline-offset:.18em; }
+.role-card h3 a:hover{ color:var(--blu); text-decoration-color:var(--blu); }
+.role-card p{ margin:0; color:var(--muted); font-size:var(--t-m); }
 
 /* ---------- Griglia timeline / dossier ---------- */
 .filters{ display:flex; flex-wrap:wrap; gap:var(--s-2); margin-bottom:var(--s-4); }
-.filter{
-  display:inline-flex; align-items:center; min-height:44px; padding:0 16px; border-radius:var(--r-sm);
-  border:1px solid var(--rule-strong); background:var(--surface); color:var(--ink);
-  font-size:var(--t-s); font-weight:500; text-decoration:none; cursor:pointer; transition:border-color .18s, color .18s, background .18s;
-}
-.filter:hover{ border-color:var(--link); color:var(--link); }
+.filter{ display:inline-flex; align-items:center; min-height:44px; padding:0 16px; border-radius:var(--r-sm); border:2px solid var(--rule-strong); background:var(--surface); color:var(--navy); font-family:var(--display); font-size:var(--t-xs); font-weight:700; letter-spacing:.04em; text-transform:uppercase; cursor:pointer; transition:border-color .18s, color .18s, background .18s; }
+.filter:hover{ border-color:var(--blu); color:var(--blu); }
 .filter[aria-pressed="true"], .filter[aria-current="true"]{ background:var(--navy); border-color:var(--navy); color:#fff; }
-.filter-status{ font-size:var(--t-s); color:var(--ink-2); margin:0 0 var(--s-5); }
+.filter-status{ font-size:var(--t-s); color:var(--muted); margin:0 0 var(--s-5); }
 .timeline{ list-style:none; margin:0; padding:0; display:grid; gap:var(--s-5); grid-template-columns:1fr; }
 @media (min-width:680px){ .timeline{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
 @media (min-width:1000px){ .timeline{ grid-template-columns:repeat(3, minmax(0,1fr)); } }
@@ -713,560 +374,322 @@ main:focus-visible{ box-shadow:none; outline:2px solid var(--navy); outline-offs
 .timeline li[hidden]{ display:none; }
 .tl-card{ height:100%; }
 .tl-why{ margin:0; }
-.tl-why strong{ color:var(--ink); }
+.tl-why strong{ color:var(--navy); }
 .dossier-card .impact{ font-size:var(--t-m); }
 
 /* ==========================================================================
-   HERO — non è più una campitura di colore, è una prima pagina.
-   Il ritratto ha uno sfondo azzurro da studio: su un hero blu si fondeva con
-   il fondo e perdeva ogni stacco. Su carta si stacca, e la lastra navy dietro
-   gli dà profondità. Sparisce anche tutto il testo chiaro su fondo saturo, che
-   era la causa principale dell'affaticamento in lettura su telefono.
+   L'APERTURA — IL SUO BANNER, VIVO.
+   Sinistra: il nome nei blocchi oro (HTML vero: nitido, traducibile, letto
+   dagli screen reader). Destra: il ritratto con la fascia tricolore, che si
+   fonde nel blu del campo. Su telefono la fotografia sale sopra il testo.
    ========================================================================== */
-/* L'APERTURA E' UN CAMPO BLU, come la loro: campitura piena, titolo bianco in
-   corsivo, fotografia grande a destra.
-   IL CONTO CHE VINCOLA IL GRADIENTE: sull'azzurro nominale #0085D7 il bianco
-   sta a 3,94:1 — abbastanza per un titolo grande (soglia 3), NON per
-   l'occhiello a 13px o per il paragrafo a 17px, che qui ci sono entrambi.
-   Quindi l'estremo chiaro si ferma a #00619F, dove il bianco sta a 6,5:1.
-   L'azzurro pieno vive altrove: fasce, etichette, filetti. */
-.hero{
-  position:relative; color:#fff; overflow:clip; border-bottom:0;
-  background:var(--navy);
-  /* Dal bianco in alto a sinistra al pieno del piano in basso: l'hero apre la
-     stessa discesa verso l'elettrico che poi fa tutta la pagina scorrendo.
-     Il filetto navy che stava qui sopra e' stato tolto: sotto il bordo della
-     barra e la barra di avanzamento faceva una fascia tripla di 6px. */
-  background-image:linear-gradient(112deg, var(--navy-deep) 0%, var(--navy) 42%, #005C97 100%);
+.hero{ position:relative; color:#fff; background:var(--blu); overflow:clip; isolation:isolate; }
+.hero::before{ content:""; position:absolute; inset:0; z-index:0; background:
+    radial-gradient(60% 80% at 8% 20%, rgba(1,92,161,.55), transparent 60%),
+    radial-gradient(50% 70% at 40% 100%, rgba(6,27,55,.55), transparent 60%); }
+.hero-grid{ position:relative; z-index:1; display:grid; gap:var(--s-6); align-items:center; padding-block:var(--s-7) var(--s-8); min-height:min(86vh, 820px); }
+@media (min-width:900px){ .hero-grid{ grid-template-columns:minmax(0, 1.05fr) minmax(0, .95fr); gap:var(--s-8); padding-block:var(--s-8) var(--s-9); } }
+.hero-copy{ position:relative; }
+.hero-fdi{ width:112px; height:auto; margin:0 0 var(--s-5); filter:drop-shadow(0 6px 16px rgba(0,0,0,.35)); }
+.hero-name{ margin:0 0 var(--s-4); display:flex; flex-direction:column; align-items:flex-start; gap:8px; font-size:var(--t-h1); line-height:1; }
+.hero-name .blk{ display:inline-block; background:var(--oro); color:var(--navy); padding:.14em .32em .1em; border-radius:var(--r-xs); box-shadow:0 8px 24px -10px rgba(0,0,0,.45); }
+.hero-role{ margin:0 0 var(--s-4); font-family:var(--display); font-weight:600; font-size:clamp(1.05rem, .95rem + .5vw, 1.35rem); line-height:1.35; color:#fff; }
+.hero-role span{ display:block; }
+.hero-mandate{ font-size:var(--t-m); color:var(--on-dark-2); max-width:54ch; line-height:1.65; margin:0 0 var(--s-5); }
+.hero-actions{ display:flex; flex-wrap:wrap; gap:var(--s-3); }
+.hero-photo{ position:relative; margin:0; justify-self:end; width:100%; max-width:640px; }
+.hero-photo img{ width:100%; height:auto; display:block; }
+/* la foto sfuma gia' nel blu a sinistra (dentro il file); in basso la sfuma il CSS */
+.hero-photo::after{ content:""; position:absolute; left:0; right:0; bottom:0; height:22%; background:linear-gradient(180deg, transparent, var(--blu)); pointer-events:none; }
+@media (max-width:899px){
+  .hero-grid{ gap:0; padding-block:0 var(--s-7); min-height:0; }
+  .hero-photo{ order:-1; max-width:none; margin:0 calc(-1 * var(--pad)) var(--s-5); width:auto; }
+  .hero-photo img{ width:100%; max-height:62vh; object-fit:cover; object-position:60% 20%; }
+  .hero-photo::after{ height:32%; }
+  .hero-fdi{ width:84px; margin-bottom:var(--s-4); }
 }
-.hero h1, .hero h2, .hero h3{ color:#fff; }
-/* Il marchio "L'Abruzzo in Parlamento" ha scritte scure su fondo trasparente:
-   su blu sparirebbe. Va su una piastra bianca, esattamente come loro fanno con
-   il proprio logo nel pie' di pagina. */
-.hero .hero-logo{
-  background:#fff; border-radius:var(--r-xs); padding:10px 14px; border-bottom:0;
-  box-sizing:content-box;
-}
-/* Sfondo vivo dell'hero: due aloni elettrici che derivano lentamente uno
-   rispetto all'altro, piu' un terzo agganciato allo scorrimento. Si animano
-   solo transform e opacity, che il browser compone sulla GPU senza ridisegnare;
-   nessuna particella, nessun video, nessun movimento che rincorra il puntatore.
-   ALFA: due aloni a .105 si compongono a 1-(1-.105)^2 = .199 nel punto di
-   sovrapposizione. Sul fondo del gradiente (#BAD0FF) da' #9AB6FF, che e' il
-   fondo peggiore gia' verificato per tutti gli inchiostri dell'hero. */
-.hero::after{
-  content:""; position:absolute; inset:-25% -12%; z-index:0; pointer-events:none;
-  background:
-    radial-gradient(44% 54% at 26% 36%, rgba(0,133,215,.10), transparent 68%),
-    radial-gradient(40% 50% at 76% 68%, rgba(255,255,255,.04), transparent 70%);
-  animation:deriva 30s ease-in-out infinite alternate;
-  will-change:transform;
-}
-@keyframes deriva{
-  from{ transform:translate3d(-2.5%, -1.5%, 0) scale(1); }
-  to  { transform:translate3d(2.5%, 1.5%, 0) scale(1.07); }
-}
-/* Parallasse dell'hero: mentre la pagina scorre via, gli aloni scendono a meta'
-   velocita' e si spengono. view() misura l'attraversamento dell'hero stesso,
-   non del documento, quindi l'effetto e' identico su ogni pagina qualunque sia
-   la sua lunghezza. */
-@keyframes hero-parallasse{
-  from{ transform:translate3d(0,0,0) scale(1.02); opacity:1; }
-  to  { transform:translate3d(0,14%,0) scale(1.12); opacity:.35; }
-}
-@supports (animation-timeline: view()){
-  .hero::after{
-    animation:hero-parallasse linear both;
-    animation-timeline:view();
-    /* nessun animation-range esplicito: gli intervalli "contain" e "entry"
-       degenerano quando il soggetto e' piu' alto della finestra (e l'hero, su
-       un telefono, lo e' quasi sempre). L'intervallo predefinito "cover" e'
-       l'unico sempre ben definito, qualunque sia il rapporto fra i due. */
-  }
-}
-@media (prefers-reduced-motion:reduce){ .hero::after{ animation:none; } }
-/* La filigrana della legislatura vive solo dove c'e' spazio: su telefono
-   finiva dietro il paragrafo e lo sporcava. */
-.hero-watermark{ display:none; }
-@media (min-width:1100px){
-  .hero-watermark{
-    display:block; position:absolute; right:-2vw; bottom:-4%; z-index:0; pointer-events:none;
-    font-family:var(--serif); font-style:italic; font-weight:600; font-size:min(26vw, 300px); line-height:1; color:rgba(255,255,255,.07);
-    letter-spacing:-.04em; user-select:none; opacity:1;
-  }
-}
-/* padding-block, non la scorciatoia: `padding: X 0` azzerava il padding
-   orizzontale ereditato da .container e su telefono il titolo, l'occhiello e
-   il paragrafo dell'hero toccavano i due bordi dello schermo. */
-.hero-grid{ position:relative; z-index:1; display:grid; gap:var(--s-6); align-items:center; padding-block:var(--s-7) var(--s-8); }
-@media (min-width:900px){ .hero-grid{ grid-template-columns:minmax(0, 7fr) minmax(0, 5fr); gap:var(--s-8); padding-block:var(--s-8) var(--s-9); } }
-/* Il logo apre la colonna di testo dell'hero, a sinistra della fotografia:
-   collegio di elezione e appartenenza politica si leggono prima del nome, che
-   da solo non li comunica. Sta qui e non nella barra perche' e' un elemento di
-   identita', non un comando, e qui ha la larghezza per restare leggibile.
-   Il filetto sotto lo lega al blocco tipografico invece di lasciarlo sospeso. */
-.hero-logo{
-  /* content-box: con il border-box globale il padding rientrerebbe
-     nell'altezza e ridurrebbe l'immagine a 28px, schiacciandola. */
-  box-sizing:content-box;
-  height:52px; width:auto; max-width:100%; margin:0 0 var(--s-5);
-  padding-bottom:var(--s-5); border-bottom:1px solid var(--rule);
-}
-@media (min-width:900px){ .hero-logo{ height:60px; } }
-/* Occhiello in GIALLO sul campo blu: 8,50:1 sul navy, ed e' il loro accento. */
-.hero .eyebrow, .hero .eyebrow.on-dark{ color:var(--giallo); }
-.hero .eyebrow::before, .hero .eyebrow.on-dark::before{ background:var(--giallo); }
-.hero h1{ margin-bottom:var(--s-4); color:#fff; }
-/* Il cognome era in oro chiaro su blu: 3,11:1 sul campo piatto e 2,30:1 sotto
-   il velo decorativo — la parola più importante del sito era la meno
-   leggibile. La distinzione fra nome e cognome si fa con il PESO. */
-.hero h1 .light{ font-weight:400; }
-.hero h1 .bold{ font-weight:600; }
-.hero h1::after{ content:""; display:block; width:96px; height:4px; background:var(--giallo); margin-top:var(--s-5); border-radius:2px; }
-.hero .role-line{ font-family:var(--serif); font-style:italic; font-size:var(--t-lede); color:#fff; margin-bottom:var(--s-4); max-width:46ch; }
-.hero-mandate{ font-size:var(--t-m); color:var(--on-dark-2); max-width:52ch; line-height:1.62; margin:0; }
-.hero-actions{ display:flex; flex-wrap:wrap; gap:var(--s-3); margin-top:var(--s-5); }
+.hero-watermark, .hero-figure{ display:none; }
+.hero .eyebrow{ color:var(--oro); }
 
-.hero-figure{ position:relative; margin:0; max-width:420px; justify-self:center; }
-@media (min-width:900px){ .hero-figure{ justify-self:end; } }
-/* LA LASTRA: rettangolo navy sfalsato dietro la foto, come la registrazione
-   fuori asse di una lastra di stampa. Sostituisce la cornice oro che, composta
-   sul blu, dava un verde-oliva a 1,33:1 (né oro né visibile). */
-/* La lastra deve stare dietro la SOLA fotografia: con un inset sull'intera
-   figura arrivava anche dietro la didascalia, che essendo in inchiostro scuro
-   diventava illeggibile sul navy. L'aspect-ratio la aggancia all'altezza del
-   riquadro, qualunque sia la lunghezza della didascalia. */
-/* Il rapporto deve seguire quello del riquadro (4/3): con un valore diverso la
-   lastra sbordava in basso e la didascalia, in inchiostro scuro, ci finiva
-   sopra diventando illeggibile. */
-.hero-figure::before{ content:""; position:absolute; top:18px; left:18px; right:-18px; aspect-ratio:4/3; border-radius:var(--r); background:var(--giallo); z-index:0; }
-.hero-figure .frame{ position:relative; z-index:1; overflow:hidden; border-radius:var(--r); background:var(--navy); }
-/* La fotografia principale e' l'intervento in Aula: orizzontale e a
-   risoluzione contenuta (353x272). Il riquadro segue il rapporto della
-   sorgente, cosi' non si ingrandisce piu' del necessario e non si taglia
-   nulla dell'inquadratura. */
-.hero-figure{ max-width:460px; }
-.hero-figure .frame{ aspect-ratio:4/3; }
-.hero-figure .frame img{ width:100%; height:100%; object-fit:cover; object-position:50% 30%; display:block; }
-.hero-figure figcaption{ position:relative; z-index:1; font-size:var(--t-xs); color:var(--on-dark-2); margin-top:26px; padding-top:var(--s-2); border-top:1px solid var(--divider-dark); }
-/* IL LATICLAVIO: la banda purpurea dei senatori romani. È l'unico segno
-   identitario del sito e vive già nel markup (<span class="rule">). */
-.hero-figure .rule{ position:absolute; z-index:2; left:-8px; top:28px; width:6px; height:86px; background:var(--giallo); }
-/* Il ritratto è l'elemento LCP: non deve mai partire da opacity:0 né dipendere
-   dall'esecuzione del JS. */
-.js .hero-figure.rv{ opacity:1; transform:none; }
+/* ==========================================================================
+   FASCIA A SFONDO FISSO — l'immagine resta ferma mentre la pagina scorre.
+   Non background-attachment:fixed, che iOS ignora: un'immagine position:fixed
+   dentro una sezione con clip-path:inset(0), che la ritaglia alla sezione
+   pur lasciandola ancorata alla finestra. Funziona anche su Safari mobile.
+   Con prefers-reduced-motion l'immagine torna semplicemente assoluta.
+   Contrasto: l'immagine e' gia' al 50% di luminosita' nel file; il velo blu
+   sopra porta il punto piu' chiaro possibile a ~6,4:1 col bianco.
+   ========================================================================== */
+.fissa{ position:relative; overflow:clip; clip-path:inset(0); color:#fff; min-height:480px; display:grid; align-items:center; isolation:isolate; }
+.fissa-bg{ position:fixed; inset:0; z-index:-2; }
+.fissa-bg img{ width:100%; height:100%; object-fit:cover; object-position:78% 28%; }
+/* velo: pieno a sinistra sotto il testo, piu' leggero a destra dove affiora il
+   ritratto. Punto piu' chiaro possibile (immagine al 50% + velo .5): 6,2:1 col bianco */
+.fissa::before{ content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(90deg, rgba(0,71,129,.88) 0%, rgba(0,71,129,.66) 55%, rgba(0,71,129,.5) 100%); }
+.fissa-copy{ position:relative; padding-block:var(--s-9); }
+.fissa-copy h2{ color:#fff; max-width:18ch; font-size:clamp(1.9rem, 1.4rem + 2.2vw, 3.4rem); }
+.fissa-copy h2::after{ content:""; display:block; width:88px; height:6px; background:var(--oro); margin-top:.4em; border-radius:2px; }
+.fissa-copy p{ color:#fff; font-size:var(--t-l); max-width:52ch; }
+.fissa .eyebrow{ color:#fff; }
+.fissa-copy .btn{ margin-top:var(--s-3); }
+@media (prefers-reduced-motion:reduce){ .fissa-bg{ position:absolute; } }
+@media (max-width:640px){ .fissa{ min-height:0; } .fissa-copy{ padding-block:var(--s-8); } }
 
-@media (max-width:699px){
-  /* LA FOTOGRAFIA DEVE VEDERSI SENZA SCORRERE. Restando in fondo alla colonna,
-     dopo il testo lungo di presentazione, cadeva sotto la piega. Ora sale
-     subito dopo la riga del ruolo: display:contents porta i figli della colonna
-     dentro la griglia dell'hero, cosi' si riordinano con "order" senza toccare
-     il markup generato e senza cambiare nulla su desktop. Il gap della griglia
-     va azzerato perche' con sette elementi sommerebbe 32px sei volte: la
-     spaziatura resta quella dei margini dei singoli blocchi. */
-  .hero-grid{ gap:0; padding-block:var(--s-4) var(--s-6); }
-  .hero-grid > div{ display:contents; }
-  .hero-logo{ order:1; height:38px; margin-bottom:var(--s-3); padding-bottom:var(--s-3); }
-  .hero .eyebrow{ order:2; margin-bottom:var(--s-2); }
-  .hero h1{ order:3; margin-bottom:var(--s-2); }
-  .hero h1::after{ margin-top:var(--s-3); }
-  .hero .role-line{ order:4; margin-bottom:var(--s-3); }
-  .hero-figure{ order:5; margin-bottom:var(--s-5); }
-  .hero-mandate{ order:6; }
-  .hero-actions{ order:7; }
-
-  /* Su telefono il ritratto resta nel container e stondato come tutto il resto:
-     a filo dello schermo e con gli angoli vivi sembrava ritagliato. */
-  .hero-figure{ max-width:none; }
-  .hero-figure::before{ display:none; }
-  .hero-figure .frame{ border-radius:var(--r); aspect-ratio:4/3; box-shadow:var(--shadow-card); }
-  /* Sui telefoni piu' stretti il taglio si abbassa ancora, cosi' la fotografia
-     entra per intero nella prima schermata. */
-  @media (max-width:400px){ .hero-figure .frame{ aspect-ratio:16/10; } }
-  .hero-figure .frame img{ width:100%; height:100%; object-fit:cover; object-position:50% 30%; }
-  .hero-figure .rule{ left:-6px; top:22px; width:6px; height:64px; border-radius:3px; }
-  .hero-figure figcaption{ margin-inline:0; }
-  .hero-watermark{ font-size:44vw; right:-8vw; }
-}
-
-/* ---------- Ora in evidenza + Stato del mandato ---------- */
+/* ---------- Ora in evidenza + stato del mandato ---------- */
 .now-grid{ display:grid; gap:var(--s-5); }
 @media (min-width:900px){ .now-grid{ grid-template-columns:minmax(0, 3fr) minmax(0, 2fr); } }
-/* Fotografia e testo su due piani distinti, non sovrapposti.
-   Con il testo scritto SOPRA la foto, il velo di scurimento non regge: misurato
-   sui pixel compositi reali, l'occhiello scendeva a 1,33:1 e lo stato a 3,03:1,
-   perche' la parte alta della fotografia e' chiara. Rafforzare il velo avrebbe
-   voluto dire nascondere la fotografia che si vuole mostrare. Cosi' la foto si
-   vede per intero e il testo sta su fondo pieno: 13,45:1 garantiti. */
-.now-card{
-  position:relative; overflow:hidden; border-radius:var(--r); min-height:0;
-  display:flex; flex-direction:column; padding:var(--s-6);
-  color:#fff; background:var(--navy); background-image:var(--grad-dark); border:1px solid var(--navy);
-  transition:transform .25s var(--ease), box-shadow .25s var(--ease);
-}
+.now-card{ position:relative; overflow:hidden; border-radius:var(--r); display:flex; flex-direction:column; padding:var(--s-6); color:#fff; background:var(--navy); background-image:var(--grad-blu); box-shadow:var(--shadow-card); transition:transform .25s var(--ease), box-shadow .25s var(--ease); }
 .now-card:hover{ transform:translateY(-3px); box-shadow:var(--shadow-pop); }
-.now-card .media{
-  position:relative; z-index:0; overflow:hidden; aspect-ratio:16/9;
-  margin:calc(-1 * var(--s-6)) calc(-1 * var(--s-6)) var(--s-5);
-  border-bottom:3px solid var(--porpora);
-}
-.now-card .media img{ width:100%; height:100%; object-fit:cover; object-position:50% 42%; transition:transform .6s var(--ease-soft); }
+.now-card .media{ position:relative; z-index:0; overflow:hidden; aspect-ratio:16/9; margin:calc(-1 * var(--s-6)) calc(-1 * var(--s-6)) var(--s-5); border-bottom:5px solid var(--oro); }
+.now-card .media img{ width:100%; height:100%; object-fit:cover; object-position:50% 42%; transition:transform .6s var(--ease); }
 .now-card:hover .media img{ transform:scale(1.04); }
 .now-card .scrim{ display:none; }
 .now-card > *:not(.media){ position:relative; z-index:2; }
-@media (max-width:559px){ .now-card .media{ margin:calc(-1 * var(--s-5)) calc(-1 * var(--s-5)) var(--s-4); } }
+@media (max-width:559px){ .now-card{ padding:var(--s-5); } .now-card .media{ margin:calc(-1 * var(--s-5)) calc(-1 * var(--s-5)) var(--s-4); } }
 .now-card .card-head{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--s-2); margin-bottom:var(--s-3); }
-.now-card .eyebrow{ color:var(--brass-lt); }
-.now-card .eyebrow::before{ background:var(--brass-lt); }
-.now-card h2{ color:#fff; font-size:clamp(1.5rem, 1.1rem + 1.4vw, 2rem); margin:0 0 var(--s-2); }
+.now-card .eyebrow{ color:var(--oro); }
+.now-card h2{ color:#fff; font-size:clamp(1.4rem, 1.1rem + 1.3vw, 2rem); margin:0 0 var(--s-2); text-transform:none; letter-spacing:-.01em; }
 .now-card p{ color:var(--on-dark-2); margin:0; }
-.now-card .tag{ background:var(--navy-deep); border-color:var(--divider-dark); color:#fff; }
-.now-card .status{ color:#fff; }
-.now-card .status.in-corso::before{ background:var(--brass-lt); }
-.now-card .meta-line, .now-card .meta-line time{ color:var(--on-dark-2); }
-.now-card .btn-secondary{ align-self:flex-start; margin-top:var(--s-4); background:#fff; color:var(--navy); border-color:#fff; }
-.now-card .btn-secondary:hover{ background:var(--brass-lt); color:var(--navy-deep); border-color:var(--brass-lt); }
-
+.now-card .btn{ align-self:flex-start; margin-top:var(--s-4); }
 .mandate{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--r); box-shadow:var(--shadow-card); padding:var(--s-5); display:grid; gap:var(--s-4); align-content:start; }
-.mandate h2{ font-size:var(--t-xs); font-family:var(--sans); letter-spacing:.08em; text-transform:uppercase; color:var(--brass-ink); margin:0; font-weight:650; }
+.mandate h2{ font-size:var(--t-xs); font-family:var(--display); letter-spacing:.12em; text-transform:uppercase; color:var(--blu); margin:0; font-weight:800; }
 .mandate dl{ margin:0; display:grid; gap:var(--s-3); }
-.mandate div{ display:grid; gap:2px; padding-bottom:var(--s-3); border-bottom:1px solid var(--hair); }
-.mandate div:last-child{ border-bottom:0; padding-bottom:0; }
-.mandate dt{ font-size:var(--t-xs); color:var(--ink-2); }
-.mandate dd{ margin:0; font-weight:600; color:var(--ink); }
-.mandate dd a{ display:inline-block; min-height:24px; padding:2px 0; }
-.mandate dd .small{ font-weight:400; display:block; }
+.mandate dl > div{ padding-bottom:var(--s-3); border-bottom:1px solid var(--hair); }
+.mandate dt{ font-size:var(--t-xs); color:var(--ink-3); margin-bottom:2px; }
+.mandate dd{ margin:0; font-weight:700; color:var(--navy); }
+.mandate dd .small{ font-weight:400; }
 
-/* ==========================================================================
-   REGISTRO DEI DATI (KPI) — nessun count-up: il valore mostrato è sempre
-   quello reale, statico. Impaginato come il prospetto di un atto, non come
-   quattro riquadri impilati: su telefono passa da 1.079px a due righe di due.
-   ========================================================================== */
-.kpi-grid{ display:grid; gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:var(--r); overflow:hidden; grid-template-columns:repeat(2, minmax(0,1fr)); }
-@media (min-width:1000px){ .kpi-grid{ grid-template-columns:repeat(4, minmax(0,1fr)); } }
-.kpi{ position:relative; background:var(--surface); padding:var(--s-5) var(--s-4); display:grid; gap:var(--s-1); min-width:0; align-content:start; }
-.kpi::before{ content:""; position:absolute; left:0; top:0; width:100%; height:3px; background:var(--brass); opacity:.85; }
-.kpi-ghost, .kpi-ring{ display:none; }   /* decorazioni invisibili (1,1:1): solo peso */
-.kpi-value{ font-family:var(--serif); font-weight:600; font-size:var(--t-ledger); color:var(--navy); line-height:1; letter-spacing:-.02em; }
-.kpi-label{ font-weight:650; color:var(--ink); font-size:var(--t-s); overflow-wrap:break-word; line-height:1.35; }
-.kpi-meta{ font-size:var(--t-xs); color:var(--ink-2); overflow-wrap:break-word; }
-/* Il link "Openpolis" era dello stesso colore del testo circostante: 1,00:1,
-   cioè invisibile come link. */
-.kpi-meta a{ color:var(--link); text-decoration:underline; text-underline-offset:.16em; display:inline-block; min-height:24px; padding:3px 0; }
-.kpi-note{ font-size:var(--t-s); color:var(--ink-2); margin:var(--s-4) 0 0; max-width:none; }
+/* ---------- Numeri del mandato ---------- */
+.kpi-grid{ display:grid; gap:var(--s-4); grid-template-columns:repeat(2, minmax(0,1fr)); }
+@media (min-width:900px){ .kpi-grid{ grid-template-columns:repeat(4, minmax(0,1fr)); } }
+.kpi{ position:relative; overflow:hidden; background:var(--surface); border:1px solid var(--rule); border-radius:var(--r); padding:calc(var(--s-5) + 5px) var(--s-5) var(--s-5); display:grid; gap:var(--s-1); min-width:0; align-content:start; box-shadow:var(--shadow-card); }
+.kpi::before{ content:""; position:absolute; left:0; right:0; top:0; height:5px; background:var(--oro); }
+.kpi-value{ font-family:var(--display); font-size:var(--t-ledger); font-weight:800; line-height:1; color:var(--blu); letter-spacing:-.02em; }
+.kpi-label{ font-weight:700; color:var(--navy); font-size:var(--t-s); overflow-wrap:break-word; line-height:1.35; }
+.kpi-meta{ font-size:var(--t-xs); color:var(--ink-3); line-height:1.5; }
+.kpi-meta a, .mandate dd a{ display:inline-block; min-height:24px; padding:2px 0; }
+.kpi-ring, .kpi-ghost{ display:none; }
+.kpi-note{ font-size:var(--t-s); color:var(--muted); margin:var(--s-4) 0 0; max-width:none; }
+@media (max-width:559px){ .kpi{ padding:calc(var(--s-4) + 5px) var(--s-3) var(--s-4); } }
 
 /* ---------- Dossier interno ---------- */
-.dossier-head{ display:grid; gap:var(--s-5); padding-bottom:var(--s-6); }
+.dossier-head{ display:grid; gap:var(--s-5); }
 @media (min-width:900px){ .dossier-head{ grid-template-columns:minmax(0, 2fr) minmax(0, 1fr); align-items:start; } }
-/* Il filetto verticale sta dentro il raggio (pseudo-elemento), non sul bordo:
-   un border-left da 4px contro un raggio da 22px si incurva e forma un cuneo. */
-.status-box{ position:relative; overflow:hidden; background:var(--surface); border:1px solid var(--rule); border-radius:var(--r); padding:var(--s-5) var(--s-5) var(--s-5) calc(var(--s-5) + 4px); display:grid; gap:var(--s-2); min-width:0; overflow-wrap:break-word; }
-.status-box::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:4px; pointer-events:none; background:linear-gradient(180deg, var(--elettrico), var(--navy)); }
-.status-box.concluso::before{ background:linear-gradient(180deg, var(--ink-2), var(--ink)); }
-.status-box.in-esame::before{ background:linear-gradient(180deg, var(--brass-lt), var(--brass)); }
-.status-box.aggiornamento::before{ background:linear-gradient(180deg, var(--porpora), var(--porpora-deep)); }
-.status-box h2{ font-family:var(--sans); font-size:var(--t-xs); letter-spacing:.08em; text-transform:uppercase; color:var(--brass-ink); margin:0; font-weight:650; }
+.status-box{ position:relative; overflow:hidden; background:var(--surface); border:1px solid var(--rule); border-radius:var(--r); padding:var(--s-5) var(--s-5) var(--s-5) calc(var(--s-5) + 5px); display:grid; gap:var(--s-2); min-width:0; overflow-wrap:break-word; box-shadow:var(--shadow-card); }
+.status-box::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:5px; background:var(--blu); }
+.status-box.concluso::before{ background:var(--navy); }
+.status-box.in-esame::before{ background:var(--oro); }
+.status-box.aggiornamento::before{ background:var(--rosso); }
+.status-box, .status-box p, .status-box .status{ color:var(--ink-2); }
+.status-box h2{ font-family:var(--display); font-size:var(--t-xs); letter-spacing:.12em; text-transform:uppercase; color:var(--blu); margin:0; font-weight:800; }
+.status-box h2::after{ display:none; }
 .status-box .status{ font-size:var(--t-m); }
 .status-box p{ margin:0; font-size:var(--t-m); }
-.why{ background:var(--porpora-bg); border-radius:var(--r); padding:var(--s-5) var(--s-6) var(--s-5) calc(var(--s-6) + 4px); position:relative; overflow:hidden; }
-.why::after{ content:""; position:absolute; left:0; top:0; bottom:0; width:4px; pointer-events:none; background:linear-gradient(180deg, var(--porpora), var(--porpora-deep)); }
-.why h2{ font-size:var(--t-h3); color:var(--porpora-deep); margin-bottom:var(--s-2); }
-.why p{ margin:0; color:var(--ink); }
+.why{ background:var(--brand-bg); border-radius:var(--r); padding:var(--s-5) var(--s-6) var(--s-5) calc(var(--s-6) + 5px); position:relative; overflow:hidden; }
+.why::after{ content:""; position:absolute; left:0; top:0; bottom:0; width:5px; background:var(--oro); }
+.why{ color:var(--ink-2); }
+.why h2{ font-size:var(--t-h3); color:var(--navy); margin-bottom:var(--s-2); text-transform:none; }
+.why h2::after{ display:none; }
+.why p{ margin:0; color:var(--ink-2); }
 .chrono{ list-style:none; margin:0; padding:0; position:relative; }
-.chrono::before{ content:""; position:absolute; left:6px; top:8px; bottom:8px; width:1px; background:var(--rule); }
+.chrono::before{ content:""; position:absolute; left:6px; top:8px; bottom:8px; width:2px; background:var(--rule); }
 .chrono li{ position:relative; padding:0 0 var(--s-5) var(--s-6); max-width:none; }
-.chrono li::before{ content:""; position:absolute; left:0; top:7px; width:13px; height:13px; border-radius:50%; background:var(--surface); border:2px solid var(--navy); }
-.chrono li.done::before{ background:var(--navy); }
-.chrono time{ display:block; font-size:var(--t-xs); font-weight:650; color:var(--brass-ink); margin-bottom:2px; letter-spacing:.04em; text-transform:uppercase; }
+.chrono li::before{ content:""; position:absolute; left:0; top:7px; width:14px; height:14px; border-radius:50%; background:var(--oro); border:3px solid var(--surface); box-shadow:0 0 0 2px var(--blu); }
+.chrono time{ display:block; font-family:var(--display); font-size:var(--t-xs); font-weight:700; color:var(--blu); margin-bottom:2px; letter-spacing:.06em; text-transform:uppercase; }
 .chrono p{ margin:0; }
-.chrono .src{ font-size:var(--t-s); }
 .acts{ list-style:none; margin:0; padding:0; display:grid; gap:var(--s-3); }
 .acts li{ max-width:none; background:var(--surface); border:1px solid var(--rule); border-radius:var(--r); padding:var(--s-4); display:grid; gap:4px; }
-.acts .num{ font-weight:650; color:var(--link); font-size:var(--t-s); letter-spacing:.02em; }
-.acts .iter{ font-size:var(--t-s); color:var(--ink-2); }
-.acts a{ display:inline-block; min-height:24px; padding:3px 0; }
-.chips{ display:flex; flex-wrap:wrap; gap:6px; }
-.chip{ display:inline-flex; align-items:center; min-height:30px; padding:3px 11px; border-radius:var(--r-xs); background:var(--surface); border:1px solid var(--rule-strong); font-size:var(--t-s); color:var(--ink); }
-.dossier-section{ padding:var(--s-6) 0; border-top:1px solid var(--rule); }
-.dossier-section h2{ font-size:var(--t-h3); }
-.related{ list-style:none; margin:0; padding:0; display:grid; gap:var(--s-2); }
-.related li{ max-width:none; }
-.related a{ display:grid; gap:2px; padding:13px 15px; border:1px solid var(--rule); border-radius:var(--r); background:var(--surface); text-decoration:none; color:var(--ink); transition:border-color .18s, background .18s; }
-.related a:hover{ border-color:var(--link); background:var(--brand-bg); }
-.related .t{ font-weight:600; color:var(--ink); }
-.related .m{ font-size:var(--t-xs); color:var(--ink-2); }
+.acts .num{ font-family:var(--display); font-weight:800; color:var(--blu); font-size:var(--t-s); letter-spacing:.02em; }
+.acts .iter{ font-size:var(--t-s); color:var(--muted); }
+.chips{ display:flex; flex-wrap:wrap; gap:var(--s-2); }
+.chip{ display:inline-flex; align-items:center; min-height:32px; padding:3px 12px; border-radius:var(--r-xs); background:var(--surface); border:1px solid var(--rule-strong); font-size:var(--t-s); color:var(--navy); }
+.related{ display:grid; gap:var(--s-3); }
+.related a{ display:grid; gap:2px; padding:13px 15px; border:1px solid var(--rule); border-radius:var(--r); background:var(--surface); color:var(--navy); transition:border-color .18s, background .18s; }
+.related a:hover{ border-color:var(--blu); background:var(--brand-bg); }
+.related .src{ font-size:var(--t-xs); color:var(--ink-3); }
+.aside-note{ font-size:var(--t-s); color:var(--muted); }
 
 /* ---------- Pagina interna ---------- */
-/* Era una campitura bianca piatta: sulle pagine interne era la prima cosa che
-   si vedeva e spegneva il colore prima ancora di cominciare. Ora e' la stessa
-   discesa verso l'elettrico dell'hero, in versione breve. Il filetto navy in
-   testa e' stato tolto per la stessa ragione dell'hero: sotto il bordo della
-   barra e la barra di avanzamento faceva una fascia tripla. */
-.page-head{
-  background:var(--surface);
-  background-image:linear-gradient(162deg, #FFFFFF 0%, #E9F0FF 58%, #D6E3FF 100%);
-  border-bottom:1px solid var(--rule); padding:var(--s-5) 0 var(--s-7); position:relative;
-}
-.breadcrumb{ font-size:var(--t-xs); color:var(--ink-2); margin:0 0 var(--s-4); }
+.page-head{ position:relative; color:#fff; background:var(--blu); background-image:var(--grad-blu); padding:var(--s-6) 0 var(--s-7); overflow:clip; }
+.page-head::before{ content:""; position:absolute; inset:0; background:radial-gradient(50% 90% at 100% 0%, rgba(1,92,161,.4), transparent 65%); }
+/* tutto cio' che e' grigio sul bianco qui deve diventare chiaro: la testa e' blu */
+.page-head .small, .page-head .muted, .page-head .meta-line, .page-head .lede, .page-head p{ color:var(--on-dark-2); }
+.page-head .meta-line time, .page-head strong{ color:#fff; }
+/* ...ma le scatole BIANCHE dentro la testa blu restano scure: la regola sopra
+   le raggiungeva per ordine di cascata e le rendeva bianco su bianco */
+.page-head .status-box, .page-head .status-box p, .page-head .status-box .small, .page-head .status-box .status,
+.page-head .why, .page-head .why p{ color:var(--ink-2); }
+.page-head .status-box strong, .page-head .why strong{ color:var(--navy); }
+.page-head > .container{ position:relative; }
+.page-head h1{ color:#fff; max-width:22ch; }
+.page-head .lede{ color:var(--on-dark-2); margin-bottom:0; }
+.page-head .eyebrow{ color:var(--oro); }
+.breadcrumb{ font-size:var(--t-xs); color:var(--on-dark-2); margin:0 0 var(--s-4); }
 .breadcrumb ol{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
 .breadcrumb li{ max-width:none; display:flex; gap:6px; align-items:center; }
-.breadcrumb li + li::before{ content:"/"; color:var(--rule-strong); }
-.breadcrumb a{ color:var(--ink-2); display:inline-block; min-height:24px; padding:2px 0; }
-.page-head h1{ max-width:20ch; }
-.page-head .lede{ margin-bottom:0; }
-.article-meta{ display:flex; flex-wrap:wrap; gap:var(--s-2) var(--s-4); align-items:center; font-size:var(--t-s); color:var(--ink-2); margin:var(--s-4) 0 0; }
-.article-meta time{ color:var(--ink); font-weight:600; }
-.summary{ font-family:var(--serif); font-style:italic; font-size:var(--t-lede); line-height:1.5; color:var(--ink); border-left:3px solid var(--porpora); padding-left:var(--s-4); margin:var(--s-5) 0; max-width:var(--measure); }
-.prose{ max-width:var(--measure); font-size:var(--t-l); line-height:1.68; }
-@media (min-width:900px){ .prose{ line-height:1.62; } }
+.breadcrumb li + li::before{ content:"/"; color:var(--on-dark-3); }
+.breadcrumb a{ color:#fff; display:inline-block; min-height:24px; padding:2px 0; text-decoration:underline; text-decoration-color:var(--divider-dark); text-underline-offset:.18em; }
+.breadcrumb a:hover{ text-decoration-color:var(--oro); }
+.article-meta{ display:flex; flex-wrap:wrap; gap:var(--s-2) var(--s-4); align-items:center; font-size:var(--t-s); color:var(--on-dark-2); margin:var(--s-4) 0 0; }
+.article-meta time{ color:#fff; font-weight:700; }
+.prose{ max-width:var(--measure); font-size:var(--t-l); line-height:1.7; }
 .prose p{ margin-bottom:1.15em; }
-.prose p:first-of-type{ font-size:1.06em; }
-.prose h2{ font-size:var(--t-h3); margin-top:1.6em; }
-.prose a{ text-decoration:underline; text-decoration-color:var(--rule-strong); text-underline-offset:.18em; }
-.prose a:hover{ text-decoration-color:var(--link); text-decoration-thickness:2px; }
+.prose h2{ font-size:var(--t-h3); text-transform:none; letter-spacing:-.005em; margin-top:1.5em; }
+.prose h2::after{ display:none; }
+.prose a{ text-decoration:underline; text-underline-offset:.18em; }
 .article-figure{ margin:0 0 var(--s-6); border-radius:var(--r); overflow:hidden; border:1px solid var(--rule); background:var(--surface); }
-.article-figure img{ width:100%; }
-.article-figure figcaption{ padding:11px var(--s-4); font-size:var(--t-xs); color:var(--ink-2); border-top:1px solid var(--hair); }
-.article-foot{ display:flex; flex-wrap:wrap; gap:var(--s-3); margin-top:var(--s-6); padding-top:var(--s-5); border-top:1px solid var(--rule); }
-.source-box{ background:var(--paper-2); border:1px solid var(--rule); border-radius:var(--r); padding:var(--s-4); font-size:var(--t-s); color:var(--ink-2); margin-top:var(--s-6); max-width:var(--measure); }
-.aside-note{ font-size:var(--t-s); color:var(--ink-2); }
+.article-figure figcaption{ font-size:var(--t-xs); color:var(--ink-3); padding:var(--s-3) var(--s-4); }
+.article-foot{ margin-top:var(--s-7); padding-top:var(--s-5); border-top:1px solid var(--rule); display:flex; flex-wrap:wrap; gap:var(--s-3); align-items:center; }
+.source-box{ background:var(--paper-2); border-left:5px solid var(--oro); border-radius:0 var(--r-sm) var(--r-sm) 0; padding:var(--s-4) var(--s-5); font-size:var(--t-s); color:var(--muted); margin-top:var(--s-6); max-width:var(--measure); }
+.press-orig-note{ font-size:var(--t-s); color:var(--muted); }
+.summary{ font-family:var(--display); font-weight:600; font-size:var(--t-lede); line-height:1.45; color:var(--navy); border-left:5px solid var(--oro); padding-left:var(--s-4); margin:var(--s-5) 0; max-width:var(--measure); }
 
 /* ---------- Chi sono ---------- */
 .bio-grid{ display:grid; gap:var(--s-6); }
-@media (min-width:900px){ .bio-grid{ grid-template-columns:minmax(0, 5fr) minmax(0, 7fr); gap:var(--s-8); } }
-.bio-figure{ margin:0; max-width:360px; position:relative; }
-.bio-figure::before{ content:""; position:absolute; inset:14px -14px -14px 14px; background:var(--paper-2); border:1px solid var(--rule); z-index:0; }
-.bio-figure img{ position:relative; z-index:1; border-radius:var(--r); }
+@media (min-width:900px){ .bio-grid{ grid-template-columns:minmax(0, 3fr) minmax(0, 2fr); align-items:start; } }
+/* la figura e' larga quanto la fotografia: la lastra oro dietro segue lei,
+   non la colonna, altrimenti resta un rettangolo vuoto accanto alla foto */
+.bio-figure{ margin:0; position:relative; max-width:480px; }
+.bio-figure img{ width:100%; height:auto; }
+.bio-figure img{ position:relative; z-index:1; border-radius:var(--r); box-shadow:var(--shadow-pop); }
+.bio-figure::before{ content:""; position:absolute; left:-14px; top:14px; right:14px; bottom:-14px; background:var(--oro); border-radius:var(--r); }
 .bio-figure figcaption{ position:relative; z-index:1; font-size:var(--t-xs); color:var(--ink-3); margin-top:var(--s-3); }
-.facts{ list-style:none; margin:var(--s-5) 0 0; padding:0; display:grid; gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:var(--r); overflow:hidden; }
+.facts{ list-style:none; margin:var(--s-5) 0 0; padding:0; display:grid; gap:var(--s-3); }
 @media (min-width:600px){ .facts{ grid-template-columns:1fr 1fr; } }
-.facts li{ max-width:none; background:var(--surface); padding:var(--s-4); display:grid; gap:2px; }
+.facts li{ max-width:none; background:var(--surface); border:1px solid var(--rule); border-radius:var(--r); padding:var(--s-4); display:grid; gap:2px; box-shadow:var(--shadow-card); }
 .facts strong{ color:var(--navy); }
-.facts span{ font-size:var(--t-s); color:var(--ink-2); }
+.facts span{ font-size:var(--t-s); color:var(--muted); }
+/* Il percorso con le SPUNTE: il Senatore ce l'ha gia' sul suo sito */
 .tl{ position:relative; list-style:none; margin:0; padding:0; }
-.tl::before{ content:""; position:absolute; left:6px; top:6px; bottom:6px; width:1px; background:var(--rule); }
-.tl li{ position:relative; max-width:none; padding:0 0 var(--s-6) var(--s-6); }
-.tl li::before{ content:""; position:absolute; left:0; top:5px; width:13px; height:13px; border-radius:50%; background:var(--surface); border:2px solid var(--link); }
-.tl .year{ display:block; font-size:var(--t-xs); font-weight:650; letter-spacing:.06em; text-transform:uppercase; color:var(--brass-ink); margin-bottom:4px; }
+.tl li{ position:relative; max-width:none; padding:0 0 var(--s-5) 46px; }
+.tl li::before{ content:""; position:absolute; left:0; top:2px; width:30px; height:30px; border-radius:50%; background:var(--oro); }
+.tl li::after{ content:""; position:absolute; left:9px; top:9px; width:12px; height:7px; border:0 solid var(--navy); border-width:0 0 3px 3px; transform:rotate(-45deg); }
+.tl .year{ display:block; font-family:var(--display); font-size:var(--t-xs); font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--blu); margin-bottom:4px; }
 .tl h3{ margin-bottom:6px; font-size:var(--t-card); }
-.tl p{ margin:0; color:var(--ink-2); }
+.tl p{ margin:0; color:var(--muted); }
 .roles{ list-style:none; margin:0; padding:0; display:grid; gap:var(--s-3); }
 .roles li{ max-width:none; background:var(--surface); border:1px solid var(--rule); border-radius:var(--r); padding:var(--s-4); display:grid; gap:4px; }
-.roles .org{ font-weight:650; color:var(--navy); }
+.roles .org{ font-weight:700; color:var(--navy); }
 .roles .r{ font-size:var(--t-m); }
-.roles .d{ font-size:var(--t-xs); color:var(--ink-2); }
+.roles .d{ font-size:var(--t-xs); color:var(--muted); }
 .roles a{ display:inline-block; min-height:24px; padding:2px 0; }
 
 /* ---------- Rassegna stampa ---------- */
-.press-list{ list-style:none; margin:0; padding:0; border-top:1px solid var(--rule); }
-.press-list li{ max-width:none; border-bottom:1px solid var(--hair); }
+.press-list{ list-style:none; margin:0; padding:0; border-top:2px solid var(--navy); }
+.press-list li{ max-width:none; border-bottom:1px solid var(--rule); }
 .press-list li[hidden]{ display:none; }
-.press-row{
-  display:grid; gap:4px var(--s-4); padding:var(--s-4) 4px; text-decoration:none; color:var(--ink);
-  grid-template-columns:1fr; border-radius:var(--r); transition:background .15s, box-shadow .15s;
-}
-@media (min-width:720px){ .press-row{ grid-template-columns:118px minmax(0,1fr) auto; align-items:baseline; } }
-.press-row:hover{ background:var(--surface); box-shadow:inset 3px 0 0 var(--link); }
-.press-row time{ font-size:var(--t-xs); font-weight:650; color:var(--brass-ink); text-transform:uppercase; letter-spacing:.04em; }
-.press-row .t{ font-family:var(--serif); font-size:var(--t-m); font-weight:500; color:var(--ink); }
-.press-row:hover .t{ color:var(--link); }
-.press-row .s{ font-size:var(--t-s); color:var(--ink-2); }
-.press-row .r{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
-.press-year{ margin:var(--s-6) 0 var(--s-2); }
-.press-year h3{ font-size:var(--t-h3); padding-bottom:6px; border-bottom:3px solid var(--link); display:inline-block; }
-.press-count{ font-size:var(--t-m); color:var(--ink-2); margin:0 0 var(--s-4); }
-.press-count strong{ color:var(--navy); }
-.press-orig-note{ font-size:var(--t-s); color:var(--ink-2); }
+.press-row{ display:grid; gap:4px var(--s-4); padding:var(--s-4) 6px; color:var(--ink-2); grid-template-columns:1fr; transition:background .15s, box-shadow .15s; }
+@media (min-width:720px){ .press-row{ grid-template-columns:120px minmax(0,1fr) auto; align-items:baseline; } }
+.press-row:hover{ background:var(--paper-2); box-shadow:inset 5px 0 0 var(--oro); }
+.press-row time{ font-family:var(--display); font-size:var(--t-xs); font-weight:700; color:var(--blu); text-transform:uppercase; letter-spacing:.04em; }
+.press-row .title{ font-weight:600; color:var(--navy); }
+.press-row .src{ font-size:var(--t-s); color:var(--muted); }
+.press-year{ font-family:var(--display); font-size:var(--t-xs); font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--blu); margin:var(--s-6) 0 var(--s-3); }
 .outlets{ display:flex; flex-wrap:wrap; gap:var(--s-2) var(--s-5); padding:var(--s-4) 0; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); margin-bottom:var(--s-5); }
-.outlets span{ font-family:var(--serif); font-weight:600; color:var(--ink-2); font-size:var(--t-m); }
+.outlets span{ font-family:var(--display); font-weight:700; color:var(--muted); font-size:var(--t-s); }
 
 /* ---------- Contatti ---------- */
 .paths{ display:grid; gap:var(--s-5); }
 @media (min-width:900px){ .paths{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
-.path{ position:relative; overflow:hidden; background:var(--surface); border:1px solid var(--rule); border-radius:var(--r); box-shadow:var(--shadow-card); padding:calc(var(--s-5) + 3px) var(--s-5) var(--s-5); display:grid; gap:var(--s-3); align-content:start; transition:transform .26s var(--ease), box-shadow .26s var(--ease), border-color .2s; }
-/* Come per le card della stampa: striscia sfumata dentro il raggio, non un
-   border-top che agli angoli sporge dall'arrotondamento. */
-.path::before{ content:""; position:absolute; left:0; right:0; top:0; height:3px; pointer-events:none; background:linear-gradient(90deg, var(--azzurro), var(--navy)); }
-.path:nth-child(2)::before{ background:linear-gradient(90deg, var(--navy), var(--azzurro)); }
-.path:hover{ transform:translateY(-4px); box-shadow:var(--shadow-pop); border-color:var(--brand-lt); }
+.path{ position:relative; overflow:hidden; background:var(--surface); border:1px solid var(--rule); border-radius:var(--r); box-shadow:var(--shadow-card); padding:calc(var(--s-5) + 5px) var(--s-5) var(--s-5); display:grid; gap:var(--s-3); align-content:start; transition:transform .26s var(--ease), box-shadow .26s var(--ease); }
+.path::before{ content:""; position:absolute; left:0; right:0; top:0; height:5px; background:var(--oro); }
+.path:nth-child(2)::before{ background:var(--blu); }
+.path:hover{ transform:translateY(-4px); box-shadow:var(--shadow-pop); }
 .path h3{ margin:0; }
-.path p{ margin:0; color:var(--ink-2); font-size:var(--t-m); }
+.path p{ margin:0; color:var(--muted); font-size:var(--t-m); }
 .path .btn{ justify-self:start; margin-top:var(--s-2); }
 .contact-info{ list-style:none; margin:0; padding:0; display:grid; gap:var(--s-3); }
 .contact-info li{ max-width:none; display:grid; gap:2px; padding:var(--s-3) 0; border-bottom:1px solid var(--hair); }
 .contact-info a{ display:inline-block; min-height:24px; padding:2px 0; }
-.contact-info strong{ font-size:var(--t-xs); letter-spacing:.07em; text-transform:uppercase; color:var(--brass-ink); font-weight:650; }
+.contact-info strong{ font-family:var(--display); font-size:var(--t-xs); letter-spacing:.1em; text-transform:uppercase; color:var(--blu); font-weight:800; }
 .form{ display:grid; gap:var(--s-4); max-width:640px; }
 .form-field{ display:grid; gap:6px; }
-.form-field label{ font-weight:650; color:var(--ink); }
-.form-field input, .form-field textarea, .form-field select{
-  font:inherit; color:var(--ink); background:var(--surface); border:1px solid var(--rule-strong);
-  border-radius:var(--r-sm); padding:12px 14px; min-height:48px; width:100%; transition:border-color .18s, box-shadow .18s;
-}
+.form-field label{ font-weight:700; color:var(--navy); }
+.form-field input, .form-field textarea, .form-field select{ font:inherit; color:var(--ink-2); background:var(--surface); border:1px solid var(--rule-strong); border-radius:var(--r-sm); padding:12px 14px; min-height:50px; width:100%; transition:border-color .18s, box-shadow .18s; }
 .form-field textarea{ min-height:160px; resize:vertical; }
-.form-field input:focus-visible, .form-field textarea:focus-visible, .form-field select:focus-visible{ border-color:var(--navy); }
-.form-field.invalid input, .form-field.invalid textarea{ border-color:var(--porpora); box-shadow:inset 3px 0 0 var(--porpora); }
-.form-error{ display:none; font-size:var(--t-s); color:var(--porpora-deep); font-weight:600; }
+.form-field input:focus-visible, .form-field textarea:focus-visible, .form-field select:focus-visible{ border-color:var(--blu); }
+.form-field.invalid input, .form-field.invalid textarea{ border-color:var(--rosso); box-shadow:inset 4px 0 0 var(--rosso); }
+.form-error{ display:none; font-size:var(--t-s); color:var(--porpora-deep); font-weight:700; }
 .form-field.invalid .form-error{ display:block; }
-.form-note, .form-required-note{ font-size:var(--t-s); color:var(--ink-2); margin:0; }
+.form-note, .form-required-note{ font-size:var(--t-s); color:var(--muted); margin:0; }
 
 /* ---------- Footer ---------- */
-.site-footer{ background:var(--navy); background-image:var(--grad-dark); color:var(--on-dark-2); padding:var(--s-8) 0 var(--s-6); margin-top:var(--s-8); font-size:var(--t-s); position:relative; overflow:clip; }
-.site-footer::before{ content:""; position:absolute; left:0; right:0; top:0; height:3px; z-index:2; background:linear-gradient(90deg, var(--azzurro), var(--navy) 55%, var(--giallo)); }
-/* Chiusura della discesa: il pie' di pagina e' l'ultima cosa che si incontra e
-   qui l'alone elettrico arriva al massimo. Stesso tetto della fascia scura
-   (.28 x .70 = .196 effettivo): oltre, l'ottone della qualifica istituzionale
-   scenderebbe sotto 4,5:1. */
-.site-footer::after{
-  content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
-  background:radial-gradient(80% 100% at 15% 0%, rgba(0,133,215,.34), transparent 64%);
-  opacity:.6; will-change:transform, opacity;
-}
-.site-footer > *{ position:relative; z-index:1; }
-/* Il pie' di pagina e' l'ULTIMO elemento del documento: non esce mai dalla
-   finestra, quindi con view() l'animazione si fermerebbe a meta' corsa e
-   l'alone non arriverebbe mai al massimo. E "entry" degenera appena il piede
-   e' piu' alto della finestra. Qui la misura giusta e' l'avanzamento del
-   DOCUMENTO, ristretto all'ultimo terzo: e' esattamente quando il piede si
-   avvicina, su qualunque pagina e qualunque altezza di schermo. */
-@keyframes piede-elettrico{
-  from{ opacity:.22; transform:translate3d(-7%,-5%,0) scale(1.04); }
-  to  { opacity:.70; transform:translate3d( 2%, 2%,0) scale(1.18); }
-}
-@supports (animation-timeline: scroll()){
-  .site-footer::after{
-    animation:piede-elettrico linear both;
-    animation-timeline:scroll(root block);
-    animation-range:68% 100%;
-  }
-}
-@media (prefers-reduced-motion:reduce){ .site-footer::after{ animation:none; opacity:.5; transform:none; } }
+.site-footer{ position:relative; background:var(--navy); background-image:linear-gradient(120deg, var(--navy-deep) 0%, var(--navy) 55%, var(--blu) 100%); color:var(--on-dark-2); padding:var(--s-8) 0 var(--s-6); margin-top:var(--s-8); font-size:var(--t-s); }
+.site-footer::before{ content:""; position:absolute; left:0; right:0; top:0; height:6px; background:var(--tricolore); }
 .footer-grid{ display:grid; gap:var(--s-6); padding-bottom:var(--s-6); border-bottom:1px solid var(--divider-dark); }
 @media (min-width:700px){ .footer-grid{ grid-template-columns:1.4fr 1fr 1fr 1fr; } }
-.site-footer h2{ color:#fff; font-family:var(--sans); font-size:var(--t-xs); letter-spacing:.08em; text-transform:uppercase; margin-bottom:var(--s-3); font-weight:650; }
-.site-footer .wordmark{ color:#fff; margin-bottom:var(--s-3); display:inline-block; }
-/* Era --gold su --ink-deep: 3,85:1, un fallimento AA reale su OGNI pagina,
-   proprio sulla qualifica istituzionale del committente. Ora 6,78:1. */
-.site-footer .wordmark .sub{ color:var(--brass-lt); }
-.site-footer .wordmark .name{ color:#fff; }
-.site-footer .wordmark:hover .name{ color:var(--brass-lt); }
+.site-footer h2{ color:var(--oro); font-family:var(--display); font-size:var(--t-xs); letter-spacing:.12em; text-transform:uppercase; margin-bottom:var(--s-3); font-weight:800; }
+.site-footer h2::after{ display:none; }
+.site-footer .wordmark{ display:block; color:#fff; margin-bottom:var(--s-3); }
+.site-footer .wordmark .name{ display:block; font-family:var(--display); font-weight:800; font-size:1.25rem; text-transform:uppercase; letter-spacing:-.01em; line-height:1.1; }
+.site-footer .wordmark .sub{ display:block; font-size:.875rem; font-weight:600; color:var(--oro); margin-top:4px; }
 .site-footer ul{ list-style:none; margin:0; padding:0; display:grid; gap:8px; }
 .site-footer li{ max-width:none; }
-.site-footer a{ color:var(--on-dark-2); text-decoration:none; display:inline-block; min-height:24px; padding:2px 0; }
-.site-footer a:hover{ color:#fff; text-decoration:underline; }
+.site-footer a{ color:#fff; display:inline-block; min-height:24px; padding:2px 0; }
+.site-footer a:hover{ color:var(--oro); text-decoration:underline; }
 .footer-bottom{ padding-top:var(--s-5); display:grid; gap:var(--s-3); font-size:var(--t-xs); color:var(--on-dark-3); }
 .footer-bottom p{ max-width:none; margin:0; }
-.footer-logo{ display:inline-block; background:#fff; border-radius:var(--r); padding:6px 10px; margin-top:var(--s-3); }
-.footer-logo img{ height:32px; width:auto; }
+.footer-logo{ display:inline-block; background:#fff; border-radius:var(--r-sm); padding:8px 12px; margin-top:var(--s-3); }
+.footer-logo img{ height:34px; width:auto; }
 
-/* ---------- Ultime dalla stampa ----------
-   Erano righe di elenco a filo del container: su telefono il testo finiva
-   attaccato al bordo dello schermo e la data restava orfana a sinistra. Ora
-   sono card come le altre del sito — superficie bianca, bordo visibile, filetto
-   blu in testa — cosi' la sezione parla la stessa lingua delle notizie. */
-.latest-press{ background:transparent; padding:var(--sec-y) 0 0; }
-/* padding-block, non la scorciatoia: "padding:0" azzerava anche il margine
-   laterale ereditato da .container e le card finivano a filo dello schermo. */
+/* ---------- Ultime dalla stampa ---------- */
+.latest-press{ background:var(--paper-2); padding:var(--s-6) 0; border-bottom:1px solid var(--rule); }
 .latest-press .row{ display:block; padding-block:0; }
-.latest-press .lbl{
-  display:inline-flex; align-items:center; gap:10px; margin:0 0 var(--s-4);
-  font-size:var(--t-xs); font-weight:650; letter-spacing:.08em; text-transform:uppercase;
-  color:var(--brass-ink);
-}
-.latest-press .lbl::before{ content:""; width:26px; height:2px; background:var(--brass); flex-shrink:0; }
+.latest-press .lbl{ display:inline-flex; align-items:center; gap:10px; margin:0 0 var(--s-4); font-family:var(--display); font-size:var(--t-xs); font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--blu); }
+.latest-press .lbl::before{ content:""; width:28px; height:4px; background:var(--oro); border-radius:2px; flex-shrink:0; }
+.latest-press .lbl::after{ display:none; }
 .latest-press ul{ list-style:none; margin:0; padding:0; display:grid; gap:var(--s-4); grid-template-columns:1fr; }
 @media (min-width:700px){ .latest-press ul{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
 @media (min-width:1040px){ .latest-press ul{ grid-template-columns:repeat(3, minmax(0,1fr)); } }
 .latest-press li{ max-width:none; }
-/* Il filetto in testa era un border-top a tinta unita: ora e' una striscia
-   sfumata dall'elettrico al porpora, dentro l'arrotondamento della card (un
-   border non si stonda insieme al raggio grande e sporgeva agli angoli). */
-.latest-press a{
-  position:relative; overflow:hidden;
-  display:block; height:100%; text-decoration:none; color:var(--ink);
-  background:var(--surface); border:1px solid var(--rule);
-  border-radius:var(--r); padding:calc(var(--s-4) + 3px) var(--s-4) var(--s-4);
-  box-shadow:var(--shadow-card);
-  transition:border-color .2s var(--ease), box-shadow .26s var(--ease), transform .26s var(--ease);
-}
-.latest-press a::before{
-  content:""; position:absolute; left:0; right:0; top:0; height:3px; pointer-events:none;
-  background:linear-gradient(90deg, var(--azzurro), var(--navy));
-}
-.latest-press a:hover, .latest-press a:focus-visible{ border-color:var(--brand-lt); box-shadow:var(--shadow-pop); transform:translateY(-4px); }
-.latest-press time{ display:inline; color:var(--ink-2); font-size:var(--t-xs); }
-.latest-press b{ display:inline; color:var(--navy); font-weight:650; }
+.latest-press a{ position:relative; overflow:hidden; display:block; height:100%; color:var(--ink-2); background:var(--surface); border:1px solid var(--rule); border-radius:var(--r); padding:calc(var(--s-4) + 5px) var(--s-4) var(--s-4); box-shadow:var(--shadow-card); transition:transform .26s var(--ease), box-shadow .26s var(--ease); }
+.latest-press a::before{ content:""; position:absolute; left:0; right:0; top:0; height:5px; background:var(--oro); }
+.latest-press a:hover, .latest-press a:focus-visible{ transform:translateY(-4px); box-shadow:var(--shadow-pop); }
+.latest-press time{ display:inline; color:var(--muted); font-size:var(--t-xs); }
+.latest-press b{ display:inline; color:var(--blu); font-weight:700; }
 .latest-press time::after{ content:" · "; color:var(--rule-strong); }
-/* Il capoverso lo apre la testata, non il titolo: un blocco vuoto dopo <b> manda
-   a capo, cosi' il titolo resta in linea e la freccia del link esterno lo segue
-   invece di finire su una riga tutta sua. */
 .latest-press b::after{ content:""; display:block; height:6px; }
-.latest-press a > span:not(.visually-hidden){ display:inline; font-size:var(--t-m); line-height:1.4; color:var(--ink); }
-.latest-press a:hover > span:not(.visually-hidden){ color:var(--link); }
-@media (prefers-reduced-motion:reduce){ .latest-press a:hover{ transform:none; } }
+.latest-press a > span:not(.visually-hidden){ display:inline; font-size:var(--t-m); line-height:1.4; color:var(--navy); font-weight:600; }
+.latest-press a:hover > span:not(.visually-hidden){ color:var(--blu); }
 
 /* ---------- 404 / ricerca ---------- */
 .empty{ text-align:center; padding:var(--s-8) 0; }
 .empty p{ margin-left:auto; margin-right:auto; }
 
-/* ==========================================================================
-   SOTTO I 560px LE CARD NON SONO SCATOLE.
-   Perdono bordo laterale e padding orizzontale, il testo va a filo del
-   container e le card sono separate da un filetto. È il pattern dei quotidiani
-   in mobile e recupera d'un colpo i 96px di padding annidato che schiacciavano
-   la colonna di lettura a 37 caratteri per riga.
-   ========================================================================== */
+/* ---------- Telefono ---------- */
 @media (max-width:559px){
-  /* Le card NON vanno piu' a filo del container: su un piano colorato una card
-     senza bordi laterali e senza angoli sembra ritagliata col taglierino. Si
-     recupera larghezza di lettura stringendo il padding interno, non togliendo
-     la scatola. */
   .media-card .body{ padding:var(--s-4); }
   .media-card:hover, .media-card:focus-within{ transform:none; }
   .timeline{ gap:var(--s-4); }
-  .tl li{ padding-left:26px; }
-  .chrono li{ padding-left:24px; }
+  .tl li{ padding-left:42px; }
+  .chrono li{ padding-left:26px; }
   .summary{ padding-left:14px; }
-  .now-card{ padding:var(--s-5); }
-  .kpi{ padding:var(--s-4) var(--s-3); }
 }
 
 /* ==========================================================================
-   MOTION
-   Un'unica gestualità: le cose entrano dal basso e i filetti si tirano.
-   Niente sollevamenti su touch (dove :hover non esiste), niente spotlight
-   (era rgba(181,136,58,.14): 1,15:1, praticamente invisibile, in cambio di 41
-   listener pointermove su una sola pagina).
+   MOTION: le cose entrano dal basso, i filetti si tirano. Niente altro.
    ========================================================================== */
-.js .rv{ opacity:0; transform:translateY(14px); transition:opacity .5s var(--ease), transform .5s var(--ease); }
+.js .rv{ opacity:0; transform:translateY(16px); transition:opacity .55s var(--ease), transform .55s var(--ease); }
 .js .rv.in{ opacity:1; transform:none; }
-.js .rv.d1{ transition-delay:.06s; } .js .rv.d2{ transition-delay:.12s; } .js .rv.d3{ transition-delay:.18s; }
-/* .from-left/.from-right/.scale-in restano nel markup generato ma non spostano
-   più lateralmente: su schermi stretti provocavano overflow orizzontale. */
-.js .rv.from-left, .js .rv.from-right, .js .rv.scale-in{ transform:translateY(14px); }
+.js .rv.d1{ transition-delay:.07s; } .js .rv.d2{ transition-delay:.14s; } .js .rv.d3{ transition-delay:.21s; }
+.js .rv.from-left, .js .rv.from-right, .js .rv.scale-in{ transform:translateY(16px); }
+.js .hero-photo.rv, .js .hero-copy.rv{ opacity:1; transform:none; }
 
-.back-top{
-  position:fixed; right:16px; bottom:16px; width:48px; height:48px; border-radius:var(--r); z-index:150;
-  background:var(--navy); border:1px solid var(--navy); color:#fff;
-  display:inline-flex; align-items:center; justify-content:center; cursor:pointer;
-  opacity:0; visibility:hidden; pointer-events:none; transform:translateY(8px);
-  transition:opacity .2s, transform .2s var(--ease), visibility 0s .2s, background .18s;
-}
-.back-top:hover{ background:var(--brand-deep); border-color:var(--brand-deep); }
+.back-top{ position:fixed; right:16px; bottom:16px; width:50px; height:50px; border-radius:var(--r-sm); z-index:150; background:var(--oro); border:0; color:var(--navy); display:inline-flex; align-items:center; justify-content:center; cursor:pointer; opacity:0; visibility:hidden; pointer-events:none; transform:translateY(8px); transition:opacity .2s, transform .2s var(--ease), visibility 0s .2s, background .18s; box-shadow:var(--shadow-pop); }
+.back-top:hover{ background:var(--oro-scuro); }
 .back-top.show{ opacity:1; visibility:visible; pointer-events:auto; transform:none; transition-delay:0s; }
-.back-top svg{ width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2.2; stroke-linecap:round; }
+.back-top svg{ width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:2.4; stroke-linecap:round; }
 
 @media (prefers-reduced-motion:reduce){
   *, *::before, *::after{ animation:none !important; transition:none !important; scroll-behavior:auto !important; }
   .js .rv{ opacity:1 !important; transform:none !important; }
-  .section-head::after{ transform:scaleX(1) !important; }
-  .media-card:hover, .now-card:hover, .path:hover{ transform:none; }
+  .media-card:hover, .now-card:hover, .path:hover, .role-card:hover, .latest-press a:hover{ transform:none; }
   .media-card .media img{ transform:none !important; }
 }
 
 /* ---------- Stampa ---------- */
 @media print{
-  .site-header, .preview-banner, .back-top, .site-footer, .filters, .skip-link, .latest-press{ display:none !important; }
+  .site-header, .preview-banner, .back-top, .site-footer, .filters, .skip-link, .latest-press, .fissa{ display:none !important; }
   body{ background:#fff; color:#000; font-size:11pt; }
   a{ color:#000; }
   a[href^="http"]::after{ content:" (" attr(href) ")"; font-size:.85em; }
