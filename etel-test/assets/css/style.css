@@ -587,11 +587,31 @@ main:focus-visible{ outline:2px solid var(--blu); outline-offset:-2px; }
 .press-list li{ max-width:none; border-bottom:1px solid var(--rule); }
 .press-list li[hidden]{ display:none; }
 .press-row{ display:grid; gap:4px var(--s-4); padding:var(--s-4) 6px; color:var(--ink-2); grid-template-columns:1fr; transition:background .15s, box-shadow .15s; }
-@media (min-width:720px){ .press-row{ grid-template-columns:120px minmax(0,1fr) auto; align-items:baseline; } }
+@media (min-width:720px){ .press-row{ grid-template-columns:118px minmax(0,1fr) auto; align-items:baseline; } }
 .press-row:hover{ background:var(--paper-2); box-shadow:inset 5px 0 0 var(--oro); }
-.press-row time{ font-family:var(--display); font-size:var(--t-xs); font-weight:700; color:var(--blu); text-transform:uppercase; letter-spacing:.04em; }
-.press-row .title{ font-weight:600; color:var(--navy); }
-.press-row .src{ font-size:var(--t-s); color:var(--muted); }
+/* Il generatore emette .t per il titolo e .r/.s per la testata: il foglio
+   precedente aveva scritto .title e .src, che nel markup non esistono, quindi
+   da tre versioni le righe della rassegna erano di fatto senza stile. */
+.press-row time{ font-family:var(--display); font-size:var(--t-xs); font-weight:700; color:var(--blu); text-transform:uppercase; letter-spacing:.04em; white-space:nowrap; }
+.press-row .t{ font-weight:600; color:var(--navy); line-height:1.42; }
+.press-row:hover .t{ color:var(--blu); }
+.press-row .r{ display:inline-flex; flex-wrap:wrap; align-items:center; gap:8px; }
+.press-row .s{ font-size:var(--t-s); color:var(--muted); }
+
+/* RIGA ILLUSTRATA. La miniatura occupa la prima colonna per tutta l'altezza;
+   data, titolo e testata si impilano nella seconda. Le righe senza fotografia
+   non cambiano, cosi' l'archivio per anno resta l'elenco compatto di prima.
+   Il titolo NON va messo in una colonna stretta accanto alla data: con il
+   contenitore stretto della sezione finiva su otto righe da tre parole. */
+.press-row.con-foto{ grid-template-columns:92px minmax(0,1fr); align-items:start; row-gap:6px; }
+@media (min-width:720px){ .press-row.con-foto{ grid-template-columns:132px minmax(0,1fr); align-items:start; } }
+.press-row.con-foto .pr-foto{ grid-row:span 3; }
+.press-row.con-foto .t{ font-size:var(--t-m); }
+.pr-foto{ align-self:start; overflow:hidden; border-radius:var(--r-sm); background:var(--paper-2); line-height:0; }
+.pr-foto img{ width:100%; aspect-ratio:4/3; object-fit:cover; object-position:50% 34%; transition:transform .5s var(--ease); }
+.press-row.con-foto:hover .pr-foto img{ transform:scale(1.06); }
+@media (prefers-reduced-motion:reduce){ .press-row.con-foto:hover .pr-foto img{ transform:none; } }
+
 .press-year{ font-family:var(--display); font-size:var(--t-xs); font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--blu); margin:var(--s-6) 0 var(--s-3); }
 .outlets{ display:flex; flex-wrap:wrap; gap:var(--s-2) var(--s-5); padding:var(--s-4) 0; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); margin-bottom:var(--s-5); }
 .outlets span{ font-family:var(--display); font-weight:700; color:var(--muted); font-size:var(--t-s); }
