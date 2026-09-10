@@ -557,7 +557,7 @@ main:focus-visible{ outline:2px solid var(--blu); outline-offset:-2px; }
 @media (min-width:900px){ .bio-grid{ grid-template-columns:minmax(0, 3fr) minmax(0, 2fr); align-items:start; } }
 /* la figura e' larga quanto la fotografia: la lastra oro dietro segue lei,
    non la colonna, altrimenti resta un rettangolo vuoto accanto alla foto */
-.bio-figure{ margin:0; position:relative; max-width:480px; }
+.bio-figure{ margin:0; position:relative; max-width:540px; }
 .bio-figure img{ width:100%; height:auto; }
 .bio-figure img{ position:relative; z-index:1; border-radius:var(--r); box-shadow:var(--shadow-pop); }
 .bio-figure::before{ content:""; position:absolute; left:-14px; top:14px; right:14px; bottom:-14px; background:var(--oro); border-radius:var(--r); }
