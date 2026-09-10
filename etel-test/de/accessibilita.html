@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' https://challenges.cloudflare.com; connect-src 'self' https://etelwardosigismondi-segnala.etelwardosigismondi-segnala.workers.dev; frame-src https://challenges.cloudflare.com; object-src 'none'; base-uri 'self'; form-action 'self' https://etelwardosigismondi-segnala.etelwardosigismondi-segnala.workers.dev">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="theme-color" content="#0B2A50">
@@ -31,7 +31,7 @@
 <link rel="manifest" href="../site.webmanifest">
 <link rel="preload" href="../assets/fonts/montserrat-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/style.css?v=f763a5e0">
+<link rel="stylesheet" href="../assets/css/style.css?v=3b290ff2">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Etelwardo Sigismondi", "item": "https://laqvila.github.io/etel-test/de/"}, {"@type": "ListItem", "position": 2, "name": "Barrierefreiheit", "item": "https://laqvila.github.io/etel-test/de/accessibilita.html"}]}</script>
 </head>
 <body data-assets="../assets/" data-lang="de" data-root="">
@@ -40,6 +40,7 @@
 <div class="preview-banner"><strong>Arbeitsvorschau</strong> <span class="pv-detail">Entwurf in Abstimmung mit dem Stab des Senators · nicht indexiert</span></div>
 <header class="site-header">
   <div class="container header-bar">
+    <a href="index.html" class="icon-btn home-btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg><span class="visually-hidden">Startseite</span></a>
     <a href="index.html" class="wordmark"><img class="logo" src="../assets/img/abruzzo-in-parlamento.png" alt="Logo „L&#x27;Abruzzo in Parlamento“ — Partei Fratelli d&#x27;Italia" width="487" height="132"><span class="name visually-hidden">Etelwardo Sigismondi</span></a>
     <nav class="site-nav" aria-label="Hauptnavigation">
       <button type="button" class="icon-btn nav-toggle" aria-expanded="false" aria-controls="menu-principale" aria-label="Menü öffnen" data-label-open="Menü öffnen" data-label-close="Menü schließen"><span class="bars" aria-hidden="true"><span></span><span></span><span></span></span></button>
@@ -88,12 +89,12 @@
       <h2>Stand der Konformität</h2>
       <p>Die Website strebt die Konformität mit den Web Content Accessibility Guidelines (WCAG) 2.2, Stufe AA, an. Derzeit ist die Konformität <strong>teilweise</strong> gegeben: Die Kriterien wurden mit automatischen und manuellen Prüfungen am Code und in einem Browser überprüft, nicht mit einem externen zertifizierten Audit.</p>
       <h2>Was geprüft wurde</h2>
-      <p>Vollständige Tastaturnavigation mit stets sichtbarem Fokus; Link zum Überspringen zum Inhalt; nur eine Hauptüberschrift pro Seite und regelmäßige Überschriftenhierarchie; Farbkontraste von Text und Bedienelementen von mindestens 4,5:1; Alternativtext für bedeutungstragende Bilder; mit den Feldern verknüpfte Fehlermeldungen der Formulare; keine sich selbständig bewegenden Inhalte; Berücksichtigung der Einstellung zur Reduzierung von Bewegung; Mindestgröße der Bedienelemente von 24×24 Pixeln; auch ohne JavaScript lesbare Inhalte.</p>
+      <p>Vollständige Tastaturbedienung mit stets sichtbarem Fokus; Sprunglink zum Inhalt; nur eine Hauptüberschrift pro Seite und eine regelmäßige Überschriftenhierarchie; Farbkontraste von Text und Bedienelementen von mindestens 4,5:1; Alternativtexte für bedeutungstragende Bilder; Meldeformular mit ausdrücklichen Beschriftungen, gekennzeichneten Pflichtfeldern sowie Fehlern, die mit den Feldern verknüpft und Screenreadern angesagt werden; keine sich selbst bewegenden Inhalte; Beachtung der Einstellung zur Reduzierung von Bewegung; Mindestgröße der Bedienelemente von 24×24 Pixeln; Inhalte auch ohne JavaScript lesbar.</p>
       <h2>Bekannte Einschränkungen</h2>
-      <p>Die Titel der Presseartikel im Pressespiegel werden in der Originalsprache wiedergegeben und können nicht erläuterte Abkürzungen enthalten. Die Bilder der Mitteilungen stammen aus dem vorherigen Archiv und haben einen auf den Titel der Mitteilung beschränkten Alternativtext. Externe Links führen zu Websites Dritter, deren Barrierefreiheit nicht von dieser Website abhängt.</p>
+      <p>Die Titel der Presseartikel in der Presseschau werden in der Originalsprache wiedergegeben und können unerklärte Abkürzungen enthalten. Die Bilder der Pressemitteilungen stammen aus dem früheren Archiv und haben einen auf den Titel der Mitteilung beschränkten Alternativtext. Die Spam-Prüfung des Formulars (Cloudflare Turnstile) ist eine Komponente eines Dritten: Sie läuft fast immer von selbst ab, ohne jede Interaktion; verlangt sie eine Handlung, hängt ihre Barrierefreiheit von Cloudflare ab, und wer das Formular nicht senden kann, kann direkt an die institutionelle E-Mail-Adresse schreiben. Externe Links führen zu Websites Dritter, deren Barrierefreiheit nicht von dieser Website abhängt.</p>
       <h2>Meldungen</h2>
       <p>Wenn Sie auf eine Barriere stoßen, schreiben Sie an die institutionelle Adresse und geben Sie die Seite und das Problem an: <a href="mailto:etelwardo.sigismondi@senato.it">etelwardo.sigismondi@senato.it</a>.</p>
-      <p class="small">Erklärung aktualisiert am 6. September 2026</p>
+      <p class="small">Erklärung aktualisiert am 10. September 2026</p>
     </div></div>
   </section>
 </main>
@@ -140,7 +141,7 @@
       <p>Kommunikationswebsite des Senators Etelwardo Sigismondi. Dies ist nicht die offizielle Website des Senats der Republik.</p>
       <p>Arbeitsvorschau zur Prüfung der Inhalte im Hinblick auf die Veröffentlichung auf etelwardosigismondi.it. Keine Cookies, kein Tracking, lokal gehostete Schriften.</p>
       <p><a href="privacy.html">Datenschutz</a> · <a href="cookie.html">Cookies</a> · <a href="accessibilita.html">Barrierefreiheit</a> · <a href="note-legali.html">Rechtliche Hinweise</a></p>
-      <p>© 2026 Etelwardo Sigismondi · Gestaltung und Entwicklung mit Unterstützung von Werkzeugen der künstlichen Intelligenz, unter menschlicher Prüfung.</p>
+      <p>© 2026 Etelwardo Sigismondi · Gestaltung und Entwicklung mit Unterstützung von Werkzeugen der künstlichen Intelligenz, unter menschlicher Prüfung und redaktioneller Verantwortung.</p>
     </div>
   </div>
 </footer>
@@ -149,6 +150,6 @@
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 14 6-6 6 6"/></svg>
 </button>
 
-<script src="../assets/js/main.js?v=62b0bc22" defer></script>
+<script src="../assets/js/main.js?v=b461d446" defer></script>
 </body>
 </html>

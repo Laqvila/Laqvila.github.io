@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' https://challenges.cloudflare.com; connect-src 'self' https://etelwardosigismondi-segnala.etelwardosigismondi-segnala.workers.dev; frame-src https://challenges.cloudflare.com; object-src 'none'; base-uri 'self'; form-action 'self' https://etelwardosigismondi-segnala.etelwardosigismondi-segnala.workers.dev">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="theme-color" content="#0B2A50">
@@ -31,7 +31,7 @@
 <link rel="manifest" href="../site.webmanifest">
 <link rel="preload" href="../assets/fonts/montserrat-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/style.css?v=f763a5e0">
+<link rel="stylesheet" href="../assets/css/style.css?v=3b290ff2">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Etelwardo Sigismondi", "item": "https://laqvila.github.io/etel-test/en/"}, {"@type": "ListItem", "position": 2, "name": "Accessibility", "item": "https://laqvila.github.io/etel-test/en/accessibilita.html"}]}</script>
 </head>
 <body data-assets="../assets/" data-lang="en" data-root="">
@@ -40,6 +40,7 @@
 <div class="preview-banner"><strong>Working preview</strong> <span class="pv-detail">draft under review with the Senator’s staff · not indexed</span></div>
 <header class="site-header">
   <div class="container header-bar">
+    <a href="index.html" class="icon-btn home-btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg><span class="visually-hidden">Home</span></a>
     <a href="index.html" class="wordmark"><img class="logo" src="../assets/img/abruzzo-in-parlamento.png" alt="Logo “L&#x27;Abruzzo in Parlamento” — Fratelli d&#x27;Italia party" width="487" height="132"><span class="name visually-hidden">Etelwardo Sigismondi</span></a>
     <nav class="site-nav" aria-label="Main navigation">
       <button type="button" class="icon-btn nav-toggle" aria-expanded="false" aria-controls="menu-principale" aria-label="Open menu" data-label-open="Open menu" data-label-close="Close menu"><span class="bars" aria-hidden="true"><span></span><span></span><span></span></span></button>
@@ -88,12 +89,12 @@
       <h2>Compliance status</h2>
       <p>The site aims for compliance with the Web Content Accessibility Guidelines (WCAG) 2.2, level AA. At present compliance is <strong>partial</strong>: the criteria have been verified with automated and manual checks on the code and in a browser, not through a certified external audit.</p>
       <h2>What has been verified</h2>
-      <p>Full keyboard navigation with always-visible focus; skip-to-content link; a single main heading per page and a regular heading hierarchy; colour contrast for text and controls of at least 4.5:1; alternative text for meaningful images; form error messages linked to their fields; no content that moves on its own; respect for the reduced-motion preference; minimum control size of 24×24 pixels; content readable even without JavaScript.</p>
+      <p>Full keyboard navigation with an always-visible focus; skip link to the content; a single main heading per page and a regular heading hierarchy; text and control colour contrast of at least 4.5:1; alternative text for meaningful images; report form with explicit labels, declared required fields, errors linked to the fields and announced to screen readers; no content that moves by itself; respect for the reduced-motion preference; minimum control size of 24×24 pixels; content readable without JavaScript.</p>
       <h2>Known limitations</h2>
-      <p>The headlines of press articles in the press review are given in the original language and may contain unexplained abbreviations. Images in press releases come from the previous archive and have alternative text limited to the title of the release. External links lead to third-party sites whose accessibility does not depend on this site.</p>
+      <p>Press headlines in the review are given in their original language and may contain unexplained acronyms. Press-release images come from the previous archive and have alternative text limited to the release's title. The form's anti-spam check (Cloudflare Turnstile) is a third-party component: it almost always completes on its own, with no interaction; if it requires an action, its accessibility depends on Cloudflare, and anyone unable to send the form can write directly to the institutional email. External links lead to third-party sites whose accessibility does not depend on this site.</p>
       <h2>Reporting</h2>
       <p>If you encounter a barrier, write to the institutional address indicating the page and the problem: <a href="mailto:etelwardo.sigismondi@senato.it">etelwardo.sigismondi@senato.it</a>.</p>
-      <p class="small">Statement updated on 6 September 2026</p>
+      <p class="small">Statement updated on 10 September 2026</p>
     </div></div>
   </section>
 </main>
@@ -140,7 +141,7 @@
       <p>Communication website of Senator Etelwardo Sigismondi. It is not the official website of the Senate of the Republic.</p>
       <p>Working preview for content review ahead of publication on etelwardosigismondi.it. No cookies, no tracking, fonts hosted locally.</p>
       <p><a href="privacy.html">Privacy</a> · <a href="cookie.html">Cookies</a> · <a href="accessibilita.html">Accessibility</a> · <a href="note-legali.html">Legal notice</a></p>
-      <p>© 2026 Etelwardo Sigismondi · Designed and developed with the aid of artificial intelligence tools, under human review.</p>
+      <p>© 2026 Etelwardo Sigismondi · Designed and developed with the help of artificial-intelligence tools, under human review and editorial responsibility.</p>
     </div>
   </div>
 </footer>
@@ -149,6 +150,6 @@
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 14 6-6 6 6"/></svg>
 </button>
 
-<script src="../assets/js/main.js?v=62b0bc22" defer></script>
+<script src="../assets/js/main.js?v=b461d446" defer></script>
 </body>
 </html>

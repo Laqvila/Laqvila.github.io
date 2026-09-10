@@ -636,7 +636,8 @@ main:focus-visible{ outline:2px solid var(--blu); outline-offset:-2px; }
 
 /* ---------- Contatti ---------- */
 .paths{ display:grid; gap:var(--s-5); }
-@media (min-width:900px){ .paths{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+.paths.solo{ max-width:720px; }
+@media (min-width:900px){ .paths:not(.solo){ grid-template-columns:repeat(2, minmax(0,1fr)); } }
 .path{ position:relative; overflow:hidden; background:var(--surface); border:1px solid var(--rule); border-radius:var(--r); box-shadow:var(--shadow-card); padding:calc(var(--s-5) + 5px) var(--s-5) var(--s-5); display:grid; gap:var(--s-3); align-content:start; transition:transform .26s var(--ease), box-shadow .26s var(--ease); }
 .path::before{ content:""; position:absolute; left:0; right:0; top:0; height:5px; background:var(--oro); }
 .path:nth-child(2)::before{ background:var(--blu); }
@@ -655,7 +656,7 @@ main:focus-visible{ outline:2px solid var(--blu); outline-offset:-2px; }
 .form-field textarea{ min-height:160px; resize:vertical; }
 .form-field input:focus-visible, .form-field textarea:focus-visible, .form-field select:focus-visible{ border-color:var(--blu); }
 .form-field.invalid input, .form-field.invalid textarea{ border-color:var(--rosso); box-shadow:inset 4px 0 0 var(--rosso); }
-.form-error{ display:none; font-size:var(--t-s); color:var(--porpora-deep); font-weight:700; }
+.form-error{ display:none; font-size:var(--t-s); color:var(--rosso); font-weight:700; }
 .form-field.invalid .form-error{ display:block; }
 .form-note, .form-required-note{ font-size:var(--t-s); color:var(--muted); margin:0; }
 
@@ -740,3 +741,26 @@ main:focus-visible{ outline:2px solid var(--blu); outline-offset:-2px; }
   a{ color:#000; }
   a[href^="http"]::after{ content:" (" attr(href) ")"; font-size:.85em; }
 }
+
+/* ---------- Tasto Home (v28): la casetta a sinistra del logo, chiesta dal
+   Senatore. Stesso disegno del tasto di ricerca; pieno di navy sulla home. */
+.home-btn{ flex:0 0 auto; }
+.home-btn[aria-current="page"]{ background:var(--navy); color:#fff; border-color:var(--navy); }
+.home-btn[aria-current="page"]:hover{ background:var(--blu); border-color:var(--blu); color:#fff; }
+
+/* ---------- Modulo di segnalazione (v28): casella di conferma, campo esca
+   per i robot (fuori schermo, mai visibile), esito dell'invio. */
+.grid-top{ align-items:start; }
+.form-field.check{ grid-template-columns:auto minmax(0,1fr); align-items:start; column-gap:12px; }
+.form-field.check input{ width:24px; height:24px; min-height:0; margin:2px 0 0; padding:0; accent-color:var(--blu); }   /* 24px: bersaglio minimo WCAG 2.5.8 */
+.form-field.check label a{ display:inline-block; min-height:24px; }
+.form-field.check label{ font-weight:500; color:var(--ink-2); }
+.form-field.check .form-error{ grid-column:1 / -1; }
+.form-field.check.invalid label{ color:var(--rosso); }
+.hp{ position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
+.form-status{ display:none; margin:0 0 var(--s-5); padding:var(--s-4) var(--s-5); border-radius:var(--r-sm); border-left:6px solid var(--verde); background:#EAF6EC; color:var(--navy); }
+.form-status.show{ display:block; }
+.form-status.err{ border-left-color:var(--rosso); background:#FBEBEC; }
+.form-status h3{ margin:0 0 6px; font-size:var(--t-l); }
+.form-status p{ margin:0; }
+.cf-turnstile{ min-height:65px; }

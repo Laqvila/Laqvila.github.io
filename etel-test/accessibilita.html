@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' https://challenges.cloudflare.com; connect-src 'self' https://etelwardosigismondi-segnala.etelwardosigismondi-segnala.workers.dev; frame-src https://challenges.cloudflare.com; object-src 'none'; base-uri 'self'; form-action 'self' https://etelwardosigismondi-segnala.etelwardosigismondi-segnala.workers.dev">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="theme-color" content="#0B2A50">
@@ -31,7 +31,7 @@
 <link rel="manifest" href="site.webmanifest">
 <link rel="preload" href="assets/fonts/montserrat-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/style.css?v=f763a5e0">
+<link rel="stylesheet" href="assets/css/style.css?v=3b290ff2">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Etelwardo Sigismondi", "item": "https://laqvila.github.io/etel-test/"}, {"@type": "ListItem", "position": 2, "name": "Accessibilità", "item": "https://laqvila.github.io/etel-test/accessibilita.html"}]}</script>
 </head>
 <body data-assets="assets/" data-lang="it" data-root="">
@@ -40,6 +40,7 @@
 <div class="preview-banner"><strong>Anteprima di lavoro</strong> <span class="pv-detail">bozza in revisione con lo staff del Senatore · non indicizzata</span></div>
 <header class="site-header">
   <div class="container header-bar">
+    <a href="index.html" class="icon-btn home-btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg><span class="visually-hidden">Home</span></a>
     <a href="index.html" class="wordmark"><img class="logo" src="assets/img/abruzzo-in-parlamento.png" alt="L&#x27;Abruzzo in Parlamento — Fratelli d&#x27;Italia" width="487" height="132"><span class="name visually-hidden">Etelwardo Sigismondi</span></a>
     <nav class="site-nav" aria-label="Navigazione principale">
       <button type="button" class="icon-btn nav-toggle" aria-expanded="false" aria-controls="menu-principale" aria-label="Apri il menu" data-label-open="Apri il menu" data-label-close="Chiudi il menu"><span class="bars" aria-hidden="true"><span></span><span></span><span></span></span></button>
@@ -88,12 +89,12 @@
       <h2>Stato di conformità</h2>
       <p>Il sito punta alla conformità alle Web Content Accessibility Guidelines (WCAG) 2.2, livello AA. Allo stato attuale la conformità è <strong>parziale</strong>: i criteri sono stati verificati con controlli automatici e manuali sul codice e in un browser, non con un audit esterno certificato.</p>
       <h2>Cosa è stato verificato</h2>
-      <p>Navigazione completa da tastiera con focus sempre visibile; collegamento per saltare al contenuto; un solo titolo principale per pagina e gerarchia dei titoli regolare; contrasti di colore di testo e controlli almeno 4,5:1; testo alternativo per le immagini significative; messaggi di errore dei moduli collegati ai campi; nessun contenuto che si muove da solo; rispetto della preferenza di riduzione del movimento; dimensione minima dei controlli di 24×24 pixel; contenuti leggibili anche senza JavaScript.</p>
+      <p>Navigazione completa da tastiera con focus sempre visibile; collegamento per saltare al contenuto; un solo titolo principale per pagina e gerarchia dei titoli regolare; contrasti di colore di testo e controlli almeno 4,5:1; testo alternativo per le immagini significative; modulo di segnalazione con etichette esplicite, campi obbligatori dichiarati, errori collegati ai campi e annunciati ai lettori di schermo; nessun contenuto che si muove da solo; rispetto della preferenza di riduzione del movimento; dimensione minima dei controlli di 24×24 pixel; contenuti leggibili anche senza JavaScript.</p>
       <h2>Limiti noti</h2>
-      <p>I titoli degli articoli di stampa nella rassegna sono riportati nella lingua originale e possono contenere sigle non spiegate. Le immagini dei comunicati provengono dall'archivio precedente e hanno testo alternativo limitato al titolo del comunicato. I collegamenti esterni portano a siti di terzi la cui accessibilità non dipende da questo sito.</p>
+      <p>I titoli degli articoli di stampa nella rassegna sono riportati nella lingua originale e possono contenere sigle non spiegate. Le immagini dei comunicati provengono dall'archivio precedente e hanno testo alternativo limitato al titolo del comunicato. La verifica antispam del modulo (Cloudflare Turnstile) è un componente di terzi: quasi sempre si completa da sola, senza alcuna interazione; se richiede un'azione, la sua accessibilità dipende da Cloudflare, e chi non riesce a inviare il modulo può scrivere direttamente all'email istituzionale. I collegamenti esterni portano a siti di terzi la cui accessibilità non dipende da questo sito.</p>
       <h2>Segnalazioni</h2>
       <p>Se incontri una barriera, scrivi all'indirizzo istituzionale indicando la pagina e il problema: <a href="mailto:etelwardo.sigismondi@senato.it">etelwardo.sigismondi@senato.it</a>.</p>
-      <p class="small">Dichiarazione aggiornata il 6 settembre 2026</p>
+      <p class="small">Dichiarazione aggiornata il 10 settembre 2026</p>
     </div></div>
   </section>
 </main>
@@ -140,7 +141,7 @@
       <p>Sito di comunicazione del Senatore Etelwardo Sigismondi. Non è il sito ufficiale del Senato della Repubblica.</p>
       <p>Anteprima di lavoro per la revisione dei contenuti in vista della pubblicazione su etelwardosigismondi.it. Nessun cookie, nessun tracciamento, font ospitati localmente.</p>
       <p><a href="privacy.html">Privacy</a> · <a href="cookie.html">Cookie</a> · <a href="accessibilita.html">Accessibilità</a> · <a href="note-legali.html">Note legali</a></p>
-      <p>© 2026 Etelwardo Sigismondi · Progettazione e sviluppo con l&#x27;ausilio di strumenti di intelligenza artificiale, sotto revisione umana.</p>
+      <p>© 2026 Etelwardo Sigismondi · Progettazione e sviluppo con l&#x27;ausilio di strumenti di intelligenza artificiale, sotto revisione e responsabilità editoriale umana.</p>
     </div>
   </div>
 </footer>
@@ -149,6 +150,6 @@
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 14 6-6 6 6"/></svg>
 </button>
 
-<script src="assets/js/main.js?v=62b0bc22" defer></script>
+<script src="assets/js/main.js?v=b461d446" defer></script>
 </body>
 </html>

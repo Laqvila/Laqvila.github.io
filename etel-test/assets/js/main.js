@@ -283,39 +283,90 @@
     }
   }
 
-  /* ---------- Form contatti: validazione accessibile, mailto (nessun dato raccolto) ---------- */
+  /* ---------- Modulo di segnalazione ----------
+     Con data-endpoint il messaggio va al Worker Cloudflare (fetch, risposta JSON)
+     che lo recapita all'email istituzionale; senza endpoint (anteprima senza
+     Worker) si ripiega sul mailto di prima. Validazione accessibile: errore
+     collegato al campo con aria-describedby, focus sul primo campo sbagliato,
+     esito annunciato dalla regione aria-live. */
   var form = document.getElementById("contact-form");
   if (form) {
+    var endpoint = form.getAttribute("data-endpoint") || "";
+    var statusBox = document.querySelector(".form-status");
+    var tField = form.querySelector('input[name="t"]');
+    if (tField) tField.value = String(Date.now());   /* il Worker scarta gli invii in meno di 3 secondi */
+    var submitBtn = form.querySelector('button[type="submit"]');
+    var mailTo = form.getAttribute("data-mail") || "";
+
     function clearField(input, field) {
       field.classList.remove("invalid");
       input.removeAttribute("aria-invalid");
       input.removeAttribute("aria-describedby");
     }
-    form.addEventListener("submit", function (ev) {
-      ev.preventDefault();
+    function markBad(input, field, id) {
+      field.classList.add("invalid");
+      input.setAttribute("aria-invalid", "true");
+      input.setAttribute("aria-describedby", id + "-err");
+    }
+    function showStatus(kind, title, text, withMail) {
+      if (!statusBox) return;
+      statusBox.textContent = "";
+      statusBox.className = "form-status show" + (kind === "err" ? " err" : "");
+      if (title) { var h = document.createElement("h3"); h.textContent = title; statusBox.appendChild(h); }
+      var p = document.createElement("p"); p.textContent = text + (withMail && mailTo ? " " : "");
+      if (withMail && mailTo) { var a = document.createElement("a"); a.href = "mailto:" + mailTo; a.textContent = mailTo; p.appendChild(a); p.appendChild(document.createTextNode(".")); }
+      statusBox.appendChild(p);
+      statusBox.focus();
+    }
+    function validate() {
       var firstBad = null;
-      ["cf-name", "cf-subject", "cf-msg"].forEach(function (id) {
+      ["cf-name", "cf-email", "cf-subject", "cf-msg", "cf-consent"].forEach(function (id) {
         var input = document.getElementById(id);
         if (!input) return;
         var field = input.closest(".form-field");
-        if (!input.value.trim()) {
-          field.classList.add("invalid");
-          input.setAttribute("aria-invalid", "true");
-          input.setAttribute("aria-describedby", id + "-err");
-          if (!firstBad) firstBad = input;
-        } else {
-          clearField(input, field);
-        }
-        input.addEventListener("input", function () { clearField(input, field); }, { once: true });
+        var ok;
+        if (input.type === "checkbox") ok = input.checked;
+        else if (input.type === "email") ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(input.value.trim());
+        else ok = !!input.value.trim();
+        if (!ok) { markBad(input, field, id); if (!firstBad) firstBad = input; }
+        else clearField(input, field);
+        input.addEventListener(input.type === "checkbox" ? "change" : "input", function () { clearField(input, field); }, { once: true });
       });
+      return firstBad;
+    }
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var firstBad = validate();
       if (firstBad) { firstBad.focus(); return; }
       var reason = document.getElementById("cf-reason");
-      var name = document.getElementById("cf-name").value.trim();
       var subject = document.getElementById("cf-subject").value.trim();
-      var msg = document.getElementById("cf-msg").value.trim();
-      var subj = (reason && reason.value ? reason.value + " — " : "") + subject;
-      window.location.href = "mailto:etelwardo.sigismondi@senato.it?subject=" + encodeURIComponent(subj) +
-        "&body=" + encodeURIComponent(msg + "\n\n— " + name);
+      if (!endpoint) {
+        /* anteprima senza Worker: si compone l'email nel programma di posta */
+        var msg = document.getElementById("cf-msg").value.trim();
+        var name = document.getElementById("cf-name").value.trim();
+        var subj = (reason && reason.value ? reason.value + " — " : "") + subject;
+        window.location.href = "mailto:" + mailTo + "?subject=" + encodeURIComponent(subj) + "&body=" + encodeURIComponent(msg + "\n\n— " + name);
+        return;
+      }
+      var token = form.querySelector('input[name="cf-turnstile-response"]');
+      if (token && !token.value) { showStatus("err", "", form.getAttribute("data-captcha") || "", false); return; }
+      var label = submitBtn ? submitBtn.textContent : "";
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = form.getAttribute("data-sending") || label; }
+      function done() { if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = label; } }
+      function fail(detail) {
+        done();
+        if (window.turnstile && typeof window.turnstile.reset === "function") { try { window.turnstile.reset(); } catch (e) {} }
+        showStatus("err", "", (detail ? detail + " " : "") + (form.getAttribute("data-fail") || ""), true);
+      }
+      fetch(endpoint, { method: "POST", body: new FormData(form), headers: { "Accept": "application/json" } })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok && j && j.ok, j: j || {} }; }); })
+        .then(function (res) {
+          if (!res.ok) { fail(res.j.errore || ""); return; }
+          done();
+          form.hidden = true;
+          showStatus("ok", form.getAttribute("data-ok-h") || "", form.getAttribute("data-ok-p") || "", false);
+        })
+        .catch(function () { fail(""); });
     });
   }
 
