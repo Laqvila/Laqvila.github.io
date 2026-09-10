@@ -553,15 +553,33 @@ main:focus-visible{ outline:2px solid var(--blu); outline-offset:-2px; }
 .summary{ font-family:var(--display); font-weight:600; font-size:var(--t-lede); line-height:1.45; color:var(--navy); border-left:5px solid var(--oro); padding-left:var(--s-4); margin:var(--s-5) 0; max-width:var(--measure); }
 
 /* ---------- Chi sono ---------- */
+/* LO SGUARDO DEVE ENTRARE NELLA PAGINA. Nel ritratto il Senatore guarda verso
+   la sinistra dell'inquadratura: con la foto a sinistra e il testo a destra
+   guardava FUORI dalla pagina, e sotto la foto restava un vuoto alto quanto la
+   colonna di testo. Sopra i 900px le aree sono nominate: testo a sinistra, foto
+   a destra (lo sguardo cade sul testo) e, sotto la foto, la scheda dei quattro
+   dati su due colonne, che riempie il vuoto. Su telefono resta l'ordine del
+   markup: foto, testo, scheda. */
 .bio-grid{ display:grid; gap:var(--s-6); }
-@media (min-width:900px){ .bio-grid{ grid-template-columns:minmax(0, 3fr) minmax(0, 2fr); align-items:start; } }
+.bio-grid > .facts{ margin-top:0; }
+@media (min-width:900px){
+  .bio-grid{ grid-template-columns:minmax(0,1fr) minmax(0,1fr); grid-template-areas:"testo foto" "testo fatti"; column-gap:var(--s-8); row-gap:var(--s-5); align-items:start; }
+  .bio-grid > .bio-testo{ grid-area:testo; }
+  .bio-grid > .bio-figure{ grid-area:foto; max-width:none; }
+  .bio-grid > .facts{ grid-area:fatti; grid-template-columns:1fr 1fr; }
+  /* la lastra d'oro passa in basso a destra: la foto ora sta al bordo destro */
+  .bio-figure::before{ left:14px; right:-14px; }
+}
 /* la figura e' larga quanto la fotografia: la lastra oro dietro segue lei,
    non la colonna, altrimenti resta un rettangolo vuoto accanto alla foto */
 .bio-figure{ margin:0; position:relative; max-width:540px; }
 .bio-figure img{ width:100%; height:auto; }
 .bio-figure img{ position:relative; z-index:1; border-radius:var(--r); box-shadow:var(--shadow-pop); }
 .bio-figure::before{ content:""; position:absolute; left:-14px; top:14px; right:14px; bottom:-14px; background:var(--oro); border-radius:var(--r); }
-.bio-figure figcaption{ position:relative; z-index:1; font-size:var(--t-xs); color:var(--ink-3); margin-top:var(--s-3); }
+/* La didascalia poggia sulla lastra d'oro: navy (7,6:1), non il grigio dei
+   sottotitoli (2,81:1). Rientro di 14px per restare dentro la lastra, che e'
+   spostata di 14px rispetto alla foto. */
+.bio-figure figcaption{ position:relative; z-index:1; font-size:var(--t-xs); font-weight:600; color:var(--navy); margin-top:var(--s-3); padding:0 14px; }
 .facts{ list-style:none; margin:var(--s-5) 0 0; padding:0; display:grid; gap:var(--s-3); }
 @media (min-width:600px){ .facts{ grid-template-columns:1fr 1fr; } }
 .facts li{ max-width:none; background:var(--surface); border:1px solid var(--rule); border-radius:var(--r); padding:var(--s-4); display:grid; gap:2px; box-shadow:var(--shadow-card); }

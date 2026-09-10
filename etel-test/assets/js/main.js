@@ -30,14 +30,26 @@
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && links.classList.contains("open")) setMenu(false, true);
     });
-    document.addEventListener("click", function (e) {
+    /* Tocco o clic FUORI dal menu: lo chiude. Si ascolta pointerdown e non il
+       click, perche' Safari iOS non consegna a document il click di un tocco su
+       un punto qualunque della pagina; il click resta per i browser senza
+       Pointer Events. */
+    function closeIfOutside(e) {
       if (!links.classList.contains("open")) return;
       if (links.contains(e.target) || toggle.contains(e.target)) return;
       setMenu(false, false);
-    });
+    }
+    document.addEventListener(window.PointerEvent ? "pointerdown" : "click", closeIfOutside);
+    /* Il focus che ESCE dal menu con la tastiera (Tab oltre l'ultima voce) lo
+       chiude, ma SOLO se e' andato a un altro elemento (relatedTarget). Con
+       relatedTarget nullo non si fa nulla: e' cio' che manda Safari, su iPhone e
+       Mac, al tocco su una voce del menu. Per WebKit i link non prendono il focus
+       al clic, e al mousedown toglie il focus alla voce attiva PRIMA del click.
+       Chiudendo qui, la voce toccata spariva (display:none) prima che il click
+       arrivasse: su iPhone nessuna voce del menu portava da nessuna parte. */
     links.addEventListener("focusout", function (e) {
-      if (!links.classList.contains("open")) return;
-      if (e.relatedTarget && (links.contains(e.relatedTarget) || toggle.contains(e.relatedTarget))) return;
+      if (!links.classList.contains("open") || !e.relatedTarget) return;
+      if (links.contains(e.relatedTarget) || toggle.contains(e.relatedTarget)) return;
       setMenu(false, false);
     });
   }
@@ -104,7 +116,14 @@
      I filtri sono link: senza JS portano alla stessa pagina con la query e la timeline
      resta completa. Con JS il filtro si applica in pagina, l'URL viene aggiornato e il
      numero di risultati e' annunciato dalla regione aria-live. */
-  var filterGroup = document.querySelector(".filters[aria-label]:not(:has(.pr-filter))");
+  /* Niente :has(): Safari prima della 15.4 non lo conosce e querySelector, non
+     capendo il selettore, LANCIA un errore che fermerebbe lo script da qui in poi
+     (ricerca, form contatti). Stesso risultato a mano: il primo gruppo di filtri
+     che non contiene i pulsanti della rassegna. */
+  var filterGroup = null;
+  document.querySelectorAll(".filters[aria-label]").forEach(function (g) {
+    if (!filterGroup && !g.querySelector(".pr-filter")) filterGroup = g;
+  });
   var timeline = document.querySelector(".timeline");
   if (filterGroup && timeline) {
     var filterLinks = filterGroup.querySelectorAll(".filter[data-filter]");
