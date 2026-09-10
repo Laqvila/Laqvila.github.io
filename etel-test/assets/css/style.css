@@ -459,7 +459,17 @@ main:focus-visible{ outline:2px solid var(--blu); outline-offset:-2px; }
 .now-card h2{ color:#fff; font-size:clamp(1.4rem, 1.1rem + 1.3vw, 2rem); margin:0 0 var(--s-2); text-transform:none; letter-spacing:-.01em; }
 .now-card p{ color:var(--on-dark-2); margin:0; }
 .now-card .btn{ align-self:flex-start; margin-top:var(--s-4); }
-.mandate{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--r); box-shadow:var(--shadow-card); padding:var(--s-5); display:grid; gap:var(--s-4); align-content:start; }
+.mandate{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--r); box-shadow:var(--shadow-card); padding:var(--s-5); display:flex; flex-direction:column; gap:var(--s-4); }
+/* Box "Stato del mandato" (v29): incarichi, atti e numeri d'Aula riempiono lo
+   spazio accanto alla card in evidenza; i rimandi stanno sul fondo del box. */
+.mandate .roles-mini{ list-style:none; margin:0; padding:0; display:grid; gap:8px; }
+.mandate .roles-mini li{ max-width:none; display:grid; gap:1px; font-weight:700; color:var(--navy); }
+.mandate .roles-mini .small, .mandate .aula + .small{ font-weight:400; color:var(--ink-3); }
+.mandate .aula{ display:grid; grid-template-columns:1fr 1fr; gap:var(--s-3); margin:4px 0 6px; }
+.mandate .aula span{ display:grid; gap:2px; font-size:var(--t-xs); font-weight:500; color:var(--ink-2); line-height:1.3; }
+.mandate .aula b{ font-family:var(--display); font-size:1.75rem; font-weight:800; color:var(--blu); letter-spacing:-.01em; line-height:1; }
+.mandate .box-foot{ margin:auto 0 0; padding-top:var(--s-3); font-size:var(--t-s); font-weight:600; }
+.mandate .box-foot a{ display:inline-block; min-height:24px; padding:2px 0; }
 .mandate h2{ font-size:var(--t-xs); font-family:var(--display); letter-spacing:.12em; text-transform:uppercase; color:var(--blu); margin:0; font-weight:800; }
 .mandate dl{ margin:0; display:grid; gap:var(--s-3); }
 .mandate dl > div{ padding-bottom:var(--s-3); border-bottom:1px solid var(--hair); }
