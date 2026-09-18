@@ -1,0 +1,53 @@
+# Etelwardo Sigismondi — Senatore della Repubblica
+
+> Attività parlamentare, dossier sui temi dell'Abruzzo, comunicati e rassegna stampa del Senatore Etelwardo Sigismondi. Dati verificati e fonti ufficiali.
+
+Sito ufficiale del Senatore Etelwardo Sigismondi. Le pagine sono disponibili in italiano (lingua principale), inglese (/en/), francese (/fr/), spagnolo (/es/) e tedesco (/de/).
+
+## Pagine principali
+
+- [Home](https://laqvila.github.io/etel-test/): panoramica, stato del mandato e ultime notizie
+- [Chi sono: biografia e percorso politico](https://laqvila.github.io/etel-test/chi-sono.html)
+- [Attività parlamentare: commissioni, disegni di legge, presenze](https://laqvila.github.io/etel-test/attivita.html)
+- [Dossier sui temi dell'Abruzzo](https://laqvila.github.io/etel-test/dossier.html)
+- [Tutti i comunicati](https://laqvila.github.io/etel-test/comunicati.html)
+- [Dal territorio](https://laqvila.github.io/etel-test/dal-territorio.html)
+- [Rassegna stampa](https://laqvila.github.io/etel-test/rassegna-stampa.html)
+- [Documenti e fonti ufficiali](https://laqvila.github.io/etel-test/documenti.html)
+- [Contatti](https://laqvila.github.io/etel-test/contatti.html)
+
+## Dossier
+
+- [Marcinelle: monumento nazionale a Manoppello](https://laqvila.github.io/etel-test/dossier/marcinelle-manoppello-monumento-nazionale.html): Il ddl S.1877 per dichiarare monumento nazionale la piazza Caduti di Marcinelle e la cappella delle Vittime, approvato dal Senato e trasmesso alla Camera (aggiornato al 2026-08-03)
+- [Tribunali sub-provinciali d'Abruzzo](https://laqvila.github.io/etel-test/dossier/tribunali-sub-provinciali-abruzzo.html): Avezzano, Lanciano, Sulmona e Vasto: dalle proroghe annuali al disegno di legge del Governo per la stabilizzazione (aggiornato al 2026-07-30)
+- [Infrastrutture e collegamenti](https://laqvila.github.io/etel-test/dossier/infrastrutture-collegamenti-abruzzo.html): Ferrovia Pescara-Roma, Strada dei Parchi (A24-A25), la sicurezza della Trignina e il ponte sul Trigno (aggiornato al 2026-04-29)
+- [Ricostruzione post-sisma](https://laqvila.github.io/etel-test/dossier/ricostruzione-post-sisma.html): Dal DL Ricostruzione 2023 (Sigismondi relatore) alle scuole del cratere e alla legge quadro sulla ricostruzione post-calamità (aggiornato al 2025-03-12)
+
+## Comunicati recenti
+
+- [Abolizione del bollo auto e moto: «misura strutturale nell’interesse degli italiani»](https://laqvila.github.io/etel-test/notizie/bollo-auto-sigismondi-fdi-abolizione-misura-strutturale-nell.html) (2026-09-16)
+- [Legge elettorale, sì del Senato in seconda lettura: «dopo 35 anni al centro i cittadini»](https://laqvila.github.io/etel-test/notizie/legge-elettorale-sigismondi-fdi-dopo-35-anni-al.html) (2026-09-15)
+- [Legge elettorale, tornano le preferenze: «ripristinata la volontà popolare»](https://laqvila.github.io/etel-test/notizie/legge-elettorale-sigismondi-fdi-con-ritorno-preferenze-ripristinata.html) (2026-09-10)
+- [Quattro anni di governo Meloni: dall’Abruzzo oltre trecento persone alla manifestazione di Bari](https://laqvila.github.io/etel-test/notizie/governo-meloni-sigismondi-fdi-stabilita-e-autorevolezza-hanno.html) (2026-09-04)
+- [Tribunali abruzzesi, dal Consiglio dei ministri il ddl di stabilizzazione](https://laqvila.github.io/etel-test/notizie/la-giustizia-torna-in-abruzzo-il-governo-meloni.html) (2025-07-22)
+- [Tribunali abruzzesi: verso una riapertura definitiva senza proroghe](https://laqvila.github.io/etel-test/notizie/abruzzo-tribunali-sub-provinciali-sigismondi-e-liris-fdi.html) (2025-01-10)
+- [Visita alla Questura dell’Aquila: vicinanza alle forze dell’ordine](https://laqvila.github.io/etel-test/notizie/i-senatori-di-fratelli-ditalia-liris-e-sigismondi.html) (2025-01-07)
+- [Legge di bilancio 2025: 15 milioni per Chieti e fondi per i borghi marinari](https://laqvila.github.io/etel-test/notizie/legge-bilancio-2025-sigismondi-liris-e-testa-fdi.html) (2025-01-03)
+- [Legge di bilancio in Aula al Senato: sanità, cuneo fiscale e imprese](https://laqvila.github.io/etel-test/notizie/manovra-sigismondi-fdi-fatti-concreti-per-sviluppo-economico.html) (2024-12-21)
+- [Capitale italiana della mobilità sostenibile, presentato il ddl al Senato](https://laqvila.github.io/etel-test/notizie/ambiente-fdi-ddl-per-istituzione-capitale-italiana-mobilita.html) (2023-12-12)
+- [FdI Abruzzo-regionali: Presentati candidati Chieti](https://laqvila.github.io/etel-test/notizie/fdi-abruzzo-regionali-presentati-candidati-chieti.html) (2023-12-09)
+- [Fondo sanitario: all’Abruzzo circa 2,5 miliardi, 75 milioni in più](https://laqvila.github.io/etel-test/notizie/abruzzo-fondo-sanita-sigismondi-fdi-maggiori-risorse-come.html) (2023-12-05)
+- [Strada dei Parchi: soluzione al contenzioso nel decreto anticipi](https://laqvila.github.io/etel-test/notizie/dl-anticipi-sigismondi-fdi-da-senato-soluzione-a.html) (2023-12-01)
+- [Tribunali abruzzesi: legge delega in arrivo sulla geografia giudiziaria](https://laqvila.github.io/etel-test/notizie/abruzzo-tribunali-sigismondi-liris-e-testa-fdi-da.html) (2023-11-30)
+- [PNRR rivisto, via libera della Commissione europea: altri 21 miliardi](https://laqvila.github.io/etel-test/notizie/pnrr-sigismondi-fdi-nessun-progetto-rimodulato-verra-cancellato.html) (2023-11-25)
+
+## Fonti ufficiali esterne
+
+- [Scheda del Senatore su Senato.it](https://www.senato.it/composizione/senatori/elenco-alfabetico/scheda-attivita?tab=datiAnag&did=36424)
+- [Openpolis: presenze e votazioni](https://parlamento19.openpolis.it/persone/etelwardo-sigismondi-1974-09-29)
+- [Wikipedia](https://it.wikipedia.org/wiki/Etelwardo_Sigismondi)
+
+## Opzionale
+
+- [Feed RSS dei comunicati](https://laqvila.github.io/etel-test/feed.xml)
+- [Sitemap](https://laqvila.github.io/etel-test/sitemap.xml)
